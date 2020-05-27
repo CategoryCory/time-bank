@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.db import models
+from django.forms import CheckboxSelectMultiple
 
-from.models import Offer, Request
+from.models import Tag, Offer, Request
 
 
 class OfferAdmin(admin.ModelAdmin):
@@ -8,6 +10,9 @@ class OfferAdmin(admin.ModelAdmin):
     list_editable = ['status', ]
     list_filter = ['status', ]
     list_per_page = 25
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+    }
 
 
 class RequestAdmin(admin.ModelAdmin):
@@ -15,7 +20,15 @@ class RequestAdmin(admin.ModelAdmin):
     list_editable = ['status', ]
     list_filter = ['status', ]
     list_per_page = 25
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+    }
+
+
+class TagAdmin(admin.ModelAdmin):
+    pass
 
 
 admin.site.register(Offer, OfferAdmin)
 admin.site.register(Request, RequestAdmin)
+admin.site.register(Tag, TagAdmin)
