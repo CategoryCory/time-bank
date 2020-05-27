@@ -3,25 +3,29 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
+from tasks.models import Offer, Request
 
 CustomUser = get_user_model()
 
 
+class OfferInline(admin.TabularInline):
+    model = Offer
+    extra = 0
+
+
+class RequestInline(admin.TabularInline):
+    model = Request
+    extra = 0
+
+
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
-    """
-    add_fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('email', )}),
-    )
-
-    add_fieldsets = (
-        (None, {'classes': ('wide', ), 'fields': {'username', 'email', 'password1', 'password2'}}),
-    )
-    """
     form = CustomUserChangeForm
     model = CustomUser
     list_display = ['email', 'username', 'first_name', 'last_name', 'is_approved', 'is_staff', ]
     list_editable = ['is_approved', ]
+    list_filter = ['is_staff', 'is_superuser', 'is_active', 'is_approved', ]
+    list_per_page = 25
     fieldsets = (
         ('Account Information', {'fields': ('username', 'email', 'first_name', 'last_name',)}),
         ('Personal Information', {'fields': ('date_of_birth', 'biography',)}),
@@ -31,6 +35,10 @@ class CustomUserAdmin(UserAdmin):
          {'fields': ('is_active', 'is_approved', 'is_staff', 'is_superuser', 'groups', 'user_permissions',)}),
         ('Important Dates', {'fields': ('last_login', 'date_joined',)}),
     )
+    inlines = [
+        OfferInline,
+        RequestInline,
+    ]
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
