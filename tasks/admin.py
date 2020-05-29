@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
 
-from.models import Tag, Offer, Request
+from.models import Offer, Request
 
 
 class OfferAdmin(admin.ModelAdmin):
@@ -31,4 +31,3 @@ class TagAdmin(admin.ModelAdmin):
 
 admin.site.register(Offer, OfferAdmin)
 admin.site.register(Request, RequestAdmin)
-admin.site.register(Tag, TagAdmin)

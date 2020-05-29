@@ -3,13 +3,6 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-
-
 class Offer(models.Model):
     AVAILABLE = 'AVAILABLE'
     IN_PROGRESS = 'IN_PROGRESS'
