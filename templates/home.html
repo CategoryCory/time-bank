@@ -1,6 +1,10 @@
 {% if user.is_authenticated %}
-    Hi {{ user.email }}!
-    <p><a href="{% url 'account_logout' %}">Log out</a></p>
+    {% if user.is_approved %}
+        Hi {{ user.email }}!
+        <p><a href="{% url 'account_logout' %}">Log out</a></p>
+    {% else %}
+        <p>You have not been approved to access this site.</p>
+    {% endif %}
 {% else %}
     <p>You are not logged in.</p>
     <a href="{% url 'account_login' %}">Log in</a> |
