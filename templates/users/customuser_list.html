@@ -1,0 +1,9 @@
+<h1>This is the Users List page.</h1>
+
+<ul>
+    {% for user in customuser_list %}
+        <li>{{ user.first_name }} {{ user.last_name }}</li>
+    {% empty %}
+        <li>There are no users.</li>
+    {% endfor %}
+</ul>
