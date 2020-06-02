@@ -1,4 +1,10 @@
 <h1>This is the user details page.</h1>
 
 <h3>{{ customuser.first_name }} {{ customuser.last_name }}</h3>
+<p>{{ customuser.biography }}</p>
 <p>User is approved: {{ customuser.is_approved }}</p>
+
+<hr>
+{% if customuser.id == user.id %}
+    <p><a href="{% url 'user_update' user.username%}">Click here</a> to edit your profile.</p>
+{% endif %}
