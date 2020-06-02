@@ -1,5 +1,6 @@
 from django.views.generic import DetailView, ListView, UpdateView
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 CustomUser = get_user_model()
 
@@ -15,9 +16,13 @@ class UserDetailView(DetailView):
     slug_url_kwarg = 'username'
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = CustomUser
     fields = ['first_name', 'last_name', 'date_of_birth', 'biography', ]
     slug_field = 'username'
     slug_url_kwarg = 'username'
     template_name_suffix = '_update_form'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj == self.request.user
