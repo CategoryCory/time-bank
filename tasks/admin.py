@@ -25,9 +25,5 @@ class RequestAdmin(admin.ModelAdmin):
     }
 
 
-class TagAdmin(admin.ModelAdmin):
-    pass
-
-
 admin.site.register(Offer, OfferAdmin)
 admin.site.register(Request, RequestAdmin)
