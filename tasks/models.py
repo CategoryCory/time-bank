@@ -20,6 +20,7 @@ class Offer(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    categories = models.ManyToManyField('categories.Category', related_name='offers')
 
     def __str__(self):
         return self.title
@@ -42,6 +43,7 @@ class Request(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    categories = models.ManyToManyField('categories.Category', related_name='requests')
 
     def __str__(self):
         return self.title
