@@ -1,6 +1,9 @@
-from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.urls import reverse_lazy
 
 from .models import Request, Offer
+
+""" TASK-REQUEST VIEWS """
 
 
 class TaskRequestListView(ListView):
@@ -30,6 +33,15 @@ class TaskRequestUpdateView(UpdateView):
     template_name = 'tasks/requests/request_update_form.html'
 
 
+class TaskRequestDeleteView(DeleteView):
+    model = Request
+    success_url = reverse_lazy('tasks:task_request_list')
+    template_name = 'tasks/requests/request_confirm_delete.html'
+
+
+""" TASK-OFFER VIEWS """
+
+
 class TaskOfferListView(ListView):
     model = Offer
     paginate_by = 25
@@ -52,6 +64,12 @@ class TaskOfferDetailView(DetailView):
 
 
 class TaskOfferUpdateView(UpdateView):
-    model = Request
+    model = Offer
     fields = ['title', 'description', 'expires', 'status', ]
     template_name = 'tasks/offers/offer_update_form.html'
+
+
+class TaskOfferDeleteView(DeleteView):
+    model = Offer
+    success_url = reverse_lazy('tasks:task_offer_list')
+    template_name = 'tasks/offers/offer_confirm_delete.html'
