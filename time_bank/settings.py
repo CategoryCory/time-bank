@@ -162,8 +162,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 
 # Login redirects
-LOGIN_REDIRECT_URL = 'home'
-ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'pages:home'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'pages:home'
 
 # Crispy Forms config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
