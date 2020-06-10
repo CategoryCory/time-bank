@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import UserListView, UserDetailView, UserUpdateView
 
-
+app_name = 'users'
 urlpatterns = [
     path('', UserListView.as_view(), name='user_list'),
     path('<slug:username>/', UserDetailView.as_view(), name='user_detail'),

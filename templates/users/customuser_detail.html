@@ -6,5 +6,5 @@
 
 <hr>
 {% if customuser.id == user.id %}
-    <p><a href="{% url 'user_update' user.username%}">Click here</a> to edit your profile.</p>
+    <p><a href="{% url 'users:user_update' user.username%}">Click here</a> to edit your profile.</p>
 {% endif %}

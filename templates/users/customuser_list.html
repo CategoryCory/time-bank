@@ -2,7 +2,7 @@
 
 <ul>
     {% for user in customuser_list %}
-        <li><a href="{% url 'user_detail' user.username %}">{{ user.username }}</a></li>
+        <li><a href="{% url 'users:user_detail' user.username %}">{{ user.username }}</a></li>
     {% empty %}
         <li>There are no users.</li>
     {% endfor %}
