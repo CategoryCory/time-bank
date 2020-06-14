@@ -6,4 +6,5 @@
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="Update">
+    <a href="{% url "users:user_detail" user.username %}">Cancel</a>
 </form>
