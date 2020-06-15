@@ -18,7 +18,7 @@ class UserDetailView(DetailView):
 
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = CustomUser
-    fields = ['first_name', 'last_name', 'username', 'date_of_birth', 'biography', ]
+    fields = ['first_name', 'last_name', 'username', 'date_of_birth', 'biography', 'profile_pic', ]
     slug_field = 'username'
     slug_url_kwarg = 'username'
     template_name_suffix = '_update_form'

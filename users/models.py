@@ -18,6 +18,7 @@ class CustomUser(AbstractUser):
     social_twitter = models.URLField(verbose_name='Twitter', max_length=200, blank=True)
     social_instagram = models.URLField(verbose_name='Instagram', max_length=200, blank=True)
     social_linkedin = models.URLField(verbose_name='LinkedIn', max_length=200, blank=True)
+    profile_pic = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.email

@@ -28,7 +28,7 @@ class CustomUserAdmin(UserAdmin):
     list_per_page = 25
     fieldsets = (
         ('Account Information', {'fields': ('username', 'email', 'first_name', 'last_name',)}),
-        ('Personal Information', {'fields': ('date_of_birth', 'biography',)}),
+        ('Personal Information', {'fields': ('date_of_birth', 'biography', 'profile_pic',)}),
         ('Address', {'fields': ('address_street', 'address_city', 'address_state', 'address_zip',)}),
         ('Social Media', {'fields': ('social_facebook', 'social_twitter', 'social_instagram', 'social_linkedin',)}),
         ('Permissions',

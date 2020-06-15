@@ -3,6 +3,7 @@
 <h3>{{ customuser.first_name }} {{ customuser.last_name }}</h3>
 <p>{{ customuser.biography }}</p>
 <p>User is approved: {{ customuser.is_approved }}</p>
+<img src="{{ customuser.profile_pic.url }}" alt="{{ customuser.username }}">
 
 <hr>
 {% if customuser.id == user.id %}
