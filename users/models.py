@@ -19,6 +19,7 @@ class CustomUser(AbstractUser):
     social_instagram = models.URLField(verbose_name='Instagram', max_length=200, blank=True)
     social_linkedin = models.URLField(verbose_name='LinkedIn', max_length=200, blank=True)
     profile_pic = models.ImageField(upload_to='images/')
+    sullivan_coins_balance = models.FloatField(default=5.0)
 
     def __str__(self):
         return self.email
