@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from tasks.models import Offer, Request
+# from tasks.models import Offer, Request
 
 CustomUser = get_user_model()
 
