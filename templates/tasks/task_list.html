@@ -1,12 +1,12 @@
-<h1>This is the list of {{ task_type_lowercase }}.</h1>
-<h3>{{ task_type_uppercase }} List</h3>
+<h1>This is the list of {{ task_type }}.</h1>
+<h3>{{ task_type|title }} List</h3>
 
 <ul>
     {% for task in task_list %}
-        <li><a href="#">{{ task.title }}</a></li>
+        <li><a href="{% url 'tasks:task_detail' task.pk %}">{{ task.title }}</a></li>
     {% empty %}
         <li>There are no requests at this time.</li>
     {% endfor %}
 </ul>
 
-<p><a href="#">Click here</a> to add a new {{ task_type_lowercase }}.</p>
+<p><a href="#">Click here</a> to add a new {{ task_type }}.</p>

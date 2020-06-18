@@ -12,8 +12,7 @@ class TaskRequestListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['task_type_lowercase'] = 'requests'
-        context['task_type_uppercase'] = 'Requests'
+        context['task_type'] = 'requests'
         return context
 
 
@@ -24,9 +23,13 @@ class TaskOfferListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['task_type_lowercase'] = 'offers'
-        context['task_type_uppercase'] = 'Offers'
+        context['task_type'] = 'offers'
         return context
+
+
+class TaskDetailView(DetailView):
+    model = Task
+
 
 # class TaskRequestListView(ListView):
 #     model = Request
