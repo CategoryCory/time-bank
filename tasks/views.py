@@ -2,10 +2,31 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-# from .models import Request, Offer
+from .models import Task
 
-""" TASK-REQUEST VIEWS """
 
+class TaskRequestListView(ListView):
+    model = Task
+    queryset = Task.objects.filter(task_type='REQUEST', status='AVAILABLE')
+    paginate_by = 25
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_type_lowercase'] = 'requests'
+        context['task_type_uppercase'] = 'Requests'
+        return context
+
+
+class TaskOfferListView(ListView):
+    model = Task
+    queryset = Task.objects.filter(task_type='OFFER', status='AVAILABLE')
+    paginate_by = 25
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_type_lowercase'] = 'offers'
+        context['task_type_uppercase'] = 'Offers'
+        return context
 
 # class TaskRequestListView(ListView):
 #     model = Request
