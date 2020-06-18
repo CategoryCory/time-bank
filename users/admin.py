@@ -9,13 +9,15 @@ CustomUser = get_user_model()
 
 
 class OfferInline(admin.TabularInline):
-    model = Offer
-    extra = 0
+    pass
+    # model = Offer
+    # extra = 0
 
 
 class RequestInline(admin.TabularInline):
-    model = Request
-    extra = 0
+    pass
+    # model = Request
+    # extra = 0
 
 
 class CustomUserAdmin(UserAdmin):
@@ -35,10 +37,7 @@ class CustomUserAdmin(UserAdmin):
          {'fields': ('is_active', 'is_approved', 'is_staff', 'is_superuser', 'groups', 'user_permissions',)}),
         ('Important Dates', {'fields': ('last_login', 'date_joined',)}),
     )
-    inlines = [
-        OfferInline,
-        RequestInline,
-    ]
+    inlines = []
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
