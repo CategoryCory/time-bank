@@ -31,6 +31,44 @@ class TaskDetailView(DetailView):
     model = Task
 
 
+class TaskRequestCreateView(LoginRequiredMixin, CreateView):
+    model = Task
+    fields = ['title', 'description', 'expires_on', 'frequency', ]
+    template_name_suffix = '_create_form'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_type'] = 'request'
+        return context
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.task_type = 'REQUEST'
+        return super().form_valid(form)
+
+
+class TaskOfferCreateView(LoginRequiredMixin, CreateView):
+    model = Task
+    fields = ['title', 'description', 'expires_on', 'frequency', ]
+    template_name_suffix = '_create_form'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_type'] = 'offer'
+        return context
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.task_type = 'OFFER'
+        return super().form_valid(form)
+
+
+class TaskUpdateView(UpdateView):
+    model = Task
+    fields = ['title', 'description', 'expires_on', 'status', ]
+    template_name_suffix = '_update_form'
+
+
 # class TaskRequestListView(ListView):
 #     model = Request
 #     paginate_by = 25
@@ -73,7 +111,6 @@ class TaskDetailView(DetailView):
 
 
 """ TASK-OFFER VIEWS """
-
 
 # class TaskOfferListView(ListView):
 #     model = Offer
