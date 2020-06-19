@@ -10,13 +10,5 @@ urlpatterns = [
     path('offers/new/', views.TaskOfferCreateView.as_view(), name='task_offer_new'),
     path('<int:pk>/', views.TaskDetailView.as_view(), name='task_detail'),
     path('<int:pk>/edit/', views.TaskUpdateView.as_view(), name='task_update'),
-    # path('<int:pk>/delete/', )
-    # path('requests/new-request/', views.TaskRequestCreateView.as_view(), name='task_request_create'),
-    # path('requests/<int:pk>/', views.TaskRequestDetailView.as_view(), name='task_request_detail'),
-    # path('requests/<int:pk>/edit/', views.TaskRequestUpdateView.as_view(), name='task_request_update'),
-    # path('requests/<int:pk>/delete/', views.TaskRequestDeleteView.as_view(), name='task_request_delete'),
-    # path('offers/new-offer/', views.TaskOfferCreateView.as_view(), name='task_offer_create'),
-    # path('offers/<int:pk>/', views.TaskOfferDetailView.as_view(), name='task_offer_detail'),
-    # path('offers/<int:pk>/edit/', views.TaskOfferUpdateView.as_view(), name='task_offer_update'),
-    # path('offers/<int:pk>/delete/', views.TaskOfferDeleteView.as_view(), name='task_offer_delete'),
+    path('<int:pk>/delete/', views.TaskDeleteView.as_view(), name='task_delete'),
 ]

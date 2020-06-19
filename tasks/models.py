@@ -54,6 +54,10 @@ class Task(models.Model):
     def get_absolute_url(self):
         return reverse('tasks:task_detail', args=[str(self.id)])
 
+    def soft_delete(self):
+        self.status = 'DELETED'
+        self.save()
+
     class Meta:
         indexes = [
             models.Index(fields=['title', ]),

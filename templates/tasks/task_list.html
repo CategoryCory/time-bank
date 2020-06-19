@@ -9,4 +9,8 @@
     {% endfor %}
 </ul>
 
-<p><a href="#">Click here</a> to add a new {{ task_type }}.</p>
+{% if task_type == 'requests' %}
+    <p><a href="{% url 'tasks:task_request_new' %}">Click here</a> to add a new request.</p>
+{% else %}
+    <p><a href="{% url 'tasks:task_offer_new' %}">Click here</a> to add a new offer.</p>
+{% endif %}

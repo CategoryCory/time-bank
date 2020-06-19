@@ -6,4 +6,4 @@
 
 <p>Posted by {{ task.created_by.username }} on {{ task.created_on }}</p>
 
-<p><a href="#">Click here</a> to delete this request.</p>
+<p><a href="{% url 'tasks:task_delete' task.id %}">Click here</a> to delete this request.</p>
