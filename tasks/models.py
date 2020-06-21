@@ -64,3 +64,24 @@ class Task(models.Model):
             models.Index(fields=['task_type', ]),
             models.Index(fields=['status', ]),
         ]
+
+
+class Response(models.Model):
+    PENDING = 'PENDING'
+    ACCEPTED = 'ACCEPTED'
+    DECLINED = 'DECLINED'
+    STATUS_CHOICES = [
+        (PENDING, 'Pending'),
+        (ACCEPTED, 'Accepted'),
+        (DECLINED, 'Declined'),
+    ]
+
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    message = models.TextField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
+    created_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+    resolved_on = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return 'Response to ' + self.task.title + ' by ' + self.created_by.username
