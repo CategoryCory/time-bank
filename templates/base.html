@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A time banking website." name="description" />
+        <meta content="C2 Solutions" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+
+        <!-- App css -->
+        <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" id="light-style" />
+        <!-- link href="{% static 'css/app-dark.min.css' %}" rel="stylesheet" type="text/css" id="dark-style" / -->
+
+    </head>
+
+    <body class="loading" data-layout-config='{"darkMode":false}'>
+
+        <!-- NAVBAR START -->
+        <nav class="navbar navbar-expand-lg py-lg-3 navbar-dark">
+            <div class="container">
+
+                <!-- logo -->
+                <a href="#" class="navbar-brand mr-lg-5">
+                    <img src="{% static 'images/sullivan-logo.png' %}" alt="" class="logo-dark" height="60" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+
+                <!-- menus -->
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+                    <!-- left menu -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-lg-1">
+                            <a class="nav-link" href="{% url 'tasks:task_request_list' %}">Requests</a>
+                        </li>
+                        <li class="nav-item mx-lg-1">
+                            <a class="nav-link" href="{% url 'tasks:task_offer_list' %}">Offers</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown notification-list mx-lg-1">
+                                <a class="nav-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    <span class="account-user-name">Welcome, {{ user.username }}!</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-account-circle mr-1"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-account-edit mr-1"></i>
+                                        <span>Profile</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="{% url 'tasks:task_offer_new' %}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-fire-truck mr-1"></i>
+                                        <span>New Offer</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="{% url 'tasks:task_request_new' %}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-help-rhombus-outline mr-1"></i>
+                                        <span>New Request</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="{% url 'account_logout' %}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-logout mr-1"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="nav-item mx-lg-1">
+                                <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                            </li>
+                            <li class="nav-item mx-lg-1">
+                                <a class="btn btn-rounded btn-secondary shadow-none text-white" href="{% url 'account_signup' %}">Register</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- NAVBAR END -->
+
+        {% block content %}{% endblock content %}
+
+        <!-- START FOOTER -->
+        <footer class="bg-dark py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <img src="{% static 'images/logo.png' %}" alt="" class="logo-dark" height="18" />
+                        <p class="text-white-50 mt-4">Hyper makes it easier to build better websites with
+                            <br> great speed. Save hundreds of hours of design
+                            <br> and development by using it.</p>
+
+                        <ul class="social-list list-inline mt-3">
+                            <li class="list-inline-item text-center">
+                                <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
+                            </li>
+                            <li class="list-inline-item text-center">
+                                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
+                            </li>
+                            <li class="list-inline-item text-center">
+                                <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item text-center">
+                                <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github-circle"></i></a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-lg-2 mt-3 mt-lg-0">
+                        <h5 class="text-white">Company</h5>
+
+                        <ul class="list-unstyled pl-0 mb-0 mt-3">
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">About Us</a></li>
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Documentation</a></li>
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Blog</a></li>
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Affiliate Program</a></li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-lg-2 mt-3 mt-lg-0">
+                        <h5 class="text-white">Apps</h5>
+
+                        <ul class="list-unstyled pl-0 mb-0 mt-3">
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Ecommerce Pages</a></li>
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Email</a></li>
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Social Feed</a></li>
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Projects</a></li>
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Tasks Management</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-2 mt-3 mt-lg-0">
+                        <h5 class="text-white">Discover</h5>
+
+                        <ul class="list-unstyled pl-0 mb-0 mt-3">
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Help Center</a></li>
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Our Products</a></li>
+                            <li class="mt-2"><a href="javascript: void(0);" class="text-white-50">Privacy</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mt-5">
+                            <p class="text-white-50 mt-4 text-center mb-0">© 2018 - 2020 Hyper. Design and coded by
+                                Coderthemes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- END FOOTER -->
+
+        <!-- bundle -->
+        <script src="{% static 'js/vendor.min.js' %}"></script>
+        <script src="{% static 'js/app.min.js' %}"></script>
+        <script src="https://kit.fontawesome.com/bcdd1ea5a6.js" crossorigin="anonymous"></script>
+
+    </body>
+
+</html>

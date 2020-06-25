@@ -1,16 +1,106 @@
-<h1>This is the list of {{ task_type }}.</h1>
-<h3>{{ task_type|title }} List</h3>
+{% extends 'base.html' %}
 
-<ul>
-    {% for task in task_list %}
-        <li><a href="{% url 'tasks:task_detail' task.pk %}">{{ task.title }}</a></li>
-    {% empty %}
-        <li>There are no requests at this time.</li>
-    {% endfor %}
-</ul>
+{% load static %}
 
-{% if task_type == 'requests' %}
-    <p><a href="{% url 'tasks:task_request_new' %}">Click here</a> to add a new request.</p>
-{% else %}
-    <p><a href="{% url 'tasks:task_offer_new' %}">Click here</a> to add a new offer.</p>
-{% endif %}
+{% block title %}{{ task_type|title }} List{% endblock title %}
+
+{% block content %}
+<!-- START HERO -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-8">
+                <div class="mt-md-2 text-center">
+                    <p class="display-4 font-weight-light text-white">Sullivan Time Bank</p>
+                    <h1 class="display-2 font-weight-bold text-white">{{ task_type|title }} List</h1>
+
+                    <p class="mt-3 font-24 text-white-50">Here is where you will find the latest {{ task_type }} to be completed.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END HERO -->
+
+<!-- LIST SECTION -->
+<section class="mt-4 py-4">
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-xl-7">
+
+                <!-- TITLE ROW -->
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <div class="app-search">
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search..." />
+                                    <span class="mdi mdi-magnify"></span>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary dropdown-toggle shadow-none"
+                                            type="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class='uil uil-sort-amount-down'></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#">Expiration Date</a>
+                                            <a class="dropdown-item" href="#">Posted Date</a>
+                                            <a class="dropdown-item" href="#">Posted By</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <h4 class="page-title">{{ task_type|title }} <a href="#" class="btn btn-warning btn-sm ml-3 shadow-none">Add New</a></h4>
+                </div>
+                <!-- END TITLE ROW -->
+
+                <!-- TASKS PANEL -->
+                <div class="card">
+                    <div class="card-body">
+
+                        {% for task in task_list %}
+                            <div class="row justify-content-sm-between align-items-center mb-2">
+                                <div class="col-sm-4 mb-2 mb-sm-0">
+                                    <h5><a href="{% url 'tasks:task_detail' task.id %}">{{ task.title }}</a></h5>
+                                    <span class="badge badge-success">Yard Work</span>
+                                    <span class="badge badge-success">House Work</span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="text-muted font-13">Posted {{ task.created_on|date:'DATE_FORMAT' }}</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-muted font-13">Expires {{ task.expires_on|date:'DATE_FORMAT' }}</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-muted font-13">Posted by</span><br/>
+                                            <img src="{{ task.created_by.profile_pic.url }}" alt="image"
+                                            class="avatar-xs rounded-circle mr-1" data-toggle="tooltip"
+                                            data-placement="bottom" title="{{ task.created_by.username }}" />
+                                        </div>
+                                        <div>
+                                            <span class="badge badge-success-lighten p-1">Active</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>There are no {{ task_type }} posted at this time.</p>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+                <!-- END TASKS PANEL -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- END LIST SECTION -->
+
+{% endblock content %}

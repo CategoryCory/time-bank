@@ -1,7 +1,0 @@
-<h1>{{ offer.title }}</h1>
-
-<p>{{ offer.description }}</p>
-
-<p>Posted by {{ offer.created_by.username }} on {{ offer.created_on }}</p>
-
-<p><a href="{% url 'tasks:task_offer_delete' offer.id %}">Click here</a> to delete this offer.</p>

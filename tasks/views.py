@@ -1,9 +1,12 @@
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import Task
+from .models import Task, Response
 
 
 class TaskRequestListView(ListView):
@@ -93,3 +96,29 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         obj = self.get_object()
         obj.soft_delete()
         return HttpResponseRedirect(self.get_success_url())
+
+
+@login_required
+def task_response(request):
+    if request.method == 'POST':
+        task_id = request.POST.get('task_id')
+        message = request.POST.get('message')
+
+        user = request.user
+
+        if not user.is_approved:
+            return redirect('pages:home')
+
+        task = get_object_or_404(Task, pk=task_id)
+
+        response = Response(task=task, message=message, created_by=user)
+        response.save()
+
+        if task.task_type == 'REQUEST':
+            return_url = 'tasks:task_request_list'
+        else:
+            return_url = 'tasks:task_offer_list'
+
+        return redirect(return_url)
+    else:
+        return redirect('pages:home')

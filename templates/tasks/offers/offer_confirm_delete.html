@@ -1,9 +1,0 @@
-{% load crispy_forms_tags %}
-
-<h1>Confirm Delete</h1>
-
-<form method="post">
-    {% csrf_token %}
-    <p>Are you sure you want to delete "{{ offer }}"?</p>
-    <input type="submit" value="Confirm">
-</form>
