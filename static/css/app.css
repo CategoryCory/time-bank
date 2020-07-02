@@ -10655,8 +10655,9 @@ input[data-switch="dark"]:checked + label {
     z-index: -1;
     width: 100%;
     border-radius: 0;
-    -webkit-transform: skewY(-3deg);
-            transform: skewY(-3deg); }
+    /*-webkit-transform: skewY(-3deg);*/
+    /*        transform: skewY(-3deg); */
+  }
   .hero-section .hero-title {
     line-height: 42px; }
 
