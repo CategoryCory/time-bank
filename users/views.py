@@ -1,4 +1,4 @@
-from django.views.generic import DetailView, ListView, UpdateView
+from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
@@ -26,3 +26,7 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         obj = self.get_object()
         return obj == self.request.user
+
+
+class UserDashboardView(TemplateView):
+    template_name = 'users/customuser_dashboard.html'

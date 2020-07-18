@@ -26,7 +26,7 @@
             <div class="container">
 
                 <!-- logo -->
-                <a href="#" class="navbar-brand mr-lg-5">
+                <a href="{% url 'pages:home' %}" class="navbar-brand mr-lg-5">
                     <img src="{% static 'images/sullivan-logo.png' %}" alt="" class="logo-dark" height="60" />
                 </a>
 
@@ -53,7 +53,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="{% url 'users:user_dashboard' user.username %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle mr-1"></i>
                                         <span>Dashboard</span>
                                     </a>
