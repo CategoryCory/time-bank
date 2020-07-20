@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Dashboard - {% endblock title %}
+{% block title %}Dashboard - {{ user.username }}{% endblock title %}
 
 {% block content %}
 <h2>This is the user dashboard page.</h2>

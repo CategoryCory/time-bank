@@ -1,6 +1,8 @@
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 CustomUser = get_user_model()
 
@@ -28,5 +30,9 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return obj == self.request.user
 
 
-class UserDashboardView(TemplateView):
+class UserDashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'users/customuser_dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

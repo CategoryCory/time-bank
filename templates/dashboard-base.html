@@ -4,17 +4,16 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Project Dashboard | Hyper - Responsive Bootstrap 4 Admin Dashboard</title>
+        <title>{% block title %}{% endblock title %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-        <meta content="Coderthemes" name="author" />
+        <meta content="A time banking website." name="description" />
+        <meta content="C2 Solutions" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
 
         <!-- App css -->
         <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
         <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" id="light-style" />
-        <link href="{% static 'css/app-dark.min.css' %}" rel="stylesheet" type="text/css" id="dark-style" />
 
     </head>
 
@@ -25,23 +24,11 @@
             <div class="left-side-menu">
 
                 <!-- LOGO -->
-                <a href="index.html" class="logo text-center logo-light">
+                <a href="{% url 'pages:home' %}" class="logo text-center logo-light">
                     <span class="logo-lg">
-                        <img src="assets/images/sullivan-logo.png" alt="" height="38">
+                        <img src="{% static 'images/sullivan-logo.png' %}" alt="" height="38">
                     </span>
-                    <span class="logo-sm">
-                        <img src="assets/images/logo_sm.png" alt="" height="16">
-                    </span>
-                </a>
 
-                <!-- LOGO -->
-                <a href="index.html" class="logo text-center logo-dark">
-                    <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="" height="16">
-                    </span>
-                    <span class="logo-sm">
-                        <img src="assets/images/logo_sm_dark.png" alt="" height="16">
-                    </span>
                 </a>
 
                 <div class="h-100" id="left-side-menu-container" data-simplebar>
@@ -52,21 +39,21 @@
                         <li class="side-nav-title side-nav-item">Navigation</li>
 
                         <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
+                            <a href="{% url 'pages:home' %}" class="side-nav-link">
                                 <i class="uil-home-alt mr-1"></i>
                                 Home
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
+                            <a href="{% url 'users:user_dashboard' %}" class="side-nav-link">
                                 <i class="uil-wrench mr-1"></i>
                                 Dashboard
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
+                            <a href="{% url 'users:user_detail' user.username %}" class="side-nav-link">
                                 <i class="uil-user mr-1"></i>
                                 Profile
                             </a>
@@ -80,10 +67,10 @@
                             </a>
                             <ul class="side-nav-second-level" aria-expanded="false">
                                 <li>
-                                    <a href="#">New Offer</a>
+                                    <a href="{% url 'tasks:task_offer_new' %}">New Offer</a>
                                 </li>
                                 <li>
-                                    <a href="#">New Request</a>
+                                    <a href="{% url 'tasks:task_request_new' %}">New Request</a>
                                 </li>
                             </ul>
                         </li>
@@ -155,7 +142,7 @@
                                 <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                                     aria-expanded="false">
                                     <span class="account-user-avatar">
-                                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                                        <img src="{{ user.profile_pic.url }}" alt="user-image" class="rounded-circle">
                                     </span>
                                     <span>
                                         <span class="account-user-name">Dominic Keller</span>
@@ -170,13 +157,13 @@
                                     </div> -->
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="{% url 'users:user_dashboard' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle mr-1"></i>
                                         <span>Dashboard</span>
                                     </a>
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="{% url 'users:user_detail' user.username %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-edit mr-1"></i>
                                         <span>Profile</span>
                                     </a>
@@ -188,25 +175,19 @@
                                     </a>
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="{% url 'tasks:task_offer_new' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-hammer mr-1"></i>
-                                        <span>Post New Offer</span>
+                                        <span>New Offer</span>
                                     </a>
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="{% url 'tasks:task_request_new' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-lightbulb-on mr-1"></i>
-                                        <span>Post New Request</span>
+                                        <span>New Request</span>
                                     </a>
 
                                     <!-- item-->
-                                    <!-- <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-lock-outline mr-1"></i>
-                                        <span>Lock Screen</span>
-                                    </a> -->
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="{% url 'account_logout' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-logout mr-1"></i>
                                         <span>Logout</span>
                                     </a>
