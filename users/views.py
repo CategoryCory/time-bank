@@ -1,8 +1,8 @@
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+
+from tasks.models import Task
 
 CustomUser = get_user_model()
 
@@ -35,4 +35,8 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['user_requests'] = Task.objects.filter(created_by=self.request.user, task_type=Task.REQUEST,
+                                                       status=Task.AVAILABLE).order_by('expires_on')
+        context['user_offers'] = Task.objects.filter(created_by=self.request.user, task_type=Task.OFFER,
+                                                     status=Task.AVAILABLE).order_by('expires_on')
         return context
