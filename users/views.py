@@ -35,8 +35,12 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user_requests'] = Task.objects.filter(created_by=self.request.user, task_type=Task.REQUEST,
-                                                       status=Task.AVAILABLE).order_by('expires_on')
-        context['user_offers'] = Task.objects.filter(created_by=self.request.user, task_type=Task.OFFER,
-                                                     status=Task.AVAILABLE).order_by('expires_on')
+        user_tasks = Task.objects.filter(created_by=self.request.user, status=Task.AVAILABLE)
+
+        user_requests = [user_req for user_req in user_tasks if user_req.task_type == Task.REQUEST]
+        user_offers = [user_offer for user_offer in user_tasks if user_offer.task_type == Task.OFFER]
+
+        context['user_requests'] = sorted(user_requests, key=lambda x: x.expires_on)
+        context['user_offers'] = sorted(user_offers, key=lambda x: x.expires_on)
+
         return context
