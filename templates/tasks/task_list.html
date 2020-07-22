@@ -30,32 +30,34 @@
             <div class="col-xl-7">
 
                 <!-- TITLE ROW -->
-                <div class="page-title-box">
-                    <div class="page-title-right">
-                        <div class="app-search">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." />
-                                    <span class="mdi mdi-magnify"></span>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-secondary dropdown-toggle shadow-none"
-                                            type="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i class='uil uil-sort-amount-down'></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Expiration Date</a>
-                                            <a class="dropdown-item" href="#">Posted Date</a>
-                                            <a class="dropdown-item" href="#">Posted By</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                {% if user.is_authenticated %}
+                    <div class="d-flex justify-content-end">
+                        <a href="#" class="btn btn-secondary shadow-none text-white">Add New {{ task_type|title }}</a>
                     </div>
-                    <h4 class="page-title">{{ task_type|title }} <a href="#" class="btn btn-warning btn-sm ml-3 shadow-none text-white">Add New</a></h4>
+                {% endif %}
+
+                <div class="app-search my-3">
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." />
+                            <span class="mdi mdi-magnify"></span>
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary dropdown-toggle shadow-none"
+                                    type="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class='uil uil-sort-amount-down'></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">Expiration Date</a>
+                                    <a class="dropdown-item" href="#">Posted Date</a>
+                                    <a class="dropdown-item" href="#">Posted By</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <!-- END TITLE ROW -->
+
 
                 <!-- TASKS PANEL -->
                 <div class="card">
