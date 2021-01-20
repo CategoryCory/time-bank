@@ -35,7 +35,7 @@ DEBUG = env('DEBUG')
 if DEBUG is True:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = ['64.227.23.11', 'localhost', '127.0.0.1', ]
+    ALLOWED_HOSTS = ['64.227.23.11', 'sullivantimebank.org', 'www.sullivantimebank.org', ]
 
 
 # Application definition
