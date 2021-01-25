@@ -117,16 +117,18 @@
                             {{ task.description }}
                         </p>
 
-                        <hr>
-
-                        {% if user.is_authenticated %}
-                            <p class="text-muted my-3">Interested in this {{ task.task_type.lower }}? Let {{ task.created_by.username }} know!
-                                <button href="#" class="btn btn-secondary shadow-none ml-3 text-white" data-toggle="modal" data-target="#response-modal">I'm Interested!</button>
-                            </p>
-                        {% else %}
+                        {% if not user.is_authenticated %}
+                            <hr>
                             <p class="text-muted my-3">It looks like you're not signed in! If you'd like to respond to this, please log in or create an account.</p>
                             <a href="{% url 'account_login' %}" class="btn btn-secondary shadow-none text-white mr-2">Sign In</a>
                             <a href="{% url 'account_signup' %}" class="btn btn-secondary shadow-none text-white">Create an Account</a>
+                        {% else %}
+                            {% if user != task.created_by %}
+                                <hr>
+                                <p class="text-muted my-3">Interested in this {{ task.task_type.lower }}? Let {{ task.created_by.username }} know!
+                                    <button href="#" class="btn btn-secondary shadow-none ml-3 text-white" data-toggle="modal" data-target="#response-modal">I'm Interested!</button>
+                                </p>
+                            {% endif %}
                         {% endif %}
                     </div> <!-- end card-body-->
 

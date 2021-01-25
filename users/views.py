@@ -17,10 +17,21 @@ class UserDetailView(DetailView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        total_user_requests = len(Task.objects.filter(created_by=self.request.user, task_type=Task.REQUEST))
+        total_user_offers = len(Task.objects.filter(created_by=self.request.user, task_type=Task.OFFER))
+        context['total_user_requests'] = total_user_requests
+        context['total_user_offers'] = total_user_offers
+        return context
+
 
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = CustomUser
-    fields = ['first_name', 'last_name', 'username', 'date_of_birth', 'biography', 'profile_pic', ]
+    fields = [
+        'first_name', 'last_name', 'username', 'date_of_birth', 'biography', 'skills', 'social_facebook',
+        'social_twitter', 'social_instagram', 'social_linkedin', 'profile_pic',
+    ]
     slug_field = 'username'
     slug_url_kwarg = 'username'
     template_name_suffix = '_update_form'
