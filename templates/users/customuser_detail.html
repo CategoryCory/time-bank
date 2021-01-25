@@ -53,7 +53,9 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <div class="media">
-                                <span class="float-left m-2 mr-4"><img src="{{ customuser.profile_pic.url }}" style="height: 100px;" alt="" class="rounded-circle img-thumbnail"></span>
+                                {% if customuser.profile_pic %}
+                                    <span class="float-left m-2 mr-4"><img src="{{ customuser.profile_pic.url }}" style="height: 100px;" alt="" class="rounded-circle img-thumbnail"></span>
+                                {% endif %}
                                 <div class="media-body">
 
                                     <h4 class="mt-1 mb-1 text-white">{{ customuser.first_name }} {{ customuser.last_name }}</h4>
@@ -369,15 +371,3 @@
 </div>
 
 {% endblock content %}
-
-<h1>This is the user details page.</h1>
-
-<h3>{{ customuser.first_name }} {{ customuser.last_name }}</h3>
-<p>{{ customuser.biography }}</p>
-<p>User is approved: {{ customuser.is_approved }}</p>
-<img src="{{ customuser.profile_pic.url }}" alt="{{ customuser.username }}">
-
-<hr>
-{% if customuser.id == user.id %}
-    <p><a href="{% url 'users:user_update' user.username %}">Click here</a> to edit your profile.</p>
-{% endif %}
