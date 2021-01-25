@@ -111,7 +111,7 @@ def task_response(request):
 
         task = get_object_or_404(Task, pk=task_id)
 
-        response = Response(task=task, message=message, created_by=user)
+        response = Response(task=task, message=message, created_by=user, recipient=task.created_by)
         response.save()
 
         if task.task_type == 'REQUEST':

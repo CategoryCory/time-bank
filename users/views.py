@@ -2,7 +2,7 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from tasks.models import Task
+from tasks.models import Task, Response
 
 CustomUser = get_user_model()
 
@@ -44,3 +44,22 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
         context['user_offers'] = sorted(user_offers, key=lambda x: x.expires_on)
 
         return context
+
+
+class UserMessageListView(LoginRequiredMixin, TemplateView):
+    template_name = 'users/customuser_message_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_messages = Response.objects.filter(recipient=self.request.user)
+        context['user_messages'] = user_messages
+        return context
+
+
+class UserMessageDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Response
+    template_name = 'users/customuser_message_detail.html'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.recipient == self.request.user
