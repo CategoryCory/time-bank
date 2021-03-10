@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Browse Users{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/sp-1.2.2/datatables.min.css"/>
+{% endblock extra_css %}
+
+{% block content %}
+<section class="hero-section bg-dark">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-5">
+                <div class="mt-md-4">
+                    <h1 class="display-2 font-weight-bold text-white">Browse Users</h1>
+
+                    <p class="mb-4 font-16 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas veniam rerum aliquam perferendis sed laborum eos, perspiciatis consectetur. Quibusdam aliquid similique eaque, totam nihil ut!</p>
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-2">
+                <div class="text-md-right mt-3 mt-md-0">
+                    <img src="{% static 'images/features-2.svg' %}" alt="" class="img-fluid" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END HERO -->
+
+    <div class="container my-5">
+        <h2 class="text-primary">Browse the Time Bank Users</h2>
+        <p class="text-muted mb-4">
+            Search our users and find people offering the skills you need! Click on a user's name to view their profile.
+        </p>
+        <table id="userList" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Skills</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in customuser_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'users:user_detail' u.username %}">
+                                {{ u.first_name }} {{ u.last_name }}
+                            </a>
+                        </td>
+                        <td>{{ u.skills }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/sp-1.2.2/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#userList").DataTable();
+    });
+</script>
+{% endblock extra_js %}
