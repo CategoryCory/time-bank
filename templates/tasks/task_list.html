@@ -36,7 +36,9 @@
                 <!-- TITLE ROW -->
                 {% if user.is_authenticated %}
                     <div class="d-flex justify-content-end">
-                        <a href="#" class="btn btn-secondary shadow-none text-white">Add New Job</a>
+                        <a href="{% url 'tasks:task_new' %}" class="btn btn-secondary shadow-none text-white mb-4">
+                            Post New Job
+                        </a>
                     </div>
                 {% endif %}
 

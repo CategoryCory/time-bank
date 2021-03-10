@@ -5,6 +5,8 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import Task, Response
 
@@ -114,6 +116,22 @@ def task_response(request):
 
         response = Response(task=task, message=message, created_by=user, recipient=task.created_by)
         response.save()
+
+        # Send email
+        email_subject = 'Sullivan Foundation Time Bank Response'
+        email_body = (
+            f'You have a response from one of your job listings on the Sullivan Time Bank.\n'
+            f'Job: {task}\n'
+            f'From user: {user.first_name} {user.last_name}\n'
+            f'Message: {message}'
+        )
+        send_mail(
+            email_subject,
+            email_body,
+            settings.DEFAULT_FROM_EMAIL,
+            [task.created_by.email],
+            fail_silently=True
+        )
 
         # if task.task_type == 'REQUEST':
         #     return_url = 'tasks:task_request_list'
