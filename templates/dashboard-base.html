@@ -15,6 +15,8 @@
         <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
         <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" id="light-style" />
 
+        {% block extra_css %}{% endblock extra_css %}
+
     </head>
 
     <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
@@ -60,20 +62,27 @@
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="javascript: void(0);" class="side-nav-link">
-                                <i class="uil-plus mr-1"></i>
-                                Add New
-                                <span class="menu-arrow"></span>
+                            <a href="{% url 'tasks:task_new' %}" class="side-nav-link">
+                                <i class="uil-plus-circle mr-1"></i>
+                                Post New Job
                             </a>
-                            <ul class="side-nav-second-level" aria-expanded="false">
-                                <li>
-                                    <a href="{% url 'tasks:task_offer_new' %}">New Offer</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'tasks:task_request_new' %}">New Request</a>
-                                </li>
-                            </ul>
                         </li>
+
+{#                        <li class="side-nav-item">#}
+{#                            <a href="javascript: void(0);" class="side-nav-link">#}
+{#                                <i class="uil-plus mr-1"></i>#}
+{#                                Add New#}
+{#                                <span class="menu-arrow"></span>#}
+{#                            </a>#}
+{#                            <ul class="side-nav-second-level" aria-expanded="false">#}
+{#                                <li>#}
+{#                                    <a href="{% url 'tasks:task_offer_new' %}">New Offer</a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="{% url 'tasks:task_request_new' %}">New Request</a>#}
+{#                                </li>#}
+{#                            </ul>#}
+{#                        </li>#}
                     </ul>
 
                     <div class="clearfix"></div>
@@ -93,50 +102,6 @@
                     <!-- Topbar Start -->
                     <div class="navbar-custom">
                         <ul class="list-unstyled topbar-right-menu float-right mb-0">
-
-{#                            <li class="dropdown notification-list">#}
-{#                                <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">#}
-{#                                    <i class="dripicons-message noti-icon"></i>#}
-{#                                    <span class="noti-icon-badge"></span>#}
-{#                                </a>#}
-{#                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-lg">#}
-{##}
-{#                                    <!-- item-->#}
-{#                                    <div class="dropdown-item noti-title">#}
-{#                                        <h5 class="m-0">#}
-{#                                            Notifications#}
-{#                                        </h5>#}
-{#                                    </div>#}
-{##}
-{#                                    <div style="max-height: 230px;" data-simplebar>#}
-{#                                        <!-- item-->#}
-{#                                        <a href="javascript:void(0);" class="dropdown-item notify-item">#}
-{#                                            <div class="notify-icon bg-primary">#}
-{#                                                <i class="mdi mdi-comment-account-outline"></i>#}
-{#                                            </div>#}
-{#                                            <p class="notify-details">John Doe sent you a message#}
-{#                                                <small class="text-muted">4 hours ago</small>#}
-{#                                            </p>#}
-{#                                        </a>#}
-{##}
-{#                                        <!-- item-->#}
-{#                                        <a href="javascript:void(0);" class="dropdown-item notify-item">#}
-{#                                            <div class="notify-icon bg-info">#}
-{#                                                <i class="mdi mdi-check-underline-circle"></i>#}
-{#                                            </div>#}
-{#                                            <p class="notify-details">Jane Smith approved your transaction#}
-{#                                                <small class="text-muted">2 days ago</small>#}
-{#                                            </p>#}
-{#                                        </a>#}
-{#                                    </div>#}
-{##}
-{#                                    <!-- All-->#}
-{#                                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">#}
-{#                                        View All#}
-{#                                    </a>#}
-{##}
-{#                                </div>#}
-{#                            </li>#}
 
                             <li class="dropdown notification-list">
                                 <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
@@ -181,16 +146,16 @@
                                     </a>
 
                                     <!-- item-->
-                                    <a href="{% url 'tasks:task_offer_new' %}" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-hammer mr-1"></i>
-                                        <span>New Offer</span>
+                                    <a href="{% url 'tasks:task_new' %}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-plus-circle mr-1"></i>
+                                        <span>Post New Job</span>
                                     </a>
 
                                     <!-- item-->
-                                    <a href="{% url 'tasks:task_request_new' %}" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-lightbulb-on mr-1"></i>
-                                        <span>New Request</span>
-                                    </a>
+{#                                    <a href="{% url 'tasks:task_request_new' %}" class="dropdown-item notify-item">#}
+{#                                        <i class="mdi mdi-lightbulb-on mr-1"></i>#}
+{#                                        <span>New Request</span>#}
+{#                                    </a>#}
 
                                     <!-- item-->
                                     <a href="{% url 'account_logout' %}" class="dropdown-item notify-item">
@@ -231,7 +196,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                2018 - 2020 © Hyper - Coderthemes.com
+                                2021 © Sullivan Foundation
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-right footer-links d-none d-md-block">
@@ -258,6 +223,8 @@
         <!-- bundle -->
         <script src="{% static 'js/vendor.min.js' %}"></script>
         <script src="{% static 'js/app.min.js' %}"></script>
+
+        {% block extra_js %}{% endblock extra_js %}
 
         <!-- third party js -->
         <!-- third party js ends -->

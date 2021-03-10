@@ -4,6 +4,10 @@
 
 {% block title %}Dashboard - {{ user.username }}{% endblock title %}
 
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/sp-1.2.2/datatables.min.css"/>
+{% endblock extra_css %}
+
 {% block content %}
 <div class="container-fluid">
 
@@ -121,22 +125,66 @@
         <div class="col-xl-8">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title mb-3">My Current Offers</h4>
+                    <h2 class="header-title mb-3 pb-2 border-bottom">My Current Jobs</h2>
 
-                    {% for user_offer in user_offers %}
-                        <!-- Item -->
-                        <div class="row justify-content-sm-between align-items-center border-top py-2">
-                            <div class="col-sm-4 mb-2 mb-sm-0">
-                                <h5><a href="{% url 'tasks:task_detail' user_offer.id %}">{{ user_offer.title }}</a></h5>
+                    {% if user_jobs %}
+                        <table id="jobsList" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Job Name</th>
+                                    <th>Posted On</th>
+                                    <th>Expires On</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for job in user_jobs %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'tasks:task_detail' job.id %}">
+                                                {{ job.title }}
+                                            </a>
+                                        </td>
+                                        <td>{{ job.created_on|date:'DATE_FORMAT' }}</td>
+                                        <td>{{ job.expires_on|date:'DATE_FORMAT' }}</td>
+                                        <td>
+                                            <a href="#" class="mr-2"><i class='mdi mdi-trash-can-outline font-18 mr-1'></i>Delete</a>
+                                            <a href="{% url 'tasks:task_update' job.id %}" class="mr-2"><i class='mdi mdi-pencil-outline font-18 mr-1'></i>Edit</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>You don't have any current jobs listed at this time.</p>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#    <div class="row">#}
+{#        <div class="col-xl-8">#}
+{#            <div class="card">#}
+{#                <div class="card-body">#}
+{#                    <h4 class="header-title mb-3">My Current Requests</h4>#}
+{##}
+{#                    {% for user_request in user_requests %}#}
+{#                        <!-- Item -->#}
+{#                        <div class="row justify-content-sm-between align-items-center border-top py-2">#}
+{#                            <div class="col-sm-4 mb-2 mb-sm-0">#}
+{#                                <h5><a href="{% url 'tasks:task_detail' user_request.id %}">{{ user_request.title}}</a></h5>#}
 {#                                <span class="badge badge-success">Category 1</span>#}
 {#                                <span class="badge badge-success">Category 2</span>#}
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <span class="text-muted font-13">Posted {{ user_offer.created_on|date }}</span> <br/>
-                                        <span class="text-muted font-13">Expires {{ user_offer.expires_on|date }}</span>
-                                    </div>
+{#                            </div>#}
+{#                            <div class="col-sm-8">#}
+{#                                <div class="d-flex justify-content-between align-items-center">#}
+{#                                    <div>#}
+{#                                        <span class="text-muted font-13">Posted {{ user_request.created_on|date }}</span> <br/>#}
+{#                                        <span class="text-muted font-13">Expires {{ user_request.expires_on|date }}</span>#}
+{#                                    </div>#}
 {#                                    <div>#}
 {#                                        <span class="text-muted font-13">Accepted by</span><br/>#}
 {#                                        <img src="{% static 'images/users/avatar-9.jpg' %}" alt="image"#}
@@ -146,65 +194,30 @@
 {#                                        class="avatar-xs rounded-circle mr-1" data-toggle="tooltip"#}
 {#                                        data-placement="bottom" title="Mike Smith" />#}
 {#                                    </div>#}
-                                    <div>
-                                        <a href="#" class="mr-2"><i class='mdi mdi-trash-can-outline font-18 mr-1'></i>Delete</a>
-                                        <a href="{% url 'tasks:task_update' user_offer.id %}" class="mr-2"><i class='mdi mdi-pencil-outline font-18 mr-1'></i>Edit</a>
-                                        <span class="badge badge-success-lighten p-1">Active</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Item -->
-                    {% endfor %}
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xl-8">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="header-title mb-3">My Current Requests</h4>
-
-                    {% for user_request in user_requests %}
-                        <!-- Item -->
-                        <div class="row justify-content-sm-between align-items-center border-top py-2">
-                            <div class="col-sm-4 mb-2 mb-sm-0">
-                                <h5><a href="{% url 'tasks:task_detail' user_request.id %}">{{ user_request.title}}</a></h5>
-{#                                <span class="badge badge-success">Category 1</span>#}
-{#                                <span class="badge badge-success">Category 2</span>#}
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <span class="text-muted font-13">Posted {{ user_request.created_on|date }}</span> <br/>
-                                        <span class="text-muted font-13">Expires {{ user_request.expires_on|date }}</span>
-                                    </div>
 {#                                    <div>#}
-{#                                        <span class="text-muted font-13">Accepted by</span><br/>#}
-{#                                        <img src="{% static 'images/users/avatar-9.jpg' %}" alt="image"#}
-{#                                        class="avatar-xs rounded-circle mr-1" data-toggle="tooltip"#}
-{#                                        data-placement="bottom" title="Jane Smith" />#}
-{#                                        <img src="{% static 'images/users/avatar-4.jpg' %}" alt="image"#}
-{#                                        class="avatar-xs rounded-circle mr-1" data-toggle="tooltip"#}
-{#                                        data-placement="bottom" title="Mike Smith" />#}
+{#                                        <a href="#" class="mr-2"><i class='mdi mdi-trash-can-outline font-18 mr-1'></i>Delete</a>#}
+{#                                        <a href="{% url 'tasks:task_update' user_request.id %}" class="mr-2"><i class='mdi mdi-pencil-outline font-18 mr-1'></i>Edit</a>#}
+{#                                        <span class="badge badge-success-lighten p-1">Active</span>#}
 {#                                    </div>#}
-                                    <div>
-                                        <a href="#" class="mr-2"><i class='mdi mdi-trash-can-outline font-18 mr-1'></i>Delete</a>
-                                        <a href="{% url 'tasks:task_update' user_request.id %}" class="mr-2"><i class='mdi mdi-pencil-outline font-18 mr-1'></i>Edit</a>
-                                        <span class="badge badge-success-lighten p-1">Active</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Item -->
-                    {% endfor %}
-
-                </div>
-            </div>
-        </div>
-    </div>
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div><!-- End Item -->#}
+{#                    {% endfor %}#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
     
 </div> <!-- container -->
 {% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/sp-1.2.2/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#jobsList").DataTable();
+    });
+</script>
+{% endblock extra_js %}

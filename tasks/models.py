@@ -5,13 +5,6 @@ from django.urls import reverse
 
 
 class Task(models.Model):
-    REQUEST = 'REQUEST'
-    OFFER = 'OFFER'
-    TYPE_CHOICES = [
-        (REQUEST, 'Request'),
-        (OFFER, 'Offer'),
-    ]
-
     ONE_TIME = 'ONE_TIME'
     DAILY = 'DAILY'
     WEEKLY = 'WEEKLY'
@@ -41,7 +34,6 @@ class Task(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
     expires_on = models.DateField(default=timezone.now, null=True)
-    task_type = models.CharField(max_length=20, choices=TYPE_CHOICES)
     frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=AVAILABLE)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -61,7 +53,6 @@ class Task(models.Model):
     class Meta:
         indexes = [
             models.Index(fields=['title', ]),
-            models.Index(fields=['task_type', ]),
             models.Index(fields=['status', ]),
         ]
 

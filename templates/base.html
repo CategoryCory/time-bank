@@ -43,11 +43,11 @@
                     <!-- left menu -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item mx-lg-1">
-                            <a class="nav-link" href="{% url 'tasks:task_request_list' %}">Requests</a>
+                            <a class="nav-link" href="{% url 'tasks:task_list' %}">Jobs</a>
                         </li>
-                        <li class="nav-item mx-lg-1">
-                            <a class="nav-link" href="{% url 'tasks:task_offer_list' %}">Offers</a>
-                        </li>
+{#                        <li class="nav-item mx-lg-1">#}
+{#                            <a class="nav-link" href="{% url 'tasks:task_offer_list' %}">Offers</a>#}
+{#                        </li>#}
                         {% if user.is_authenticated %}
                             <li class="nav-item mx-lg-1">
                                 <a class="nav-link" href="{% url 'pages:browse_users' %}">Browse Users</a>
@@ -76,16 +76,16 @@
                                     </a>
 
                                     <!-- item-->
-                                    <a href="{% url 'tasks:task_offer_new' %}" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-fire-truck mr-1"></i>
-                                        <span>New Offer</span>
+                                    <a href="{% url 'tasks:task_new' %}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-plus-circle mr-1"></i>
+                                        <span>Post New Job</span>
                                     </a>
 
                                     <!-- item-->
-                                    <a href="{% url 'tasks:task_request_new' %}" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-help-rhombus-outline mr-1"></i>
-                                        <span>New Request</span>
-                                    </a>
+{#                                    <a href="{% url 'tasks:task_request_new' %}" class="dropdown-item notify-item">#}
+{#                                        <i class="mdi mdi-help-rhombus-outline mr-1"></i>#}
+{#                                        <span>New Request</span>#}
+{#                                    </a>#}
 
                                     <!-- item-->
                                     <a href="{% url 'account_logout' %}" class="dropdown-item notify-item">

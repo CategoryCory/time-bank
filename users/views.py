@@ -19,10 +19,10 @@ class UserDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        total_user_requests = len(Task.objects.filter(created_by=self.request.user, task_type=Task.REQUEST))
-        total_user_offers = len(Task.objects.filter(created_by=self.request.user, task_type=Task.OFFER))
-        context['total_user_requests'] = total_user_requests
-        context['total_user_offers'] = total_user_offers
+        total_user_jobs = len(Task.objects.filter(created_by=self.request.user))
+        # total_user_offers = len(Task.objects.filter(created_by=self.request.user, task_type=Task.OFFER))
+        context['total_user_jobs'] = total_user_jobs
+        # context['total_user_offers'] = total_user_offers
         return context
 
 
@@ -48,11 +48,11 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         user_tasks = Task.objects.filter(created_by=self.request.user, status=Task.AVAILABLE)
 
-        user_requests = [user_req for user_req in user_tasks if user_req.task_type == Task.REQUEST]
-        user_offers = [user_offer for user_offer in user_tasks if user_offer.task_type == Task.OFFER]
+        user_jobs = [task for task in user_tasks if task.status == Task.AVAILABLE]
+        # user_offers = [user_offer for user_offer in user_tasks if user_offer.task_type == Task.OFFER]
 
-        context['user_requests'] = sorted(user_requests, key=lambda x: x.expires_on)
-        context['user_offers'] = sorted(user_offers, key=lambda x: x.expires_on)
+        context['user_jobs'] = sorted(user_jobs, key=lambda x: x.expires_on)
+        # context['user_offers'] = sorted(user_offers, key=lambda x: x.expires_on)
 
         return context
 

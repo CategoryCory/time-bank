@@ -6,15 +6,15 @@
 
 {% block content %}
 <!-- START HERO -->
-<section class="hero-section">
+<section class="hero-section bg-dark">
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-8">
                 <div class="mt-md-2 text-center">
                     <p class="display-4 font-weight-light text-white">Sullivan Time Bank</p>
-                    <h1 class="display-2 font-weight-bold text-white">{{ task.task_type|title }} Details</h1>
+                    <h1 class="display-2 font-weight-bold text-white">Job Details</h1>
 
-                    <p class="mt-3 font-24 text-white-50">Find out specific details related to this {{ task.task_type|lower }}</p>
+                    <p class="mt-3 font-24 text-white-50">Find out specific details related to this job.</p>
 
                 </div>
             </div>
@@ -28,20 +28,20 @@
     <div class="container-fluid">
 
         <!-- start page title -->
-        <div class="row justify-content-center align-items-center">
-            <div class="col-xl-7">
-                <div class="page-title-box">
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>
-                            <li class="breadcrumb-item active">{{ task.task_type|title }} Detail</li>
-                        </ol>
-                    </div>
-                    <h4 class="page-title">{{ task.task_type|title }} Detail</h4>
-                </div>
-            </div>
-        </div>
+{#        <div class="row justify-content-center align-items-center">#}
+{#            <div class="col-xl-7">#}
+{#                <div class="page-title-box">#}
+{#                    <div class="page-title-right">#}
+{#                        <ol class="breadcrumb m-0">#}
+{#                            <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>#}
+{#                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>#}
+{#                            <li class="breadcrumb-item active">Job Details</li>#}
+{#                        </ol>#}
+{#                    </div>#}
+{#                    <h4 class="page-title">Job Details</h4>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <!-- end page title -->
 
         <!-- DETAILS BLOCK -->
@@ -50,30 +50,30 @@
                 <!-- project card -->
                 <div class="card d-block">
                     <div class="card-body">
-                        <div class="dropdown card-widgets">
-                            <a href="#" class="dropdown-toggle arrow-none" data-toggle="dropdown" aria-expanded="false">
-                                <i class='uil uil-ellipsis-h'></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">
-                                    <i class='uil uil-file-upload mr-1'></i>Attachment
-                                </a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">
-                                    <i class='uil uil-edit mr-1'></i>Edit
-                                </a>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item">
-                                    <i class='uil uil-file-copy-alt mr-1'></i>Mark as Duplicate
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item text-danger">
-                                    <i class='uil uil-trash-alt mr-1'></i>Delete
-                                </a>
-                            </div> <!-- end dropdown menu-->
-                        </div> <!-- end dropdown-->
+{#                        <div class="dropdown card-widgets">#}
+{#                            <a href="#" class="dropdown-toggle arrow-none" data-toggle="dropdown" aria-expanded="false">#}
+{#                                <i class='uil uil-ellipsis-h'></i>#}
+{#                            </a>#}
+{#                            <div class="dropdown-menu dropdown-menu-right">#}
+{#                                <!-- item-->#}
+{#                                <a href="javascript:void(0);" class="dropdown-item">#}
+{#                                    <i class='uil uil-file-upload mr-1'></i>Attachment#}
+{#                                </a>#}
+{#                                <!-- item-->#}
+{#                                <a href="javascript:void(0);" class="dropdown-item">#}
+{#                                    <i class='uil uil-edit mr-1'></i>Edit#}
+{#                                </a>#}
+{#                                <!-- item-->#}
+{#                                <a href="javascript:void(0);" class="dropdown-item">#}
+{#                                    <i class='uil uil-file-copy-alt mr-1'></i>Mark as Duplicate#}
+{#                                </a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                                <!-- item-->#}
+{#                                <a href="javascript:void(0);" class="dropdown-item text-danger">#}
+{#                                    <i class='uil uil-trash-alt mr-1'></i>Delete#}
+{#                                </a>#}
+{#                            </div> <!-- end dropdown menu-->#}
+{#                        </div> <!-- end dropdown-->#}
 
                         <div class="clearfix"></div>
 
@@ -84,11 +84,11 @@
                                 <!-- assignee -->
                                 <p class="mt-2 mb-1 text-muted font-weight-bold font-12 text-uppercase">Posted by</p>
                                 <div class="media">
-                                    <img src="{{ task.created_by.profile_pic.url }}" alt="{{ task.created_by.username}}" class="rounded-circle mr-2" height="24" />
+                                    <img src="{{ task.created_by.profile_pic.url }}" alt="{{ task.created_by.username}}" class="rounded-circle mr-2" height="36" width="36" />
                                     <div class="media-body">
                                         <h5 class="mt-1 font-14">
                                             <a href="{% url 'users:user_detail' task.created_by.username %}">{{ task.created_by.first_name}} {{ task.created_by.last_name }}</a>
-                                            <span class="text-muted">(Rating 4.7)</span>
+{#                                            <span class="text-muted">(Rating 4.7)</span>#}
                                         </h5>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@
                         {% else %}
                             {% if user != task.created_by %}
                                 <hr>
-                                <p class="text-muted my-3">Interested in this {{ task.task_type.lower }}? Let {{ task.created_by.username }} know!
+                                <p class="text-muted my-3">Interested in this job? Let {{ task.created_by.username }} know!
                                     <button href="#" class="btn btn-secondary shadow-none ml-3 text-white" data-toggle="modal" data-target="#response-modal">I'm Interested!</button>
                                 </p>
                             {% endif %}
@@ -147,7 +147,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="response-modal-label">Respond to this {{ task.task_type|title }}</h5>
+                <h5 class="modal-title" id="response-modal-label">Respond to this job</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
             <div class="modal-body">

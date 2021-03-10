@@ -11,7 +11,7 @@ class ResponseInline(admin.TabularInline):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['title', 'task_type', 'status', 'expires_on', 'created_by', ]
+    list_display = ['title', 'status', 'expires_on', 'created_by', ]
     list_editable = ['status', ]
     list_filter = ['status', ]
     list_per_page = 25
