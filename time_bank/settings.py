@@ -156,9 +156,20 @@ MEDIA_URL = '/media/'
 # Custom user model
 AUTH_USER_MODEL = 'users.CustomUser'
 
-# Django allauth config
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Email config
+if DEBUG is True:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+SEND_ADMIN_EMAIL_TO = env('SEND_ADMIN_EMAIL_TO')
 
+# Django allauth config
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
