@@ -46,31 +46,48 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_tasks = Task.objects.filter(created_by=self.request.user, status=Task.AVAILABLE)
+        user_jobs = Task.objects.filter(
+            created_by=self.request.user,
+            status=Task.AVAILABLE
+        ).order_by('expires_on')
 
-        user_jobs = [task for task in user_tasks if task.status == Task.AVAILABLE]
+        # user_jobs = [task for task in user_tasks if task.status == Task.AVAILABLE]
         # user_offers = [user_offer for user_offer in user_tasks if user_offer.task_type == Task.OFFER]
 
-        context['user_jobs'] = sorted(user_jobs, key=lambda x: x.expires_on)
+        # context['user_jobs'] = sorted(user_jobs, key=lambda x: x.expires_on)
         # context['user_offers'] = sorted(user_offers, key=lambda x: x.expires_on)
 
+        pending_responses = Response.objects.filter(
+            recipient=self.request.user,
+            status=Response.PENDING
+        ).order_by('created_by')
+
+        accepted_responses = Response.objects.filter(
+            recipient=self.request.user,
+            status=Response.ACCEPTED
+        )
+
+        context['user_jobs'] = user_jobs
+        context['pending_responses'] = pending_responses
+        context['accepted_responses'] = accepted_responses
+
         return context
 
 
-class UserMessageListView(LoginRequiredMixin, TemplateView):
-    template_name = 'users/customuser_message_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user_messages = Response.objects.filter(recipient=self.request.user)
-        context['user_messages'] = user_messages
-        return context
-
-
-class UserMessageDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-    model = Response
-    template_name = 'users/customuser_message_detail.html'
-
-    def test_func(self):
-        obj = self.get_object()
-        return obj.recipient == self.request.user
+# class UserMessageListView(LoginRequiredMixin, TemplateView):
+#     template_name = 'users/customuser_message_list.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user_messages = Response.objects.filter(recipient=self.request.user)
+#         context['user_messages'] = user_messages
+#         return context
+#
+#
+# class UserMessageDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+#     model = Response
+#     template_name = 'users/customuser_message_detail.html'
+#
+#     def test_func(self):
+#         obj = self.get_object()
+#         return obj.recipient == self.request.user

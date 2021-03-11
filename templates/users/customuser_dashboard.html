@@ -29,10 +29,13 @@
     <!-- end page title -->
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-4">
             <div class="card widget-inline">
-                <div class="card-body p-0">
-                    <div class="row no-gutters">
+                <div class="card-body text-center">
+                    <i class="mdi mdi-coin text-secondary" style="font-size: 60px;"></i>
+                    <h2><span class="text-secondary">{{ user.sullivan_coins_balance }}</span></h2>
+                    <p class="text-muted font-15 mb-0">Sullivan Coins</p>
+{#                    <div class="row no-gutters">#}
 {#                        <div class="col-sm-6">#}
 {#                            <div class="card shadow-none m-0">#}
 {#                                <div class="card-body text-center">#}
@@ -43,16 +46,16 @@
 {#                            </div>#}
 {#                        </div>#}
 
-                        <div class="col-sm-6">
-                            <div class="card shadow-none m-0 border-left">
-                                <div class="card-body text-center">
-                                    <i class="dripicons-checklist text-muted" style="font-size: 48px;"></i>
-                                    <h3><span>{{ user.sullivan_coins_balance }}</span></h3>
-                                    <p class="text-muted font-15 mb-0">Sullivan Coins</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- end row -->
+{#                        <div class="col-sm-6">#}
+{#                            <div class="card shadow-none m-0 border-left">#}
+{#                                <div class="card-body text-center">#}
+{#                                    <i class="dripicons-checklist text-muted" style="font-size: 48px;"></i>#}
+{#                                    <h3><span>{{ user.sullivan_coins_balance }}</span></h3>#}
+{#                                    <p class="text-muted font-15 mb-0">Sullivan Coins</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div> <!-- end row -->#}
                 </div>
             </div> <!-- end card-box-->
         </div> <!-- end col-->
@@ -148,8 +151,8 @@
                                         <td>{{ job.created_on|date:'DATE_FORMAT' }}</td>
                                         <td>{{ job.expires_on|date:'DATE_FORMAT' }}</td>
                                         <td>
-                                            <a href="#" class="mr-2"><i class='mdi mdi-trash-can-outline font-18 mr-1'></i>Delete</a>
-                                            <a href="{% url 'tasks:task_update' job.id %}" class="mr-2"><i class='mdi mdi-pencil-outline font-18 mr-1'></i>Edit</a>
+                                            <a href="{% url 'tasks:task_update' job.id %}" class="btn btn-success btn-sm shadow-none mr-2"><i class='mdi mdi-pencil-outline font-18 mr-1'></i>Edit</a>
+                                            <a href="{% url 'tasks:task_delete' job.id %}" class="btn btn-danger btn-sm shadow-none mr-2"><i class='mdi mdi-trash-can-outline font-18 mr-1'></i>Delete</a>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -158,8 +161,110 @@
                     {% else %}
                         <p>You don't have any current jobs listed at this time.</p>
                     {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="header-title mb-3 pb-2 border-bottom">Pending Responses</h2>
 
+                    {% if pending_responses %}
+                        <table id="pendingResponsesList" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Job Name</th>
+                                    <th>Response From</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rsp in pending_responses %}
+                                    <tr>
+                                        <td>
+                                            {{ rsp.task.title }}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'users:user_detail' rsp.created_by.username %}">
+                                                {{ rsp.created_by.first_name }} {{ rsp.created_by.last_name }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a
+                                                href="{% url 'tasks:accept_response' rsp.id %}"
+                                                class="btn btn-success btn-sm shadow-none mr-2"
+                                            >
+                                                <i class='mdi mdi-check font-18 mr-1'></i>Approve
+                                            </a>
+                                            <a
+                                                href="{% url 'tasks:deny_response' rsp.id %}"
+                                                class="btn btn-danger btn-sm shadow-none mr-2"
+                                            >
+                                                <i class='mdi mdi-close font-18 mr-1'></i>Deny
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>You don't have any responses at this time.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="header-title mb-3 pb-2 border-bottom">Accepted Responses</h2>
+
+                    {% if accepted_responses %}
+                        <table id="acceptedResponsesList" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Job Name</th>
+                                    <th>Accepted By</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for acc_res in accepted_responses %}
+                                    <tr>
+                                        <td>
+                                            {{ acc_res.task.title }}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'users:user_detail' acc_res.created_by.username %}">
+                                                {{ acc_res.created_by.first_name }} {{ acc_res.created_by.last_name }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a
+                                                href="{% url 'tasks:record_time' acc_res.id %}"
+                                                class="btn btn-primary btn-sm shadow-none mr-2"
+                                            >
+                                                <i class='mdi mdi-clock font-18 mr-1'></i>Record Time
+                                            </a>
+                                            <a
+                                                href="{% url 'tasks:complete_job' acc_res.id %}"
+                                                class="btn btn-success btn-sm shadow-none mr-2"
+                                            >
+                                                <i class='mdi mdi-check font-18 mr-1'></i>Mark As Complete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>You don't have any active accepted responses at this time.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -211,6 +316,8 @@
 
     
 </div> <!-- container -->
+
+<!-- COMPLETE JOB MODAL -->
 {% endblock content %}
 
 {% block extra_js %}
@@ -218,6 +325,8 @@
 <script>
     $(document).ready(function () {
         $("#jobsList").DataTable();
+        $("#pendingResponsesList").DataTable();
+        $("#acceptedResponsesList").DataTable();
     });
 </script>
 {% endblock extra_js %}

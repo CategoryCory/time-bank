@@ -1,38 +1,37 @@
-{% extends 'base.html' %}
+{% extends 'dashboard-base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Post New {{ task_type|title }}{% endblock title %}
+{% block title %}Post New Job{% endblock title %}
 
 {% block content %}
 <!-- START HERO -->
-<div class="container-fluid bg-dark py-5">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-md-8">
-            <div class="mt-md-2 text-center">
-                <h1 class="display-2 font-weight-bold text-white">New Job</h1>
-                <p class="mt-3 font-24 text-white-50">
-                    Got a job you'd like to post on the Time Bank? Fill out the form below to list your job!
-                </p>
-
-            </div>
-        </div>
-    </div>
-</div>
+{#<div class="container-fluid bg-dark py-5">#}
+{#    <div class="row justify-content-center align-items-center">#}
+{#        <div class="col-md-8">#}
+{#            <div class="mt-md-2 text-center">#}
+{#                <h1 class="display-2 font-weight-bold text-white">New Job</h1>#}
+{#                <p class="mt-3 font-24 text-white-50">#}
+{#                    Got a job you'd like to post on the Time Bank? Fill out the form below to list your job!#}
+{#                </p>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 <!-- END HERO -->
-<section class="mt-4 py-4">
-    <div class="container-fluid">
-        <div class="row justify-content-center align-items-center">
+    <div class="container-fluid my-4 ml-3">
+        <div class="row">
             <div class="col-12 col-lg-6">
                 <h1>Post New Job</h1>
 
                 <form method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <input type="submit" class="btn btn-secondary shadow-none text-white" value="Save">
+                    <input type="submit" class="btn btn-secondary shadow-none text-white mr-2" value="Save">
+                    <a href="{% url 'users:user_dashboard' %}" class="btn btn-dark shadow-none">Cancel</a>
                 </form>
             </div>
         </div>
     </div>
-</section>
 
 {% endblock content %}

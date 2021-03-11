@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from .models import Task, Response
+from reviews.models import UserReview
 
 
 class TaskListView(ListView):
@@ -93,7 +94,7 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         #     return reverse_lazy('tasks:task_request_list')
         # else:
         #     return reverse_lazy('tasks:task_offer_list')
-        return reverse_lazy('tasks:task_list')
+        return reverse_lazy('users:user_dashboard')
 
     def delete(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -140,5 +141,91 @@ def task_response(request):
 
         # return redirect(return_url)
         return redirect('tasks:task_list')
+    else:
+        return redirect('pages:home')
+
+
+@login_required
+def accept_response(request, response_id):
+    rsp = get_object_or_404(Response, pk=response_id)
+
+    if request.user != rsp.task.created_by:
+        return redirect('pages:home')
+
+    rsp.status = Response.ACCEPTED
+    rsp.save()
+    return redirect('users:user_dashboard')
+
+
+@login_required
+def deny_response(request, response_id):
+    rsp = get_object_or_404(Response, pk=response_id)
+
+    if request.user != rsp.task.created_by:
+        return redirect('pages:home')
+
+    rsp.status = Response.DECLINED
+    rsp.save()
+    return redirect('users:user_dashboard')
+
+
+@login_required
+def record_time(request, response_id):
+    rsp = get_object_or_404(Response, pk=response_id)
+
+    if request.method == 'GET':
+        context = {
+            'response_id': response_id,
+            'job_title': rsp.task.title,
+            'job_user': f'{rsp.created_by.first_name} {rsp.created_by.last_name}',
+            'max_hours': rsp.recipient.sullivan_coins_balance
+        }
+        return render(request, 'tasks/task_record_time.html', context)
+    elif request.method == 'POST':
+        number_of_hours = float(request.POST.get('numberOfHours'))
+        job_performed_by = rsp.created_by
+        current_user = request.user
+        job_performed_by.sullivan_coins_balance += number_of_hours
+        current_user.sullivan_coins_balance -= number_of_hours
+        job_performed_by.save()
+        current_user.save()
+        return redirect('users:user_dashboard')
+    else:
+        return redirect('pages:home')
+
+
+@login_required
+def complete_job(request, response_id):
+    rsp = get_object_or_404(Response, pk=response_id)
+
+    if request.method == 'GET':
+        context = {
+            'response_id': response_id,
+            'job_title': rsp.task.title,
+            'job_user': f'{rsp.created_by.first_name} {rsp.created_by.last_name}',
+            'max_hours': rsp.recipient.sullivan_coins_balance
+        }
+        return render(request, 'tasks/task_complete_job.html', context)
+    elif request.method == 'POST':
+        number_of_hours = float(request.POST.get('numberOfHours'))
+        rating = float(request.POST.get('rating'))
+        comments = request.POST.get('comments')
+
+        job_performed_by = rsp.created_by
+        current_user = request.user
+
+        review = UserReview(rating=rating, comments=comments, reviewee=job_performed_by, author=current_user)
+
+        job_performed_by.sullivan_coins_balance += number_of_hours
+        current_user.sullivan_coins_balance -= number_of_hours
+
+        rsp.status = Response.COMPLETED
+
+        job_performed_by.save()
+        current_user.save()
+        review.save()
+        rsp.save()
+
+        return redirect('users:user_dashboard')
     else:
         return redirect('pages:home')

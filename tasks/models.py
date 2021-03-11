@@ -61,10 +61,12 @@ class Response(models.Model):
     PENDING = 'PENDING'
     ACCEPTED = 'ACCEPTED'
     DECLINED = 'DECLINED'
+    COMPLETED = 'COMPLETED'
     STATUS_CHOICES = [
         (PENDING, 'Pending'),
         (ACCEPTED, 'Accepted'),
         (DECLINED, 'Declined'),
+        (COMPLETED, 'Completed'),
     ]
 
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
