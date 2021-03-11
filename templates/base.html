@@ -50,7 +50,7 @@
 {#                        </li>#}
                         {% if user.is_authenticated %}
                             <li class="nav-item mx-lg-1">
-                                <a class="nav-link" href="{% url 'pages:browse_users' %}">Browse Users</a>
+                                <a class="nav-link" href="{% url 'users:user_list' %}">Browse Users</a>
                             </li>
                             <li class="nav-item dropdown notification-list mx-lg-1">
                                 <a class="nav-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">

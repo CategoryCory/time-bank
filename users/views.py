@@ -1,8 +1,10 @@
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Avg
 
 from tasks.models import Task, Response
+from reviews.models import UserReview
 
 CustomUser = get_user_model()
 
@@ -19,10 +21,16 @@ class UserDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        total_user_jobs = len(Task.objects.filter(created_by=self.request.user))
+
+        total_user_jobs = len(Task.objects.filter(created_by=self.object.id))
         # total_user_offers = len(Task.objects.filter(created_by=self.request.user, task_type=Task.OFFER))
+
+        user_reviews = UserReview.objects.filter(reviewee=self.object.id)
+        average_rating = UserReview.objects.all().aggregate(Avg('rating'))['rating__avg']
         context['total_user_jobs'] = total_user_jobs
         # context['total_user_offers'] = total_user_offers
+        context['user_reviews'] = user_reviews
+        context['average_rating'] = average_rating
         return context
 
 
