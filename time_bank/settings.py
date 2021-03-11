@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
     'tasks.apps.TasksConfig',
-    # 'reviews.apps.ReviewsConfig',
+    'reviews.apps.ReviewsConfig',
 ]
 
 MIDDLEWARE = [
