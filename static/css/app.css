@@ -39,7 +39,7 @@ File: Main Css File
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1367px;
-  --font-family-sans-serif: "Nunito", sans-serif;
+  --font-family-sans-serif: "Nunito Sans", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 *,
@@ -59,7 +59,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-family-sans-serif);
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.5;
@@ -5034,7 +5034,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-family-sans-serif);
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -5119,7 +5119,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-family-sans-serif);
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -10643,18 +10643,23 @@ input[data-switch="dark"]:checked + label {
 
 .hero-section {
   position: relative;
-  padding: 80px 0 120px 0; }
+  /*padding: 80px 0 120px 0;*/
+  padding: 7rem 0 10rem 0;
+  background: linear-gradient(0deg, rgba(12, 67, 124, 0.7), rgba(12, 67, 124, 0.7)),
+    url(/static/images/squarebooks-exterior.jpg) no-repeat center center;
+  background-size: cover;
+}
   .hero-section:after {
-    content: ' ';
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#0c447d), to(#326aa3));
-    background-image: linear-gradient(to bottom, #0c447d, #326aa3);
-    position: absolute;
-    top: -400px;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    width: 100%;
-    border-radius: 0;
+    /*content: ' ';*/
+    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#0c447d), to(#326aa3));*/
+    /*background-image: linear-gradient(to bottom, #0c447d, #326aa3);*/
+    /*position: absolute;*/
+    /*top: -400px;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*z-index: -1;*/
+    /*width: 100%;*/
+    /*border-radius: 0;*/
     /*-webkit-transform: skewY(-3deg);*/
     /*        transform: skewY(-3deg); */
   }
@@ -12699,14 +12704,14 @@ body.auth-fluid-pages[data-leftbar-compact-mode=condensed] {
 .apex-charts {
   min-height: 10px !important; }
   .apex-charts text {
-    font-family: "Nunito", sans-serif !important;
+    font-family: var(--font-family-sans-serif) !important;
     fill: #adb5bd; }
   .apex-charts .apexcharts-canvas {
     margin: 0 auto; }
 
 .apexcharts-tooltip-title,
 .apexcharts-tooltip-text {
-  font-family: "Nunito", sans-serif !important; }
+  font-family: var(--font-family-sans-serif) !important; }
 
 .apexcharts-legend-series {
   font-weight: 600; }
@@ -12717,11 +12722,11 @@ body.auth-fluid-pages[data-leftbar-compact-mode=condensed] {
 
 .apexcharts-legend-text {
   color: #98a6ad !important;
-  font-family: "Nunito", sans-serif !important; }
+  font-family: var(--font-family-sans-serif) !important; }
 
 .apexcharts-yaxis text,
 .apexcharts-xaxis text {
-  font-family: "Nunito", sans-serif !important;
+  font-family: var(--font-family-sans-serif) !important;
   fill: #adb5bd; }
 
 .apexcharts-point-annotations text,
@@ -12765,7 +12770,7 @@ body.auth-fluid-pages[data-leftbar-compact-mode=condensed] {
   stroke: #edeff1; }
 
 .britechart, .tick text {
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-family-sans-serif);
   font-size: 0.75rem; }
 
 .horizontal-grid-line,
@@ -13000,7 +13005,7 @@ div.dt-button-info {
   background-color: #f1f3fa; }
 
 .daterangepicker {
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-family-sans-serif);
   border: 1px solid #e4eaf2;
   -webkit-box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15);
           box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15);
@@ -13175,7 +13180,7 @@ div.dt-button-info {
   border: none;
   background: #343a40;
   color: #f1f3fa;
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-family-sans-serif);
   font-size: 0.9rem;
   padding: 5px 8px; }
 
@@ -13573,12 +13578,12 @@ body[data-leftbar-theme="dark"] .side-nav .side-nav-forth-level li.active > a {
 
 .jq-toast-single {
   padding: 15px;
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-family-sans-serif);
   background-color: #0c447d;
   font-size: 13px;
   line-height: 22px; }
   .jq-toast-single h2 {
-    font-family: "Nunito", sans-serif; }
+    font-family: var(--font-family-sans-serif); }
   .jq-toast-single a {
     font-size: 0.9rem; }
     .jq-toast-single a:hover {
@@ -13816,7 +13821,7 @@ body[data-leftbar-theme="dark"] .side-nav .side-nav-forth-level li.active > a {
     margin: 0; }
 
 .tt-highlight {
-  font-family: "Nunito", sans-serif; }
+  font-family: var(--font-family-sans-serif); }
 
 .typeahead-empty-message {
   padding: 5px 10px;
@@ -13841,7 +13846,7 @@ body[data-leftbar-theme="dark"] .side-nav .side-nav-forth-level li.active > a {
   color: #000 !important;
   font-size: 12px !important;
   line-height: 18px !important;
-  font-family: "Nunito", sans-serif !important;
+  font-family: var(--font-family-sans-serif) !important;
   font-weight: 700 !important; }
 
 .rateit {

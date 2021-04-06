@@ -5,23 +5,23 @@
 
 {% block content %}
 <!-- START HERO -->
-<section class="hero-section bg-dark">
+<section class="hero-section">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-md-5">
-                <div class="mt-md-4">
+            <div class="col-12 col-md-6">
+{#                <div class="mt-md-4">#}
                     <p class="h1 font-weight-light text-white">Welcome to the</p>
-                    <h1 class="display-2 font-weight-bold text-white">Sullivan Time Bank</h1>
+                    <h1 class="display-4 font-weight-bold text-white">Oxford Community Time Bank</h1>
 
-                    <p class="mb-4 font-16 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas veniam rerum aliquam perferendis sed laborum eos, perspiciatis consectetur. Quibusdam aliquid similique eaque, totam nihil ut!</p>
+                    <p class="mb-4 font-16 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas veniam rerum aliquam perferendis sed laborum eos, perspiciatis consectetur. Quibusdam aliquid similique eaque, totam nihil ut!</p>
 
-                    <a href="{% url 'account_signup' %}" target="_blank" class="btn btn-rounded btn-secondary btn-lg text-white shadow-none">Sign Up! <i
+                    <a href="{% url 'account_signup' %}" target="_blank" class="btn btn-secondary btn-lg text-white shadow-none mt-4">Register in Your Community! <i
                             class="mdi mdi-arrow-right ml-1"></i></a>
-                </div>
+{#                </div>#}
             </div>
-            <div class="col-md-5 offset-md-2">
+            <div class="col-md-5">
                 <div class="text-md-right mt-3 mt-md-0">
-                    <img src="{% static 'images/startup.svg' %}" alt="" class="img-fluid" />
+                    <img src="{% static 'images/timebank-clock-2.png' %}" alt="" class="img-fluid" />
                 </div>
             </div>
         </div>
@@ -32,8 +32,8 @@
 <!-- START SERVICES -->
 <section class="py-3">
     <div class="container">
-        <div class="row py-4">
-            <div class="col-lg-4">
+        <div class="row py-4 justify-content-between">
+            <div class="col-12 col-md-3 border rounded-lg shadow">
                 <div class="text-center p-3">
                     <div class="avatar-sm m-auto">
                         <i class="dripicons-graduation text-primary h1"></i>
@@ -43,17 +43,17 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-12 col-md-3 border rounded-lg shadow">
                 <div class="text-center p-3">
                     <div class="avatar-sm m-auto">
                         <i class="dripicons-lightbulb text-primary h1"></i>
                     </div>
                     <h3 class="mt-3 text-secondary">Discover</h3>
-                    <p class="text-muted mt-2 mb-0">ways you can help in your commmunity</p>
+                    <p class="text-muted mt-2 mb-0">ways you can help in your community</p>
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-12 col-md-3 border rounded-lg shadow">
                 <div class="text-center p-3">
                     <div class="avatar-sm m-auto">
                         <i class="uil uil-bolt text-primary h1"></i>
@@ -69,21 +69,21 @@
 
 <!-- START FEATURES 2 -->
 <section class="py-2 bg-light">
-    <div class="container">
-        <div class="row mt-2 py-5 align-items-center">
-            <div class="col-lg-5">
-                <img src="{% static 'images/features-1.svg' %}" class="img-fluid" alt="">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <img src="{% static 'images/porch.png' %}" class="img-fluid" alt="">
             </div>
-            <div class="col-lg-6 offset-lg-1">
+            <div class="col-lg-4 offset-lg-1">
                 <h2>About the Sullivan Time Bank</h2>
-                <p class="text-muted mt-3">Helping others is like money in the bank, thanks to an innovative currency
+                <p class="mt-3 font-18">Helping others is like money in the bank, thanks to an innovative currency
                     system introduced by the Sullivan Foundation. Time banking, created by Edgar S. Cahn in 1980, is a
                     mode of exchange that allows people to swap their skills and time, rather than money, while helping
                     fulfill unmet social needs. Participants earn and spend “time credits”—for every hour they spend
                     on an activity that helps others, they receive one time credit. When they need help from other
                     time bank members with particular skills, they can “spend” their time credits.
                 </p>
-                <p class="text-muted mt-3">
+                <p class="mt-3 font-18">
                     These tools encourage innovation and growth of local economies, while fostering civic
                     engagement. Bridging divides and propelling progress, these service-based interactions give new
                     life and meaning to the local economy.
@@ -97,20 +97,20 @@
 <!-- END FEATURES 2 -->
 
 <!-- START FEATURES 3 -->
-<section class="py-2">
-    <div class="container">
+<section class="py-2 bg-white">
+    <div class="container -fluid">
         <div class="row mt-2 py-5 align-items-center">
 
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <h2>How the Time Bank Benefits Your Community</h2>
 
-                <p class="text-muted mt-3">With the isolation ensuing from Covid-19, partnered with a
+                <p class="mt-3 font-18">With the isolation ensuing from Covid-19, partnered with a
                     technologically-driven society, we are increasingly disconnected from the gift of community. During
                     a time of isolation, we rediscovered the importance of daily interactions. Transitioning out of a
                     pandemic and back into our neighborhoods, the Time Bank provides a way to foster intentional
                     connection and strengthen bonds with strangers.
                 </p>
-                <p class="text-muted mt-3">
+                <p class="mt-3 font-18">
                     In addition to relationships, practical needs are met through the Time Bank, as lawns are mowed
                     and walls are painted. This allows community members to sharpen their crafts, and maybe even
                     rediscover some hobbies. Our credit system also allows those recovering from financial hardship
@@ -119,8 +119,8 @@
 {#                <a href="" class="btn btn-primary btn-rounded mt-3">Read More <i class="mdi mdi-arrow-right ml-1"></i></a>#}
 
             </div>
-            <div class="col-lg-6 offset-lg-1">
-                <img src="{% static 'images/features-2.svg' %}" class="img-fluid" alt="">
+            <div class="col-lg-4 offset-lg-1">
+                <img src="{% static 'images/timebank-clock.png' %}" class="img-fluid" alt="">
             </div>
         </div>
     </div>
@@ -249,7 +249,7 @@
 
                     <div class="row mt-2">
                         <div class="col-12 text-right">
-                            <button class="btn btn-primary">Send a Message <i
+                            <button class="btn btn-primary shadow-none">Send a Message <i
                                 class="mdi mdi-telegram ml-1"></i> </button>
                         </div>
                     </div>

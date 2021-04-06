@@ -13,9 +13,19 @@
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
 
         <!-- App css -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;900&display=swap" rel="stylesheet">
         <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
         <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css" id="light-style" />
         <!-- link href="{% static 'css/app-dark.min.css' %}" rel="stylesheet" type="text/css" id="dark-style" / -->
+
+        <style>
+            .nav-link,
+            .btn-nav {
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+        </style>
 
         {% block extra_css %}{% endblock extra_css %}
 
@@ -24,12 +34,12 @@
     <body class="loading" data-layout-config='{"darkMode":false}'>
 
         <!-- NAVBAR START -->
-        <nav class="navbar navbar-expand-lg py-lg-3 navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg py-lg-3 bg-white">
             <div class="container">
 
                 <!-- logo -->
                 <a href="{% url 'pages:home' %}" class="navbar-brand mr-lg-5">
-                    <img src="{% static 'images/sullivan-logo.png' %}" alt="" class="logo-dark" height="60" />
+                    <img src="{% static 'images/sullivan-logo-color.png' %}" alt="" class="logo-dark" height="60" />
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -99,7 +109,7 @@
                                 <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                             </li>
                             <li class="nav-item mx-lg-1">
-                                <a class="btn btn-rounded btn-secondary shadow-none text-white" href="{% url 'account_signup' %}">Register</a>
+                                <a class="btn btn-primary btn-nav shadow-none text-white" href="{% url 'account_signup' %}">Register</a>
                             </li>
                         {% endif %}
                     </ul>
