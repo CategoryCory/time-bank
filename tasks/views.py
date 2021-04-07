@@ -18,6 +18,15 @@ class TaskListView(ListView):
     paginate_by = 25
 
 
+class TaskCategoryListView(ListView):
+    model = Task
+    paginate_by = 25
+
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+        return Task.objects.filter(categories__slug=slug).order_by('-expires_on')
+
+
 class TaskDetailView(DetailView):
     model = Task
 

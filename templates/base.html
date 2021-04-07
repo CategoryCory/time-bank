@@ -52,12 +52,55 @@
 
                     <!-- left menu -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-lg-1">
-                            <a class="nav-link" href="{% url 'tasks:task_list' %}">Jobs</a>
-                        </li>
+{#                        <li class="nav-item mx-lg-1">#}
+{#                            <a class="nav-link" href="{% url 'tasks:task_list' %}">Jobs</a>#}
+{#                        </li>#}
 {#                        <li class="nav-item mx-lg-1">#}
 {#                            <a class="nav-link" href="{% url 'tasks:task_offer_list' %}">Offers</a>#}
 {#                        </li>#}
+                        <li class="nav-item dropdown notification-list mx-lg-1">
+                            <a class="nav-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <span class="account-user-name">Jobs</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-left dropdown-menu-animated topbar-dropdown-menu">
+                                <a href="{% url 'tasks:task_list' %}" class="dropdown-item notify-item">
+                                    <span>All Jobs</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='arts-crafts-and-music' %}" class="dropdown-item notify-item">
+                                    <span>Arts, Crafts, and Music</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='help-at-home' %}" class="dropdown-item notify-item">
+                                    <span>Help at Home</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='transportation' %}" class="dropdown-item notify-item">
+                                    <span>Transportation</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='business-services' %}" class="dropdown-item notify-item">
+                                    <span>Business Services</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='education' %}" class="dropdown-item notify-item">
+                                    <span>Education</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='community-activities' %}" class="dropdown-item notify-item">
+                                    <span>Community Activities</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='wellness' %}" class="dropdown-item notify-item">
+                                    <span>Wellness</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='companionship' %}" class="dropdown-item notify-item">
+                                    <span>Companionship</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='home' %}" class="dropdown-item notify-item">
+                                    <span>Home</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='recreation' %}" class="dropdown-item notify-item">
+                                    <span>Recreation</span>
+                                </a>
+                                <a href="{% url 'tasks:task_category' slug='miscellaneous' %}" class="dropdown-item notify-item">
+                                    <span>Miscellaneous</span>
+                                </a>
+                            </div>
+                        </li>
                         {% if user.is_authenticated %}
                             <li class="nav-item mx-lg-1">
                                 <a class="nav-link" href="{% url 'users:user_list' %}">Browse Users</a>
