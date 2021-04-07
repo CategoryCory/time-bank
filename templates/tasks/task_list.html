@@ -89,9 +89,11 @@
                                         </td>
                                         <td>
                                             {% for cat in task.categories.all %}
-                                                <span class="badge badge-success font-14">
-                                                    {{ cat.title }}
-                                                </span>
+                                                <a href="{% url 'tasks:task_category' slug=cat.slug %}">
+                                                    <span class="badge badge-success font-14">
+                                                        {{ cat.title }}
+                                                    </span>
+                                                </a>
                                             {% endfor %}
                                         </td>
                                         <td>{{ task.created_on|date:'DATE_FORMAT' }}</td>
