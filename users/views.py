@@ -13,6 +13,10 @@ class UserListView(ListView):
     model = CustomUser
     paginate_by = 25
 
+    def get_queryset(self):
+        users = CustomUser.objects.filter(is_staff=False, is_superuser=False)
+        return users
+
 
 class UserDetailView(DetailView):
     model = CustomUser
