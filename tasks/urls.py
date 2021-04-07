@@ -4,10 +4,6 @@ from . import views
 
 app_name = 'tasks'
 urlpatterns = [
-    # path('requests/', views.TaskRequestListView.as_view(), name='task_request_list'),
-    # path('offers/', views.TaskOfferListView.as_view(), name='task_offer_list'),
-    # path('requests/new/', views.TaskRequestCreateView.as_view(), name='task_request_new'),
-    # path('offers/new/', views.TaskOfferCreateView.as_view(), name='task_offer_new'),
     path('', views.TaskListView.as_view(), name='task_list'),
     path('new/', views.TaskCreateView.as_view(), name='task_new'),
     path('<int:pk>/', views.TaskDetailView.as_view(), name='task_detail'),

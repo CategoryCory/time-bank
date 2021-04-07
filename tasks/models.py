@@ -9,7 +9,7 @@ class TaskCategory(models.Model):
     parent_category = models.ForeignKey(
         'self',
         null=True,
-        default=None,
+        blank=True,
         on_delete=models.CASCADE,
         related_name='subcategory'
     )
@@ -104,7 +104,7 @@ class TaskAvailability(models.Model):
         (EVENING, 'Evening'),
     ]
 
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='availabilities')
     availability_day = models.CharField(max_length=20, choices=DAY_CHOICES, blank=True)
     availability_time = models.CharField(max_length=20, choices=TIME_CHOICES, blank=True)
 

@@ -1,75 +1,63 @@
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
-from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import send_mail
 from django.conf import settings
+from django.db import transaction
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
 
-from .models import Task, Response
+from .models import Task, TaskCategory, TaskAvailability, Response
+from .forms import TaskForm, TaskAvailabilityForm, TaskAvailabilityFormSet
 from reviews.models import UserReview
 
 
 class TaskListView(ListView):
     model = Task
-    # queryset = Task.objects.filter(task_type='REQUEST', status='AVAILABLE')
     paginate_by = 25
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['task_type'] = 'requests'
-    #     return context
 
-
-# class TaskOfferListView(ListView):
-#     model = Task
-#     queryset = Task.objects.filter(task_type='OFFER', status='AVAILABLE')
-#     paginate_by = 25
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['task_type'] = 'offers'
-#         return context
-#
-#
 class TaskDetailView(DetailView):
     model = Task
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
-    model = Task
-    fields = ['title', 'description', 'expires_on', 'frequency', ]
-    template_name_suffix = '_create_form'
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['task_type'] = 'request'
-    #     return context
-    #
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        # form.instance.task_type = 'REQUEST'
-        return super().form_valid(form)
-
-
-# class TaskOfferCreateView(LoginRequiredMixin, CreateView):
+# class TaskCreateView(LoginRequiredMixin, CreateView):
 #     model = Task
 #     fields = ['title', 'description', 'expires_on', 'frequency', ]
 #     template_name_suffix = '_create_form'
 #
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['task_type'] = 'offer'
-#         return context
-#
 #     def form_valid(self, form):
 #         form.instance.created_by = self.request.user
-#         form.instance.task_type = 'OFFER'
 #         return super().form_valid(form)
-#
-#
+
+
+class TaskCreateView(LoginRequiredMixin, CreateView):
+    model = Task
+    form_class = TaskForm
+    template_name_suffix = '_create_form'
+    success_url = reverse_lazy('tasks:task_list')
+
+    def get_context_data(self, **kwargs):
+        data = super(TaskCreateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['availabilities'] = TaskAvailabilityFormSet(self.request.POST)
+        else:
+            data['availabilities'] = TaskAvailabilityFormSet()
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        availabilities = context['availabilities']
+        with transaction.atomic():
+            form.instance.created_by = self.request.user
+            self.object = form.save()
+            if availabilities.is_valid():
+                availabilities.instance = self.object
+                availabilities.save()
+        return super(TaskCreateView, self).form_valid(form)
+
+
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
     fields = ['title', 'description', 'expires_on', 'status', ]
@@ -89,11 +77,7 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return obj.created_by == self.request.user
 
     def get_success_url(self):
-        obj = self.get_object()
-        # if obj.task_type == 'REQUEST':
-        #     return reverse_lazy('tasks:task_request_list')
-        # else:
-        #     return reverse_lazy('tasks:task_offer_list')
+        # obj = self.get_object()
         return reverse_lazy('users:user_dashboard')
 
     def delete(self, request, *args, **kwargs):
@@ -134,12 +118,6 @@ def task_response(request):
             fail_silently=True
         )
 
-        # if task.task_type == 'REQUEST':
-        #     return_url = 'tasks:task_request_list'
-        # else:
-        #     return_url = 'tasks:task_offer_list'
-
-        # return redirect(return_url)
         return redirect('tasks:task_list')
     else:
         return redirect('pages:home')
