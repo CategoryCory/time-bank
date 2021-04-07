@@ -4,6 +4,24 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 
+class TaskCategory(models.Model):
+    title = models.CharField(max_length=100)
+    parent_category = models.ForeignKey(
+        'self',
+        null=True,
+        default=None,
+        on_delete=models.CASCADE,
+        related_name='subcategory'
+    )
+
+    class Meta:
+        verbose_name = 'Task Category'
+        verbose_name_plural = 'Task Categories'
+
+    def __str__(self):
+        return self.title
+
+
 class Task(models.Model):
     ONE_TIME = 'ONE_TIME'
     DAILY = 'DAILY'
@@ -36,6 +54,7 @@ class Task(models.Model):
     expires_on = models.DateField(default=timezone.now, null=True)
     frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=AVAILABLE)
+    categories = models.ManyToManyField(TaskCategory)
     created_on = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
@@ -55,6 +74,46 @@ class Task(models.Model):
             models.Index(fields=['title', ]),
             models.Index(fields=['status', ]),
         ]
+
+
+class TaskAvailability(models.Model):
+    SUNDAY = 'SUNDAY'
+    MONDAY = 'MONDAY'
+    TUESDAY = 'TUESDAY'
+    WEDNESDAY = 'WEDNESDAY'
+    THURSDAY = 'THURSDAY'
+    FRIDAY = 'FRIDAY'
+    SATURDAY = 'SATURDAY'
+    MORNING = 'MORNING'
+    AFTERNOON = 'AFTERNOON'
+    EVENING = 'EVENING'
+
+    DAY_CHOICES = [
+        (SUNDAY, 'Sunday'),
+        (MONDAY, 'Monday'),
+        (TUESDAY, 'Tuesday'),
+        (WEDNESDAY, 'Wednesday'),
+        (THURSDAY, 'Thursday'),
+        (FRIDAY, 'Friday'),
+        (SATURDAY, 'Saturday'),
+    ]
+
+    TIME_CHOICES = [
+        (MORNING, 'Morning'),
+        (AFTERNOON, 'Afternoon'),
+        (EVENING, 'Evening'),
+    ]
+
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    availability_day = models.CharField(max_length=20, choices=DAY_CHOICES, blank=True)
+    availability_time = models.CharField(max_length=20, choices=TIME_CHOICES, blank=True)
+
+    class Meta:
+        verbose_name = 'Task Availability'
+        verbose_name_plural = 'Task Availabilities'
+
+    def __str__(self):
+        return f'{self.task.title} Availability'
 
 
 class Response(models.Model):
