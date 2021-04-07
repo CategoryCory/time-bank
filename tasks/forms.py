@@ -31,7 +31,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = models.Task
-        exclude = ('created_by', 'categories')
+        exclude = ('created_by', 'status', )
 
 
 class TaskAvailabilityForm(forms.ModelForm):
