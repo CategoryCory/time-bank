@@ -158,10 +158,10 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # Email config
-if DEBUG is True:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# if DEBUG is True:
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# else:
+#     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
