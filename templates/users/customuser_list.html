@@ -44,9 +44,28 @@
                 {% for u in customuser_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'users:user_detail' u.username %}">
-                                {{ u.first_name }} {{ u.last_name }}
-                            </a>
+                            <div class="d-flex align-items-center">
+                                <img
+                                    src="{{ u.profile_pic.url }}"
+                                    alt="Avatar for {{ u.username }}"
+                                    class="avatar-md rounded-circle mr-2"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="{{ u.username }}"
+                                >
+                                <div class="d-flex flex-column">
+                                    <a href="{% url 'users:user_detail' u.username %}">
+                                        {{ u.first_name }} {{ u.last_name }}
+                                    </a>
+                                    <p class="text-muted mb-0">
+                                        {% if u.average_rating %}
+                                            {{ u.average_rating }} stars
+                                        {% else %}
+                                            This user does not have any reviews.
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
                         </td>
                         <td>{{ u.skills }}</td>
                     </tr>

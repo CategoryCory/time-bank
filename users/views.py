@@ -2,6 +2,7 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Avg
+from django.shortcuts import render
 
 from tasks.models import Task, Response
 from reviews.models import UserReview
@@ -16,6 +17,19 @@ class UserListView(ListView):
     def get_queryset(self):
         users = CustomUser.objects.filter(is_staff=False, is_superuser=False)
         return users
+
+
+def user_list(request):
+    users = CustomUser.objects.filter(is_staff=False, is_superuser=False)
+
+    for user in users:
+        user.average_rating = UserReview.objects.filter(reviewee=user).aggregate(Avg('rating'))['rating__avg']
+
+    context = {
+        'customuser_list': users,
+    }
+
+    return render(request, 'users/customuser_list.html', context)
 
 
 class UserDetailView(DetailView):

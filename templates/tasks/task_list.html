@@ -103,9 +103,9 @@
                                                 <img
                                                 src="{{ task.created_by.profile_pic.url }}"
                                                 alt="User avatar"
-                                                class="avatar-xs rounded-circle mr-2"
+                                                class="avatar-sm rounded-circle mr-2"
                                                 data-toggle="tooltip"
-                                                data-placement="bottom"
+                                                data-placement="top"
                                                 title="{{ task.created_by.username }}">
                                                 <div class="d-flex flex-column">
                                                     <a href="{% url 'users:user_detail' task.created_by.username %}">
