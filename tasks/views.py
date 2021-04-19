@@ -1,45 +1,37 @@
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import DetailView, UpdateView, CreateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import send_mail
 from django.conf import settings
 from django.db import transaction
+from django.db.models import Avg
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 
-from .models import Task, TaskCategory, TaskAvailability, Response
-from .forms import TaskForm, TaskAvailabilityForm, TaskAvailabilityFormSet
+from .models import Task, Response
+from .forms import TaskForm, TaskAvailabilityFormSet
 from reviews.models import UserReview
 
 
-class TaskListView(ListView):
-    model = Task
-    paginate_by = 25
-    ordering = ['expires_on']
+def task_list(request, slug=None):
+    if slug is not None:
+        tasks = Task.objects.filter(status=Task.AVAILABLE, categories__slug=slug).order_by('-expires_on')
+    else:
+        tasks = Task.objects.filter(status=Task.AVAILABLE).order_by('-expires_on')
 
+    for task in tasks:
+        user_average_review = UserReview.objects.filter(reviewee=task.created_by).aggregate(Avg('rating'))['rating__avg']
+        task.user_average_review = user_average_review
 
-class TaskCategoryListView(ListView):
-    model = Task
-    paginate_by = 25
-
-    def get_queryset(self):
-        slug = self.kwargs['slug']
-        return Task.objects.filter(categories__slug=slug).order_by('-expires_on')
+    context = {
+        'task_list': tasks
+    }
+    return render(request, 'tasks/task_list.html', context)
 
 
 class TaskDetailView(DetailView):
     model = Task
-
-
-# class TaskCreateView(LoginRequiredMixin, CreateView):
-#     model = Task
-#     fields = ['title', 'description', 'expires_on', 'frequency', ]
-#     template_name_suffix = '_create_form'
-#
-#     def form_valid(self, form):
-#         form.instance.created_by = self.request.user
-#         return super().form_valid(form)
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):

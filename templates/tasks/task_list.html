@@ -89,7 +89,7 @@
                                         </td>
                                         <td>
                                             {% for cat in task.categories.all %}
-                                                <a href="{% url 'tasks:task_category' slug=cat.slug %}">
+                                                <a href="{% url 'tasks:task_list' slug=cat.slug %}">
                                                     <span class="badge badge-success font-14">
                                                         {{ cat.title }}
                                                     </span>
@@ -98,16 +98,27 @@
                                         </td>
                                         <td>{{ task.created_on|date:'DATE_FORMAT' }}</td>
                                         <td>{{ task.expires_on|date:'DATE_FORMAT' }}</td>
-                                        <td><img
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img
                                                 src="{{ task.created_by.profile_pic.url }}"
                                                 alt="User avatar"
-                                                class="avatar-xs rounded-circle mr-1"
+                                                class="avatar-xs rounded-circle mr-2"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
                                                 title="{{ task.created_by.username }}">
-                                            <a href="{% url 'users:user_detail' task.created_by.username %}">
-                                                {{ task.created_by.first_name }} {{ task.created_by.last_name }}
-                                            </a>
+                                                <div class="d-flex flex-column">
+                                                    <a href="{% url 'users:user_detail' task.created_by.username %}">
+                                                        {{ task.created_by.first_name }} {{ task.created_by.last_name }}
+                                                    </a>
+                                                    <p class="text-muted mb-0">
+                                                        {% if task.user_average_review %}
+                                                            {{ task.user_average_review }} stars
+                                                        {% else %}
+                                                            This user has no reviews.
+                                                        {% endif %}</p>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 {% endfor %}

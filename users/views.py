@@ -27,12 +27,9 @@ class UserDetailView(DetailView):
         context = super().get_context_data(**kwargs)
 
         total_user_jobs = len(Task.objects.filter(created_by=self.object.id))
-        # total_user_offers = len(Task.objects.filter(created_by=self.request.user, task_type=Task.OFFER))
-
         user_reviews = UserReview.objects.filter(reviewee=self.object.id)
-        average_rating = UserReview.objects.all().aggregate(Avg('rating'))['rating__avg']
+        average_rating = user_reviews.aggregate(Avg('rating'))['rating__avg']
         context['total_user_jobs'] = total_user_jobs
-        # context['total_user_offers'] = total_user_offers
         context['user_reviews'] = user_reviews
         context['average_rating'] = average_rating
         return context
