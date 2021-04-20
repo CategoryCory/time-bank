@@ -11,3 +11,11 @@ class HomePageView(TemplateView):
 class BrowseUsersView(ListView):
     model = CustomUser
     template_name = 'pages/browse_users.html'
+
+
+class TermsView(TemplateView):
+    template_name = 'pages/terms.html'
+
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'pages/privacy.html'
