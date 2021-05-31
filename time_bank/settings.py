@@ -193,3 +193,23 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'pages:home'
 
 # Crispy Forms config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'django-log.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
