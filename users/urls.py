@@ -11,6 +11,6 @@ urlpatterns = [
     path('dashboard/', views.UserDashboardView.as_view(), name='user_dashboard'),
     # path('dashboard/messages/', views.UserMessageListView.as_view(), name='user_message_list'),
     # path('dashboard/messages/<int:pk>/', views.UserMessageDetailView.as_view(), name='user_message_detail'),
-    path('<slug:username>/', views.UserDetailView.as_view(), name='user_detail'),
-    path('<slug:username>/edit/', views.UserUpdateView.as_view(), name='user_update'),
+    path('<str:username>/', views.UserDetailView.as_view(), name='user_detail'),
+    path('<str:username>/edit/', views.UserUpdateView.as_view(), name='user_update'),
 ]
