@@ -53,9 +53,18 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <div class="media">
-                                {% if customuser.profile_pic %}
-                                    <span class="float-left m-2 mr-4"><img src="{{ customuser.profile_pic.url }}" style="height: 100px;" alt="" class="rounded-circle img-thumbnail"></span>
-                                {% endif %}
+                                    <span class="float-left m-2 mr-4">
+                                        <img 
+                                            {% if customuser.profile_pic %}
+                                                src="{{ customuser.profile_pic.url }}"
+                                            {% else %}
+                                                src="{% static 'images/blank-user.png' %}"
+                                            {% endif %}
+                                            style="height: 100px;" 
+                                            alt="" 
+                                            class="rounded-circle img-thumbnail"
+                                        >
+                                    </span>
                                 <div class="media-body">
 
                                     <h2 class="mt-1 mb-1 text-white">{{ customuser.first_name }} {{ customuser.last_name }}</h2>
@@ -123,60 +132,80 @@
                             <hr/>
 
                             <div class="text-left">
-                                <p class="text-muted"><strong>Name:</strong> <span class="ml-2">{{ customuser.first_name }} {{ customuser.last_name }}</span></p>
-                                <p class="text-muted"><strong>Location: </strong><span class="ml-2">{{ customuser.address_city }}, {{ customuser.address_state }}</span></p>
-                                <p class="text-muted mb-0"><strong>Find me on social media</strong>
-                                    {% if customuser.social_facebook %}
-                                        <a
-                                            class="d-inline-block ml-2 text-muted"
-                                            title=""
-                                            data-placement="top"
-                                            data-toggle="tooltip"
-                                            href="{{ customuser.social_facebook }}"
-                                            data-original-title="Facebook"
-                                        >
-                                            <i class="mdi mdi-facebook"></i>
-                                        </a>
-                                    {% endif %}
-                                    {% if customuser.social_twitter %}
-                                        <a
-                                            class="d-inline-block ml-2 text-muted"
-                                            title=""
-                                            data-placement="top"
-                                            data-toggle="tooltip"
-                                            href="{{ customuser.social_twitter }}"
-                                            data-original-title="Twitter"
-                                        >
-                                            <i class="mdi mdi-twitter"></i>
-                                        </a>
-                                    {% endif %}
-                                    {% if customuser.social_instagram %}
-                                        <a
-                                            class="d-inline-block ml-2 text-muted"
-                                            title=""
-                                            data-placement="top"
-                                            data-toggle="tooltip"
-                                            href="{{ customuser.social_instagram }}"
-                                            data-original-title="Instagram"
-                                        >
-                                            <i class="mdi mdi-instagram"></i>
-                                        </a>
-                                    {% endif %}
-                                    {% if customuser.social_linkedin %}
-                                        <a
-                                            class="d-inline-block ml-2 text-muted"
-                                            title=""
-                                            data-placement="top"
-                                            data-toggle="tooltip"
-                                            href="{{ customuser.social_linkedin }}"
-                                            data-original-title="LinkedIn"
-                                        >
-                                            <i class="mdi mdi-linkedin"></i>
-                                        </a>
+                                <p class="text-muted">
+                                    <strong>Name:</strong>
+                                    {% if customuser.first_name and customuser.last_name %}
+                                        <span class="ml-2">{{ customuser.first_name }} {{ customuser.last_name }}</span>
+                                    {% else %}
+                                        <span class="text-muted font-italic">No name provided.</span>
                                     {% endif %}
                                 </p>
+                                <p class="text-muted">
+                                    <strong>Location: </strong>
+                                    {% if customuser.address_city and customuser.address_state %}
+                                        <span class="ml-2">{{ customuser.address_city }}, {{ customuser.address_state }}</span>
+                                    {% else %}
+                                        <span class="text-muted font-italic">No location provided.</span>
+                                    {% endif %}
+                                </p>
+                                {% if customuser.social_facebook or customuser.social_twitter or customuser.social_instagram or customuser.social_linkedin %}
+                                    <p class="text-muted mb-0"><strong>Find me on social media</strong>
+                                        {% if customuser.social_facebook %}
+                                            <a
+                                                class="d-inline-block ml-2 text-muted"
+                                                title=""
+                                                data-placement="top"
+                                                data-toggle="tooltip"
+                                                href="{{ customuser.social_facebook }}"
+                                                data-original-title="Facebook"
+                                            >
+                                                <i class="mdi mdi-facebook"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% if customuser.social_twitter %}
+                                            <a
+                                                class="d-inline-block ml-2 text-muted"
+                                                title=""
+                                                data-placement="top"
+                                                data-toggle="tooltip"
+                                                href="{{ customuser.social_twitter }}"
+                                                data-original-title="Twitter"
+                                            >
+                                                <i class="mdi mdi-twitter"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% if customuser.social_instagram %}
+                                            <a
+                                                class="d-inline-block ml-2 text-muted"
+                                                title=""
+                                                data-placement="top"
+                                                data-toggle="tooltip"
+                                                href="{{ customuser.social_instagram }}"
+                                                data-original-title="Instagram"
+                                            >
+                                                <i class="mdi mdi-instagram"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% if customuser.social_linkedin %}
+                                            <a
+                                                class="d-inline-block ml-2 text-muted"
+                                                title=""
+                                                data-placement="top"
+                                                data-toggle="tooltip"
+                                                href="{{ customuser.social_linkedin }}"
+                                                data-original-title="LinkedIn"
+                                            >
+                                                <i class="mdi mdi-linkedin"></i>
+                                            </a>
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
                                 <p class="text-muted mt-3"><strong>Skills:</strong>
-                                    <span class="ml-2">{{ customuser.skills }}</span>
+                                    {% if customuser.skills %}
+                                        <span class="ml-2">{{ customuser.skills }}</span>
+                                    {% else %}
+                                        <span class="text-muted font-italic">No skills provided.</span>
+                                    {% endif %}
 {#                                    <ul class="list-group list-group-flush">#}
 {#                                        <li class="list-group-item">Lorem ipsum dolor sit</li>#}
 {#                                        <li class="list-group-item">Lorem ipsum dolor sit</li>#}
@@ -196,7 +225,7 @@
                                         {{ rvw.rating|floatformat:"0" }} stars
                                     </p>
                                 {% empty %}
-                                    <p>This user has no reviews at this time.</p>
+                                    <p class="text-muted font-italic">This user has no reviews at this time.</p>
                                 {% endfor %}
                             </div>
                         </div>
