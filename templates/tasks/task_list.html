@@ -101,7 +101,11 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <img
-                                                src="{{ task.created_by.profile_pic.url }}"
+                                                    {% if task.created_by.profile_pic %}
+                                                        src="{{ task.created_by.profile_pic.url }}"
+                                                    {% else %}
+                                                        src="{% static 'images/blank-user.png' %}"
+                                                    {% endif %}
                                                 alt="User avatar"
                                                 class="avatar-sm rounded-circle mr-2"
                                                 data-toggle="tooltip"
