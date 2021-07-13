@@ -1,0 +1,42 @@
+{% extends 'account/account_base.html' %}
+{% load static i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Confirm Email Address{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card">
+                <!-- Logo -->
+                <div class="card-header pt-4 pb-4 text-center bg-primary">
+                    <a href="{% url 'pages:home' %}">
+                        <span><img src="{% static 'images/sullivan-logo.png' %}" alt="" height="65"></span>
+                    </a>
+                </div>
+
+                <!-- Card body -->
+                <div class="card-body p-4">
+                    <div class="text-center m-auto">
+                        <h3 class="text-dark-50 text-center mt-0 font-weight-bold">Verify Your Email</h3>
+                        <p class="text-muted mt-3">
+                            {% blocktrans with confirmation.email_address.email as email %}
+                                Please confirm that you recently created an account on the Sullivan Time Bank using the email address 
+                                <a href="mailto:{{ email }}" class="underline hover:text-brand">{{ email }}</a>.
+                            {% endblocktrans %}
+                        </p>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <div class="form-group mb-0 text-center">
+                                <button type="submit" class="btn btn-secondary text-white shadow-none">Verify Email Address</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
