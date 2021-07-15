@@ -4,6 +4,18 @@ from django.utils import timezone
 from django.urls import reverse
 
 
+class SkillCategory(models.Model):
+    title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100)
+
+    class Meta:
+        verbose_name = 'Skill Category'
+        verbose_name_plural = 'Skill Categories'
+    
+    def __str__(self) -> str:
+        return self.title
+
+
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(default=timezone.now)
     is_approved = models.BooleanField(verbose_name='Approved',
