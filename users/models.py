@@ -26,6 +26,7 @@ class CustomUser(AbstractUser):
     address_state = models.CharField(verbose_name='State', max_length=50)
     address_zip = models.CharField(verbose_name='ZIP Code', max_length=50)
     biography = models.TextField()
+    skill_categories = models.ManyToManyField(SkillCategory, related_name='skill_categories')
     skills = models.TextField()
     social_facebook = models.URLField(verbose_name='Facebook', max_length=200, blank=True)
     social_twitter = models.URLField(verbose_name='Twitter', max_length=200, blank=True)
