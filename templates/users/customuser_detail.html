@@ -200,6 +200,17 @@
                                         {% endif %}
                                     </p>
                                 {% endif %}
+                                <p class="text-muted mt-3"><strong>Skill Categories:</strong>
+                                    {% if customuser.skill_categories %}
+                                        {% for cat in customuser.skill_categories.all %}
+                                            <span class="ml-1 badge badge-success font-14">
+                                                {{ cat.title }}
+                                            </span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <span class="text-muted font-italic">No skill categories provided.</span>
+                                    {% endif %}
+                                </p>
                                 <p class="text-muted mt-3"><strong>Skills:</strong>
                                     {% if customuser.skills %}
                                         <span class="ml-2">{{ customuser.skills }}</span>

@@ -77,8 +77,17 @@
                             </div>
                         </td>
                         <td>
+                            {% if u.skill_categories %}
+                                <div class="my-2">
+                                    {% for cat in u.skill_categories.all %}
+                                        <span class="badge badge-success font-14">
+                                            {{ cat.title }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                             {% if u.skills %}
-                                {{ u.skills }}
+                                <p>Other skills: {{ u.skills }}</p>
                             {% else %}
                                 <p class="text-muted mb-0">This user has not listed any skills yet.</p>
                             {% endif %}
