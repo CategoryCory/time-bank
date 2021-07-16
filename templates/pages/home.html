@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Sullivan Foundation Time Bank{% endblock title %}
+{% block title %}Sullivan Foundation TimeBank{% endblock title %}
 
 {% block content %}
 <!-- START HERO -->
@@ -11,9 +11,11 @@
             <div class="col-12 col-md-6">
 {#                <div class="mt-md-4">#}
                     <p class="h1 font-weight-light text-white">Welcome to the</p>
-                    <h1 class="display-4 font-weight-bold text-white">Oxford Community Time Bank</h1>
+                    <h1 class="display-4 font-weight-bold text-white">Oxford Community TimeBank</h1>
 
-{#                    <p class="mb-4 font-16 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas veniam rerum aliquam perferendis sed laborum eos, perspiciatis consectetur. Quibusdam aliquid similique eaque, totam nihil ut!</p>#}
+                    <p class="mb-4 font-24 text-white">
+                        Building community through an alternative economy
+                    </p>
 
                     <a href="{% url 'account_signup' %}" target="_blank" class="btn btn-secondary btn-lg text-white shadow-none mt-4">Register in Your Community! <i
                             class="mdi mdi-arrow-right ml-1"></i></a>
@@ -30,7 +32,7 @@
 <!-- END HERO -->
 
 <!-- START SERVICES -->
-<section class="py-3">
+{% comment %} <section class="py-3">
     <div class="container">
         <div class="row py-4 justify-content-between">
             <div class="col-12 col-md-3 border rounded-lg shadow">
@@ -39,7 +41,7 @@
                         <i class="dripicons-graduation text-primary h1"></i>
                     </div>
                     <h3 class="mt-3 text-secondary">Learn</h3>
-                    <p class="text-muted mt-2 mb-0">more about Time Banks and our mission</p>
+                    <p class="text-muted mt-2 mb-0">more about TimeBanks and our mission</p>
                 </div>
             </div>
 
@@ -64,7 +66,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> {% endcomment %}
 <!-- END SERVICES -->
 
 <!-- START FEATURES 2 -->
@@ -75,19 +77,25 @@
                 <img src="{% static 'images/porch.png' %}" class="img-fluid" alt="">
             </div>
             <div class="col-lg-4 offset-lg-1">
-                <h2>About the Sullivan Time Bank</h2>
-                <p class="mt-3 font-18">Helping others is like money in the bank, thanks to an innovative currency
-                    system introduced by the Sullivan Foundation. Time banking, created by Edgar S. Cahn in 1980, is a
+                <h2>About the Sullivan TimeBank</h2>
+                <p class="mt-3 font-18">
+                    Come together with your neighbors to share services and strengthen bonds. 
+                    Participants earn and spend "time credits" -- for every hour they spend on an activity 
+                    that helps others, they receive one time credit. When they need help from other TimeBank 
+                    members with particular skills, they can "spend" their time credits.
+                </p>
+                {% comment %} <p class="mt-3 font-18">Helping others is like money in the bank, thanks to an innovative currency
+                    system introduced by the Sullivan Foundation. TimeBanking, created by Edgar S. Cahn in 1980, is a
                     mode of exchange that allows people to swap their skills and time, rather than money, while helping
                     fulfill unmet social needs. Participants earn and spend “time credits”—for every hour they spend
                     on an activity that helps others, they receive one time credit. When they need help from other
-                    time bank members with particular skills, they can “spend” their time credits.
+                    TimeBank members with particular skills, they can “spend” their time credits.
                 </p>
                 <p class="mt-3 font-18">
                     These tools encourage innovation and growth of local economies, while fostering civic
                     engagement. Bridging divides and propelling progress, these service-based interactions give new
                     life and meaning to the local economy.
-                </p>
+                </p> {% endcomment %}
 {#                <a href="" class="btn btn-primary btn-rounded mt-3">Read More <i class="mdi mdi-arrow-right ml-1"></i></a>#}
 
             </div>
@@ -102,16 +110,16 @@
         <div class="row mt-2 py-5 align-items-center">
 
             <div class="col-lg-6">
-                <h2>How the Time Bank Benefits Your Community</h2>
+                <h2>How the TimeBank Benefits Your Community</h2>
 
                 <p class="mt-3 font-18">With the isolation ensuing from Covid-19, partnered with a
                     technologically-driven society, we are increasingly disconnected from the gift of community. During
                     a time of isolation, we rediscovered the importance of daily interactions. Transitioning out of a
-                    pandemic and back into our neighborhoods, the Time Bank provides a way to foster intentional
+                    pandemic and back into our neighborhoods, the TimeBank provides a way to foster intentional
                     connection and strengthen bonds with strangers.
                 </p>
                 <p class="mt-3 font-18">
-                    In addition to relationships, practical needs are met through the Time Bank, as lawns are mowed
+                    In addition to relationships, practical needs are met through the TimeBank, as lawns are mowed
                     and walls are painted. This allows community members to sharpen their crafts, and maybe even
                     rediscover some hobbies. Our credit system also allows those recovering from financial hardship
                     a new way to move forward.
@@ -127,136 +135,50 @@
 </section>
 <!-- END FEATURES 3 -->
 
-<!-- START FAQ -->
-{#<section class="py-5">#}
-{#    <div class="container">#}
-{#        <div class="row">#}
-{#            <div class="col-lg-12">#}
-{#                <div class="text-center">#}
-{#                    <h1 class="mt-0"><i class="mdi mdi-frequently-asked-questions"></i></h1>#}
-{#                    <h3>Frequently Asked <span class="text-primary">Questions</span></h3>#}
-{#                    <p class="text-muted mt-2">Here are some of the basic types of questions for our customers. For more#}
-{#                        <br>information please contact us.</p>#}
-{##}
-{#                    <button type="button" class="btn btn-success btn-sm mt-2"><i class="mdi mdi-email-outline mr-1"></i> Email us your question</button>#}
-{#                    <button type="button" class="btn btn-info btn-sm mt-2 ml-1"><i class="mdi mdi-twitter mr-1"></i> Send us a tweet</button>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#        <div class="row mt-5">#}
-{#            <div class="col-lg-5 offset-lg-1">#}
-{#                <!-- Question/Answer -->#}
-{#                <div>#}
-{#                    <div class="faq-question-q-box">Q.</div>#}
-{#                    <h4 class="faq-question text-body">Can I use this template for my client?</h4>#}
-{#                    <p class="faq-answer mb-4 pb-1 text-muted">Yup, the marketplace license allows you to use this theme#}
-{#                        in any end products.#}
-{#                        For more information on licenses, please refere <a href="https://themes.getbootstrap.com/licenses/" target="_blank">here</a>.</p>#}
-{#                </div>#}
-{##}
-{#                <!-- Question/Answer -->#}
-{#                <div>#}
-{#                    <div class="faq-question-q-box">Q.</div>#}
-{#                    <h4 class="faq-question text-body">How do I get help with the theme?</h4>#}
-{#                    <p class="faq-answer mb-4 pb-1 text-muted">Use our dedicated support email (support@coderthemes.com) to send your issues or feedback. We are here to help anytime.</p>#}
-{#                </div>#}
-{##}
-{#            </div>#}
-{#            <!--/col-lg-5 -->#}
-{##}
-{#            <div class="col-lg-5">#}
-{#                <!-- Question/Answer -->#}
-{#                <div>#}
-{#                    <div class="faq-question-q-box">Q.</div>#}
-{#                    <h4 class="faq-question text-body">Can this theme work with Wordpress?</h4>#}
-{#                    <p class="faq-answer mb-4 pb-1 text-muted">No. This is a HTML template. It won't directly with#}
-{#                        wordpress, though you can convert this into wordpress compatible theme.</p>#}
-{#                </div>#}
-{##}
-{#                <!-- Question/Answer -->#}
-{#                <div>#}
-{#                    <div class="faq-question-q-box">Q.</div>#}
-{#                    <h4 class="faq-question text-body">Will you regularly give updates of Hyper?</h4>#}
-{#                    <p class="faq-answer mb-4 pb-1 text-muted">Yes, We will update the Hyper regularly. All the#}
-{#                        future updates would be available without any cost.</p>#}
-{#                </div>#}
-{##}
-{#            </div>#}
-{#            <!--/col-lg-5-->#}
-{#        </div>#}
-{#        <!-- end row -->#}
-{##}
-{#    </div> <!-- end container-->#}
-{#</section>#}
-<!-- END FAQ -->
+<section class="py-3">
+    <div class="container">
+        <div class="row py-4 justify-content-between">
+            <div class="col-12 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Our Core Values</h3>
+                        <p class="card-text">
+                            <ul class="list-group">
+                                <li class="list-group-item font-16"><strong>Assets:</strong> Everyone has something to offer;</li>
+                                <li class="list-group-item font-16"><strong>Redefining Work:</strong> Building home, family and community is valued work;</li>
+                                <li class="list-group-item font-16">
+                                    <strong>Reciprocity:</strong> Encouraging givers to receive – and receivers to give – builds trust and resiliency 
+                                    and sharing;
+                                </li>
+                                <li class="list-group-item font-16"><strong>Community:</strong> We are stronger together;</li>
+                                <li class="list-group-item font-16"><strong>Respect:</strong> Respect is the root of equality.</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">How It Works</h3>
+                        <p class="card-text">
+                            <ul class="list-group">
+                                <li class="list-group-item font-16">Make an account on your community’s website</li>
+                                <li class="list-group-item font-16">Go to the ‘jobs’ tab to post a new job or respond to a request</li>
+                                <li class="list-group-item font-16">
+                                    You can also add skills to your profile page and message others to inquire about 
+                                    their skills
+                                </li>
+                                <li class="list-group-item font-16">Donate credit to a member in need by contacting your TimeBanking coordinator</li>
+                                <li class="list-group-item font-16">If you are unable to perform tasks and need credit, contact your TimeBanking coordinator</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
-<!-- START CONTACT -->
-{#<section class="py-5 bg-light-lighten border-top border-bottom border-light">#}
-{#    <div class="container">#}
-{#        <div class="row">#}
-{#            <div class="col-lg-12">#}
-{#                <div class="text-center">#}
-{#                    <h3>Get In <span class="text-primary">Touch</span></h3>#}
-{#                    <p class="text-muted mt-2">Please fill out the following form and we will get back to you shortly. For more#}
-{#                        <br>information please contact us.</p>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#        <div class="row align-items-center mt-3">#}
-{#            <div class="col-md-4">#}
-{#                <p class="text-muted"><span class="font-weight-bold">Phone:</span><br> <span class="d-block mt-1">(662) 555-5555</span></p>#}
-{#                <p class="text-muted mt-4"><span class="font-weight-bold">Email Address:</span><br> <span class="d-block mt-1">info@sullivantimebank.org</span></p>#}
-{#                <p class="text-muted mt-4"><span class="font-weight-bold">Office Address:</span><br> <span class="d-block mt-1">1109 Van Buren Avenue, Oxford, MS 38655</span></p>#}
-{#            </div>#}
-{##}
-{#            <div class="col-md-8">#}
-{#                <form>#}
-{#                    <div class="row mt-4">#}
-{#                        <div class="col-lg-6">#}
-{#                            <div class="form-group">#}
-{#                                <label for="fullname">Your Name</label>#}
-{#                                <input class="form-control form-control-light" type="text" id="fullname" placeholder="Name...">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="col-lg-6">#}
-{#                            <div class="form-group">#}
-{#                                <label for="emailaddress">Your Email</label>#}
-{#                                <input class="form-control form-control-light" type="email" required="" id="emailaddress" placeholder="Enter you email...">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                    <div class="row mt-1">#}
-{#                        <div class="col-lg-12">#}
-{#                            <div class="form-group">#}
-{#                                <label for="subject">Your Subject</label>#}
-{#                                <input class="form-control form-control-light" type="text" id="subject" placeholder="Enter subject...">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                    <div class="row mt-1">#}
-{#                        <div class="col-lg-12">#}
-{#                            <div class="form-group">#}
-{#                                <label for="comments">Message</label>#}
-{#                                <textarea id="comments" rows="4" class="form-control form-control-light" placeholder="Type your message here..."></textarea>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                    <div class="row mt-2">#}
-{#                        <div class="col-12 text-right">#}
-{#                            <button class="btn btn-primary shadow-none">Send a Message <i#}
-{#                                class="mdi mdi-telegram ml-1"></i> </button>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </form>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</section>#}
-<!-- END CONTACT -->
 {% endblock content %}
