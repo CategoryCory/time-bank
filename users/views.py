@@ -52,8 +52,8 @@ class UserDetailView(DetailView):
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = CustomUser
     fields = [
-        'first_name', 'last_name', 'username', 'date_of_birth', 'biography', 'skills', 'social_facebook',
-        'social_twitter', 'social_instagram', 'social_linkedin', 'profile_pic',
+        'first_name', 'last_name', 'username', 'date_of_birth', 'biography', 'skill_categories', 'skills', 
+        'social_facebook', 'social_twitter', 'social_instagram', 'social_linkedin', 'profile_pic',
     ]
     slug_field = 'username'
     slug_url_kwarg = 'username'
