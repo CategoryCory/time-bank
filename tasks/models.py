@@ -7,6 +7,7 @@ from django.urls import reverse
 class TaskCategory(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100)
+    description = models.TextField()
     parent_category = models.ForeignKey(
         'self',
         null=True,

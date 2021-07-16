@@ -28,10 +28,13 @@
 <!-- END HERO -->
 
 <!-- LIST SECTION -->
-<section class="mt-4 py-4">
+<section class="mt-2 pt-2 pb-4">
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
             <div class="col-xl-7">
+
+                <h2>{{ category_title }}</h2>
+                <p class="lead">{{ category_description }}</p>
 
                 <!-- TITLE ROW -->
                 {% if user.is_authenticated %}
@@ -41,29 +44,6 @@
                         </a>
                     </div>
                 {% endif %}
-
-{#                <div class="app-search my-3">#}
-{#                    <form>#}
-{#                        <div class="input-group">#}
-{#                            <input type="text" class="form-control" placeholder="Search..." />#}
-{#                            <span class="mdi mdi-magnify"></span>#}
-{#                            <div class="input-group-append">#}
-{#                                <button class="btn btn-secondary dropdown-toggle shadow-none"#}
-{#                                    type="button" data-toggle="dropdown" aria-haspopup="true"#}
-{#                                    aria-expanded="false">#}
-{#                                    <i class='uil uil-sort-amount-down'></i>#}
-{#                                </button>#}
-{#                                <div class="dropdown-menu dropdown-menu-right">#}
-{#                                    <a class="dropdown-item" href="#">Expiration Date</a>#}
-{#                                    <a class="dropdown-item" href="#">Posted Date</a>#}
-{#                                    <a class="dropdown-item" href="#">Posted By</a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </form>#}
-{#                </div>#}
-                <!-- END TITLE ROW -->
-
 
                 <!-- TASKS PANEL -->
                 <div class="card">
@@ -128,39 +108,6 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-
-{#                        {% for task in task_list %}#}
-{#                            <div class="row justify-content-sm-between align-items-center mb-2">#}
-{#                                <div class="col-sm-4 mb-2 mb-sm-0">#}
-{#                                    <h5><a href="{% url 'tasks:task_detail' task.id %}">{{ task.title }}</a></h5>#}
-{#                                    <span class="badge badge-success">Yard Work</span>#}
-{#                                    <span class="badge badge-success">House Work</span>#}
-{#                                </div>#}
-{#                                <div class="col-sm-8">#}
-{#                                    <div class="d-flex justify-content-between align-items-center">#}
-{#                                        <div>#}
-{#                                            <span class="text-muted font-13">Posted {{ task.created_on|date:'DATE_FORMAT' }}</span>#}
-{#                                        </div>#}
-{#                                        <div>#}
-{#                                            <span class="text-muted font-13">Expires {{ task.expires_on|date:'DATE_FORMAT' }}</span>#}
-{#                                        </div>#}
-{#                                        <div>#}
-{#                                            <span class="text-muted font-13">Posted by</span><br/>#}
-{#                                            <img src="{{ task.created_by.profile_pic.url }}" alt="image"#}
-{#                                            class="avatar-xs rounded-circle mr-1" data-toggle="tooltip"#}
-{#                                            data-placement="bottom" title="{{ task.created_by.username }}" />#}
-{#                                        </div>#}
-{#                                        <div>#}
-{#                                            <span class="badge badge-success-lighten p-1">Active</span>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        {% empty %}#}
-{#                            <p>There are no jobs posted at this time.</p>#}
-{#                        {% endfor %}#}
-
-
                     </div>
                 </div>
                 <!-- END TASKS PANEL -->

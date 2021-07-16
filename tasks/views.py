@@ -9,23 +9,30 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 
-from .models import Task, Response
+from .models import Task, TaskCategory, Response
 from .forms import TaskForm, TaskAvailabilityFormSet
 from reviews.models import UserReview
 
 
 def task_list(request, slug=None):
     if slug is not None:
-        tasks = Task.objects.filter(status=Task.AVAILABLE, categories__slug=slug).order_by('-expires_on')
+        category = TaskCategory.objects.get(slug=slug)
+        tasks = Task.objects.filter(status=Task.AVAILABLE, categories=category).order_by('-expires_on')
+        category_title = category.title
+        category_description = category.description
     else:
         tasks = Task.objects.filter(status=Task.AVAILABLE).order_by('-expires_on')
+        category_description = 'Search here to view all jobs posted. Use the menu in the header to view specific categories.'
+        category_title = 'All Jobs'
 
     for task in tasks:
         user_average_review = UserReview.objects.filter(reviewee=task.created_by).aggregate(Avg('rating'))['rating__avg']
         task.user_average_review = user_average_review
 
     context = {
-        'task_list': tasks
+        'task_list': tasks,
+        'category_title': category_title,
+        'category_description': category_description,
     }
     return render(request, 'tasks/task_list.html', context)
 
