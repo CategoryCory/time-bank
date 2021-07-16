@@ -74,12 +74,6 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
             status=Task.AVAILABLE
         ).order_by('expires_on')
 
-        # user_jobs = [task for task in user_tasks if task.status == Task.AVAILABLE]
-        # user_offers = [user_offer for user_offer in user_tasks if user_offer.task_type == Task.OFFER]
-
-        # context['user_jobs'] = sorted(user_jobs, key=lambda x: x.expires_on)
-        # context['user_offers'] = sorted(user_offers, key=lambda x: x.expires_on)
-
         pending_responses = Response.objects.filter(
             recipient=self.request.user,
             status=Response.PENDING
@@ -90,9 +84,14 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
             status=Response.ACCEPTED
         )
 
+        sent_responses = Response.objects.filter(
+            created_by=self.request.user
+        )
+
         context['user_jobs'] = user_jobs
         context['pending_responses'] = pending_responses
         context['accepted_responses'] = accepted_responses
+        context['sent_responses'] = sent_responses
 
         return context
 
