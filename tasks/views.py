@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 
-from .models import Task, TaskCategory, Response
+from .models import Task, TaskCategory, TaskResponse
 from .forms import TaskForm, TaskAvailabilityFormSet
 from reviews.models import UserReview
 
@@ -108,7 +108,7 @@ def task_response(request):
 
         task = get_object_or_404(Task, pk=task_id)
 
-        response = Response(task=task, message=message, created_by=user, recipient=task.created_by)
+        response = TaskResponse(task=task, created_by=user, recipient=task.created_by)
         response.save()
 
         # Send email
@@ -133,32 +133,32 @@ def task_response(request):
 
 
 @login_required
-def accept_response(request, response_id):
-    rsp = get_object_or_404(Response, pk=response_id)
+def update_response_status(request, response_id, new_status):
+    rsp = get_object_or_404(TaskResponse, pk=response_id)
 
     if request.user != rsp.task.created_by:
         return redirect('pages:home')
 
-    rsp.status = Response.ACCEPTED
+    rsp.status = getattr(TaskResponse, new_status)
     rsp.save()
     return redirect('users:user_dashboard')
 
 
-@login_required
-def deny_response(request, response_id):
-    rsp = get_object_or_404(Response, pk=response_id)
+# @login_required
+# def deny_response(request, response_id):
+#     rsp = get_object_or_404(TaskResponse, pk=response_id)
 
-    if request.user != rsp.task.created_by:
-        return redirect('pages:home')
+#     if request.user != rsp.task.created_by:
+#         return redirect('pages:home')
 
-    rsp.status = Response.DECLINED
-    rsp.save()
-    return redirect('users:user_dashboard')
+#     rsp.status = TaskResponse.DECLINED
+#     rsp.save()
+#     return redirect('users:user_dashboard')
 
 
 @login_required
 def record_time(request, response_id):
-    rsp = get_object_or_404(Response, pk=response_id)
+    rsp = get_object_or_404(TaskResponse, pk=response_id)
 
     if request.method == 'GET':
         context = {
@@ -183,7 +183,7 @@ def record_time(request, response_id):
 
 @login_required
 def complete_job(request, response_id):
-    rsp = get_object_or_404(Response, pk=response_id)
+    rsp = get_object_or_404(TaskResponse, pk=response_id)
 
     if request.method == 'GET':
         context = {
@@ -206,7 +206,7 @@ def complete_job(request, response_id):
         job_performed_by.sullivan_coins_balance += number_of_hours
         current_user.sullivan_coins_balance -= number_of_hours
 
-        rsp.status = Response.COMPLETED
+        rsp.status = TaskResponse.COMPLETED
 
         job_performed_by.save()
         current_user.save()

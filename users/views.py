@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Avg
 from django.shortcuts import render
 
-from tasks.models import Task, Response
+from tasks.models import Task, TaskResponse
 from reviews.models import UserReview
 
 CustomUser = get_user_model()
@@ -74,17 +74,17 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
             status=Task.AVAILABLE
         ).order_by('expires_on')
 
-        pending_responses = Response.objects.filter(
+        pending_responses = TaskResponse.objects.filter(
             recipient=self.request.user,
-            status=Response.PENDING
+            status=TaskResponse.PENDING
         ).order_by('created_by')
 
-        accepted_responses = Response.objects.filter(
+        accepted_responses = TaskResponse.objects.filter(
             recipient=self.request.user,
-            status=Response.ACCEPTED
+            status=TaskResponse.ACCEPTED
         )
 
-        sent_responses = Response.objects.filter(
+        sent_responses = TaskResponse.objects.filter(
             created_by=self.request.user
         )
 

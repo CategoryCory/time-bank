@@ -104,13 +104,13 @@
                                         </td>
                                         <td>
                                             <a
-                                                href="{% url 'tasks:accept_response' rsp.id %}"
+                                                href="{% url 'tasks:update_response_status' response_id=rsp.id new_status='ACCEPTED' %}"
                                                 class="btn btn-success btn-sm shadow-none mr-2"
                                             >
                                                 <i class='mdi mdi-check font-18 mr-1'></i>Approve
                                             </a>
                                             <a
-                                                href="{% url 'tasks:deny_response' rsp.id %}"
+                                                href="{% url 'tasks:update_response_status' response_id=rsp.id new_status='DECLINED' %}"
                                                 class="btn btn-danger btn-sm shadow-none mr-2"
                                             >
                                                 <i class='mdi mdi-close font-18 mr-1'></i>Deny

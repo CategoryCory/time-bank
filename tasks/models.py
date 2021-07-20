@@ -118,7 +118,7 @@ class TaskAvailability(models.Model):
         return f'{self.task.title} Availability'
 
 
-class Response(models.Model):
+class TaskResponse(models.Model):
     PENDING = 'PENDING'
     ACCEPTED = 'ACCEPTED'
     DECLINED = 'DECLINED'
@@ -132,11 +132,10 @@ class Response(models.Model):
 
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     recipient = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='recipient')
-    message = models.TextField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
     created_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='created_by')
     created_on = models.DateTimeField(auto_now_add=True)
     resolved_on = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return 'Response to ' + self.task.title + ' by ' + self.created_by.username
+        return f'Response to {self.task.title} by {self.created_by.username}'
