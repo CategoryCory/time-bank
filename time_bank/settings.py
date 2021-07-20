@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'tasks.apps.TasksConfig',
     'reviews.apps.ReviewsConfig',
+    'user_messages.apps.UserMessagesConfig',
 ]
 
 MIDDLEWARE = [
