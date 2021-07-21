@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'tasks.apps.TasksConfig',
     'reviews.apps.ReviewsConfig',
     'user_messages.apps.UserMessagesConfig',
+    'dashboard.apps.DashboardConfig',
 ]
 
 MIDDLEWARE = [

@@ -108,34 +108,22 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                                     <!-- item-->
-                                    <a href="{% url 'users:user_dashboard' %}" class="dropdown-item notify-item">
+                                    <a href="{% url 'dashboard:dashboard_home' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle mr-1"></i>
                                         <span>Dashboard</span>
                                     </a>
 
                                     <!-- item-->
-                                    <a href="{% url 'users:user_detail' user.username %}" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-account-edit mr-1"></i>
-                                        <span>Profile</span>
-                                    </a>
-
-                                    <!-- item-->
-{#                                    <a href="{% url 'users:user_message_list' %}" class="dropdown-item notify-item">#}
-{#                                        <i class="mdi mdi-email mr-1"></i>#}
-{#                                        <span>Messages</span>#}
-{#                                    </a>#}
-
-                                    <!-- item-->
-                                    <a href="{% url 'tasks:task_new' %}" class="dropdown-item notify-item">
+                                    <a href="{% url 'dashboard:new_task' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-plus-circle mr-1"></i>
                                         <span>Post New Job</span>
                                     </a>
 
                                     <!-- item-->
-{#                                    <a href="{% url 'tasks:task_request_new' %}" class="dropdown-item notify-item">#}
-{#                                        <i class="mdi mdi-help-rhombus-outline mr-1"></i>#}
-{#                                        <span>New Request</span>#}
-{#                                    </a>#}
+                                    <a href="{% url 'dashboard:user_messages' %}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-email mr-1"></i>
+                                        <span>Messages</span>
+                                    </a>
 
                                     <!-- item-->
                                     <a href="{% url 'account_logout' %}" class="dropdown-item notify-item">

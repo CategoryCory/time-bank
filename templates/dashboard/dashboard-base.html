@@ -43,35 +43,21 @@
                         <li class="side-nav-title side-nav-item">Navigation</li>
 
                         <li class="side-nav-item">
-                            <a href="{% url 'pages:home' %}" class="side-nav-link">
+                            <a href="{% url 'dashboard:dashboard_home' %}" class="side-nav-link">
                                 <i class="uil-home-alt mr-1"></i>
-                                Home
+                                Dashboard Home
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="{% url 'users:user_dashboard' %}" class="side-nav-link">
-                                <i class="uil-wrench mr-1"></i>
-                                Dashboard
-                            </a>
-                        </li>
-
-                        <li class="side-nav-item">
-                            <a href="{% url 'users:user_detail' user.username %}" class="side-nav-link">
-                                <i class="uil-user mr-1"></i>
-                                Profile
-                            </a>
-                        </li>
-
-                        <li class="side-nav-item">
-                            <a href="{% url 'tasks:task_new' %}" class="side-nav-link">
+                            <a href="{% url 'dashboard:new_task' %}" class="side-nav-link">
                                 <i class="uil-plus-circle mr-1"></i>
                                 Post New Job
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
+                            <a href="{% url 'dashboard:user_messages' %}" class="side-nav-link">
                                 <i class="uil-envelope mr-1"></i>
                                 Messages
                             </a>
@@ -118,46 +104,28 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                                     <!-- item-->
-                                    <!-- <div class=" dropdown-header noti-title">
-                                        <h6 class="text-overflow m-0">Welcome !</h6>
-                                    </div> -->
-
-                                    <!-- item-->
-                                    <a href="{% url 'users:user_dashboard' %}" class="dropdown-item notify-item">
+                                    <a href="{% url 'dashboard:dashboard_home' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle mr-1"></i>
-                                        <span>Dashboard</span>
+                                        <span>Dashboard Home</span>
                                     </a>
 
                                     <!-- item-->
-                                    <a href="{% url 'users:user_detail' user.username %}" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-account-edit mr-1"></i>
-                                        <span>Profile</span>
-                                    </a>
-
-                                    <!-- item-->
-{#                                    <a href="{% url 'users:user_message_list' %}" class="dropdown-item notify-item">#}
-{#                                        <i class="mdi mdi-email mr-1"></i>#}
-{#                                        <span>Messages</span>#}
-{#                                    </a>#}
-
-                                    <!-- item-->
-                                    <a href="{% url 'tasks:task_new' %}" class="dropdown-item notify-item">
+                                    <a href="{% url 'dashboard:new_task' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-plus-circle mr-1"></i>
                                         <span>Post New Job</span>
                                     </a>
 
                                     <!-- item-->
-{#                                    <a href="{% url 'tasks:task_request_new' %}" class="dropdown-item notify-item">#}
-{#                                        <i class="mdi mdi-lightbulb-on mr-1"></i>#}
-{#                                        <span>New Request</span>#}
-{#                                    </a>#}
+                                    <a href="{% url 'dashboard:user_messages' %}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-email mr-1"></i>
+                                        <span>Messages</span>
+                                    </a>
 
                                     <!-- item-->
                                     <a href="{% url 'account_logout' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-logout mr-1"></i>
                                         <span>Logout</span>
                                     </a>
-
                                 </div>
                             </li>
 
@@ -165,17 +133,6 @@
                         <button class="button-menu-mobile open-left disable-btn">
                             <i class="mdi mdi-menu"></i>
                         </button>
-                        <!-- <div class="app-search">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search...">
-                                    <span class="mdi mdi-magnify"></span>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">Search</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> -->
                     </div>
                     <!-- end Topbar -->
 

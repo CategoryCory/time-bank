@@ -1,4 +1,4 @@
-{% extends 'dashboard-base.html' %}
+{% extends 'dashboard/dashboard-base.html' %}
 
 {% load crispy_forms_tags %}
 
@@ -6,8 +6,8 @@
     <div class="container-fluid my-3">
         <div class="row">
             <div class="col-12 col-md-6 border bg-white py-4 px-3">
-                <h1 class="text-primary">Complete Job</h1>
-                <p>To mark a job as complete, please fill out the form below.</p>
+                <h1 class="text-primary">Record Time Transaction</h1>
+                <p>To record time spent on a job, please fill out the form below.</p>
 
                 <p><span class="text-muted">Job Title: </span><span class="h4 font-weight-bold">{{ job_title }}</span></p>
                 <p><span class="text-muted">User Performing Job: </span><span class="h4 font-weight-bold">{{ job_user }}</span></p>
@@ -27,26 +27,12 @@
                             required
                         >
                     </div>
-                    <div class="form-group">
-                        <label for="rating">How would you rate your experience with this person?</label>
-                        <select name="rating" id="rating" class="form-control">
-                            <option value="5">Five (Best)</option>
-                            <option value="4">Four</option>
-                            <option value="3">Three</option>
-                            <option value="2">Two</option>
-                            <option value="1">One (Worst)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="comments">Please leave any comments you have for this person (optional).</label>
-                        <textarea name="comments" id="comments" class="form-control" rows="5" maxlength="200"></textarea>
-                    </div>
                     <input type="hidden" name="responseId" value="{{ response_id }}">
                     <button type="submit" class="btn btn-success shadow-none mr-2">
                         <i class='mdi mdi-check font-18 mr-1'></i>
                         Confirm
                     </button>
-                    <a href="{% url 'users:user_dashboard' %}" class="btn btn-dark shadow-none">
+                    <a href="{% url 'dashboard:dashboard_home' %}" class="btn btn-dark shadow-none">
                         <i class='mdi mdi-backspace font-18 mr-1'></i>
                         Cancel
                     </a>

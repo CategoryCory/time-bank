@@ -1,4 +1,4 @@
-{% extends 'dashboard-base.html' %}
+{% extends 'dashboard/dashboard-base.html' %}
 
 {% load crispy_forms_tags %}
 
@@ -14,7 +14,7 @@
                         <i class='mdi mdi-trash-can-outline font-18 mr-1'></i>
                         Confirm
                     </button>
-                    <a href="{% url 'users:user_dashboard' %}" class="btn btn-dark shadow-none">
+                    <a href="{% url 'dashboard:dashboard_home' %}" class="btn btn-dark shadow-none">
                         <i class='mdi mdi-backspace font-18 mr-1'></i>
                         Cancel
                     </a>

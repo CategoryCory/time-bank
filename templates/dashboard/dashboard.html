@@ -1,4 +1,4 @@
-{% extends 'dashboard-base.html' %}
+{% extends 'dashboard/dashboard-base.html' %}
 
 {% load static %}
 
@@ -54,15 +54,15 @@
                                 {% for job in user_jobs %}
                                     <tr>
                                         <td>
-                                            <a href="{% url 'tasks:task_detail' job.id %}">
+                                            <a href="{% url 'dashboard:task_update' job.id %}">
                                                 {{ job.title }}
                                             </a>
                                         </td>
                                         <td>{{ job.created_on|date:'DATE_FORMAT' }}</td>
                                         <td>{{ job.expires_on|date:'DATE_FORMAT' }}</td>
                                         <td>
-                                            <a href="{% url 'tasks:task_update' job.id %}" class="btn btn-success btn-sm shadow-none mr-2"><i class='mdi mdi-pencil-outline font-18 mr-1'></i>Edit</a>
-                                            <a href="{% url 'tasks:task_delete' job.id %}" class="btn btn-danger btn-sm shadow-none mr-2"><i class='mdi mdi-trash-can-outline font-18 mr-1'></i>Delete</a>
+                                            <a href="{% url 'dashboard:task_update' job.id %}" class="btn btn-success btn-sm shadow-none mr-2"><i class='mdi mdi-pencil-outline font-18 mr-1'></i>Edit</a>
+                                            <a href="{% url 'dashboard:task_delete' job.id %}" class="btn btn-danger btn-sm shadow-none mr-2"><i class='mdi mdi-trash-can-outline font-18 mr-1'></i>Delete</a>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -156,13 +156,13 @@
                                         </td>
                                         <td>
                                             <a
-                                                href="{% url 'tasks:record_time' acc_res.id %}"
+                                                href="{% url 'dashboard:record_time' acc_res.id %}"
                                                 class="btn btn-primary btn-sm shadow-none mr-2"
                                             >
                                                 <i class='mdi mdi-clock font-18 mr-1'></i>Record Time
                                             </a>
                                             <a
-                                                href="{% url 'tasks:complete_job' acc_res.id %}"
+                                                href="{% url 'dashboard:complete_job' acc_res.id %}"
                                                 class="btn btn-success btn-sm shadow-none mr-2"
                                             >
                                                 <i class='mdi mdi-check font-18 mr-1'></i>Mark As Complete

@@ -64,52 +64,43 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return obj == self.request.user
 
 
-class UserDashboardView(LoginRequiredMixin, TemplateView):
-    template_name = 'users/customuser_dashboard.html'
+# class UserDashboardView(LoginRequiredMixin, TemplateView):
+#     template_name = 'users/customuser_dashboard.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user_jobs = Task.objects.filter(
-            created_by=self.request.user,
-            status=Task.AVAILABLE
-        ).order_by('expires_on')
-
-        pending_responses = TaskResponse.objects.filter(
-            recipient=self.request.user,
-            status=TaskResponse.PENDING
-        ).order_by('created_by')
-
-        accepted_responses = TaskResponse.objects.filter(
-            recipient=self.request.user,
-            status=TaskResponse.ACCEPTED
-        )
-
-        sent_responses = TaskResponse.objects.filter(
-            created_by=self.request.user
-        )
-
-        context['user_jobs'] = user_jobs
-        context['pending_responses'] = pending_responses
-        context['accepted_responses'] = accepted_responses
-        context['sent_responses'] = sent_responses
-
-        return context
-
-
-# class UserMessageListView(LoginRequiredMixin, TemplateView):
-#     template_name = 'users/customuser_message_list.html'
-#
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
-#         user_messages = Response.objects.filter(recipient=self.request.user)
-#         context['user_messages'] = user_messages
+#         user_jobs = Task.objects.filter(
+#             created_by=self.request.user,
+#             status=Task.AVAILABLE
+#         ).order_by('expires_on')
+
+#         pending_responses = TaskResponse.objects.filter(
+#             recipient=self.request.user,
+#             status=TaskResponse.PENDING
+#         ).order_by('created_by')
+
+#         accepted_responses = TaskResponse.objects.filter(
+#             recipient=self.request.user,
+#             status=TaskResponse.ACCEPTED
+#         )
+
+#         sent_responses = TaskResponse.objects.filter(
+#             created_by=self.request.user
+#         )
+
+#         context['user_jobs'] = user_jobs
+#         context['pending_responses'] = pending_responses
+#         context['accepted_responses'] = accepted_responses
+#         context['sent_responses'] = sent_responses
+
 #         return context
-#
-#
-# class UserMessageDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-#     model = Response
-#     template_name = 'users/customuser_message_detail.html'
-#
-#     def test_func(self):
-#         obj = self.get_object()
-#         return obj.recipient == self.request.user
+
+
+# class UserMessages(LoginRequiredMixin, TemplateView):
+#     template_name = 'users/customuser_messages.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     user_messages = Response.objects.filter(recipient=self.request.user)
+    #     context['user_messages'] = user_messages
+    #     return context

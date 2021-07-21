@@ -1,24 +1,9 @@
-{% extends 'dashboard-base.html' %}
+{% extends 'dashboard/dashboard-base.html' %}
 {% load static crispy_forms_tags %}
 
 {% block title %}Post New Job{% endblock title %}
 
 {% block content %}
-<!-- START HERO -->
-{#<div class="container-fluid bg-dark py-5">#}
-{#    <div class="row justify-content-center align-items-center">#}
-{#        <div class="col-md-8">#}
-{#            <div class="mt-md-2 text-center">#}
-{#                <h1 class="display-2 font-weight-bold text-white">New Job</h1>#}
-{#                <p class="mt-3 font-24 text-white-50">#}
-{#                    Got a job you'd like to post on the TimeBank? Fill out the form below to list your job!#}
-{#                </p>#}
-{##}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-<!-- END HERO -->
     <div class="container-fluid my-4 ml-3">
         <div class="row">
             <div class="col-12 col-lg-6">
@@ -55,7 +40,7 @@
                         {% endfor %}
                     </table>
                     <input type="submit" class="btn btn-secondary shadow-none text-white mr-2" value="Save">
-                    <a href="{% url 'users:user_dashboard' %}" class="btn btn-dark shadow-none">Cancel</a>
+                    <a href="{% url 'dashboard:dashboard_home' %}" class="btn btn-dark shadow-none">Cancel</a>
                 </form>
             </div>
         </div>
