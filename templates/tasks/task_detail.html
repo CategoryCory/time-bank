@@ -102,8 +102,13 @@
                         {% else %}
                             {% if user != task.created_by %}
                                 <hr>
-                                <p class="text-muted my-3">Interested in this job? Let {{ task.created_by.username }} know!
-                                    <button href="#" class="btn btn-secondary shadow-none ml-3 text-white" data-toggle="modal" data-target="#response-modal">I'm Interested!</button>
+                                <p class="text-muted my-3">
+                                    {% if user.is_approved %}
+                                        Interested in this job? Let {{ task.created_by.username }} know!
+                                        <button href="#" class="btn btn-secondary shadow-none ml-3 text-white" data-toggle="modal" data-target="#response-modal">I'm Interested!</button>
+                                    {% else %}
+                                        You must be approved to respond to this job listing.
+                                    {% endif %}
                                 </p>
                             {% endif %}
                         {% endif %}
@@ -132,8 +137,8 @@
                     {% csrf_token %}
                     <input type="hidden" name="task_id" value="{{ task.id }}">
                     <div class="form-group">
-                        <label for="message">Message (Optional):</label>
-                        <textarea name="message" class="form-control"></textarea>
+                        <label for="message">Message (Required):</label>
+                        <textarea name="message" class="form-control" required></textarea>
                     </div>
                     <input type="submit" value="Send" class="btn btn-secondary btn-block shadow-none text-white">
                 </form>
