@@ -1,5 +1,6 @@
-from django.views.generic import DetailView, ListView, UpdateView, TemplateView
+from django.views.generic import DetailView, UpdateView
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Avg
 from django.shortcuts import render
@@ -10,15 +11,7 @@ from reviews.models import UserReview
 CustomUser = get_user_model()
 
 
-class UserListView(ListView):
-    model = CustomUser
-    paginate_by = 25
-
-    def get_queryset(self):
-        users = CustomUser.objects.filter(is_staff=False, is_superuser=False)
-        return users
-
-
+@login_required
 def user_list(request):
     users = CustomUser.objects.filter(is_staff=False, is_superuser=False)
 
@@ -32,7 +25,7 @@ def user_list(request):
     return render(request, 'users/customuser_list.html', context)
 
 
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = CustomUser
     slug_field = 'username'
     slug_url_kwarg = 'username'

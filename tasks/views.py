@@ -35,59 +35,12 @@ def task_list(request, slug=None):
 class TaskDetailView(DetailView):
     model = Task
 
-
-# class TaskCreateView(LoginRequiredMixin, CreateView):
-#     model = Task
-#     form_class = TaskForm
-#     template_name_suffix = '_create_form'
-#     success_url = reverse_lazy('tasks:task_list')
-
-#     def get_context_data(self, **kwargs):
-#         data = super(TaskCreateView, self).get_context_data(**kwargs)
-#         if self.request.POST:
-#             data['availabilities'] = TaskAvailabilityFormSet(self.request.POST)
-#         else:
-#             data['availabilities'] = TaskAvailabilityFormSet()
-#         return data
-
-#     def form_valid(self, form):
-#         context = self.get_context_data()
-#         availabilities = context['availabilities']
-#         with transaction.atomic():
-#             form.instance.created_by = self.request.user
-#             self.object = form.save()
-#             if availabilities.is_valid():
-#                 availabilities.instance = self.object
-#                 availabilities.save()
-#         return super(TaskCreateView, self).form_valid(form)
-
-
-# class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = Task
-#     fields = ['title', 'description', 'expires_on', 'status', ]
-#     template_name_suffix = '_update_form'
-
-#     def test_func(self):
-#         obj = self.get_object()
-#         return obj.created_by == self.request.user
-
-
-# class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-#     model = Task
-#     template_name_suffix = '_confirm_delete'
-
-#     def test_func(self):
-#         obj = self.get_object()
-#         return obj.created_by == self.request.user
-
-#     def get_success_url(self):
-#         # obj = self.get_object()
-#         return reverse_lazy('users:user_dashboard')
-
-#     def delete(self, request, *args, **kwargs):
-#         obj = self.get_object()
-#         obj.soft_delete()
-#         return HttpResponseRedirect(self.get_success_url())
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_reviews = UserReview.objects.filter(reviewee=self.object.created_by)
+        average_rating = user_reviews.aggregate(Avg('rating'))['rating__avg']
+        context['average_rating'] = average_rating
+        return context
 
 
 @login_required

@@ -55,7 +55,9 @@
                                     <th>Job Name</th>
                                     <th>Categories</th>
                                     <th>Expires On</th>
-                                    <th>Posted By</th>
+                                    {% if user.is_authenticated %}
+                                        <th>Posted By</th>
+                                    {% endif %}
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,33 +78,35 @@
                                             {% endfor %}
                                         </td>
                                         <td>{{ task.expires_on|date:'DATE_FORMAT' }}</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <img
-                                                    {% if task.created_by.profile_pic %}
-                                                        src="{{ task.created_by.profile_pic.url }}"
-                                                    {% else %}
-                                                        src="{% static 'images/blank-user.png' %}"
-                                                    {% endif %}
-                                                alt="User avatar"
-                                                class="avatar-sm rounded-circle mr-2"
-                                                style="object-fit: cover; object-position: center;"
-                                                data-toggle="tooltip"
-                                                data-placement="top"
-                                                title="{{ task.created_by.username }}">
-                                                <div class="d-flex flex-column">
-                                                    <a href="{% url 'users:user_detail' task.created_by.username %}">
-                                                        {{ task.created_by.first_name }} {{ task.created_by.last_name }}
-                                                    </a>
-                                                    <p class="text-muted mb-0">
-                                                        {% if task.user_average_review %}
-                                                            {{ task.user_average_review }} stars
+                                        {% if user.is_authenticated %}
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img
+                                                        {% if task.created_by.profile_pic %}
+                                                            src="{{ task.created_by.profile_pic.url }}"
                                                         {% else %}
-                                                            This user has no reviews.
-                                                        {% endif %}</p>
+                                                            src="{% static 'images/blank-user.png' %}"
+                                                        {% endif %}
+                                                    alt="User avatar"
+                                                    class="avatar-sm rounded-circle mr-2"
+                                                    style="object-fit: cover; object-position: center;"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="{{ task.created_by.username }}">
+                                                    <div class="d-flex flex-column">
+                                                        <a href="{% url 'users:user_detail' task.created_by.username %}">
+                                                            {{ task.created_by.first_name }} {{ task.created_by.last_name }}
+                                                        </a>
+                                                        <p class="text-muted mb-0">
+                                                            {% if task.user_average_review %}
+                                                                {{ task.user_average_review }} stars
+                                                            {% else %}
+                                                                This user has no reviews.
+                                                            {% endif %}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
+                                        {% endif %}
                                     </tr>
                                 {% endfor %}
                             </tbody>
