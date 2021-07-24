@@ -6,6 +6,7 @@ from django.db.models import Avg
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Task, TaskCategory, TaskResponse
+from user_messages.models import UserMessageThread, UserMessage
 from reviews.models import UserReview
 
 
@@ -56,16 +57,23 @@ def task_response(request):
 
         task = get_object_or_404(Task, pk=task_id)
 
+        # Save response on dashboard
         response = TaskResponse(task=task, created_by=user, recipient=task.created_by)
         response.save()
+
+        # Create message
+        user_message_thread = UserMessageThread(created_by=user, recipient=task.created_by, job=task)
+        user_message_thread.save()
+
+        user_message = UserMessage(sender=user, recipient=task.created_by, message_body=message, thread=user_message_thread)
+        user_message.save()
 
         # Send email
         email_subject = 'Sullivan Foundation Time Bank Response'
         email_body = (
-            f'You have a response from one of your job listings on the Sullivan Time Bank.\n'
-            f'Job: {task}\n'
-            f'From user: {user.first_name} {user.last_name}\n'
-            f'Message: {message}'
+            f'You have a response to your job listing "{task}" on the Sullivan Time Bank.\n'
+            f'To view this message, please log into your account at https://sullivantimebank.org/accounts/login/ \n'
+            f'Please do not reply to this email.\n'
         )
         send_mail(
             email_subject,
@@ -90,43 +98,6 @@ def update_response_status(request, response_id, new_status):
     rsp.status = getattr(TaskResponse, new_status)
     rsp.save()
     return redirect('dashboard:dashboard_home')
-
-
-# @login_required
-# def deny_response(request, response_id):
-#     rsp = get_object_or_404(TaskResponse, pk=response_id)
-
-#     if request.user != rsp.task.created_by:
-#         return redirect('pages:home')
-
-#     rsp.status = TaskResponse.DECLINED
-#     rsp.save()
-#     return redirect('users:user_dashboard')
-
-
-# @login_required
-# def record_time(request, response_id):
-#     rsp = get_object_or_404(TaskResponse, pk=response_id)
-
-#     if request.method == 'GET':
-#         context = {
-#             'response_id': response_id,
-#             'job_title': rsp.task.title,
-#             'job_user': f'{rsp.created_by.first_name} {rsp.created_by.last_name}',
-#             'max_hours': rsp.recipient.sullivan_coins_balance
-#         }
-#         return render(request, 'tasks/task_record_time.html', context)
-#     elif request.method == 'POST':
-#         number_of_hours = float(request.POST.get('numberOfHours'))
-#         job_performed_by = rsp.created_by
-#         current_user = request.user
-#         job_performed_by.sullivan_coins_balance += number_of_hours
-#         current_user.sullivan_coins_balance -= number_of_hours
-#         job_performed_by.save()
-#         current_user.save()
-#         return redirect('users:user_dashboard')
-#     else:
-#         return redirect('pages:home')
 
 
 @login_required
