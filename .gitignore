@@ -130,3 +130,6 @@ time_bank/.env
 
 # JS
 node_modules/
+
+# Production React builds
+static/dashboard/*
