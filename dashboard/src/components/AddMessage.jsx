@@ -11,7 +11,7 @@ function AddMessage({ selectedThread, currentUserId, setRefreshMessages }) {
 
         const data = {
             sender: currentUserId,
-            recipient: selectedThread.recipient.id,
+            recipient: currentUserId === selectedThread.recipient.id ? selectedThread.created_by.id : selectedThread.recipient.id,
             message: newMessage,
             thread: selectedThread.id
         };
