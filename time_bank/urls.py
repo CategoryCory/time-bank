@@ -25,6 +25,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('jobs/', include('tasks.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('user-messages/', include('user_messages.urls')),
 ]
 
 if settings.DEBUG:

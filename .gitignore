@@ -127,3 +127,6 @@ secret_key.txt
 .idea
 staticfiles/
 time_bank/.env
+
+# JS
+node_modules/

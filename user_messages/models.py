@@ -7,9 +7,9 @@ CustomUser = get_user_model()
 
 
 class UserMessageThread(models.Model):
-    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='message_thread_creators')
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='message_thread_created_by')
     recipient = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='message_thread_recipients')
-    job = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='message_thread_jobs')
+    job = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='message_thread_jobs', blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:

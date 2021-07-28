@@ -1,0 +1,55 @@
+.thread {
+    width: 95%;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.thread:hover {
+    background-color: #E2E8F0;
+}
+
+.thread img {
+    margin-right: 0.5rem;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 9999px;
+}
+
+.threadNames {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #4B5563;
+}
+
+.thread p {
+    margin: 0;
+}
+
+.threadInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.threadDescription {
+    font-size: 0.85rem;
+    color: #6B7280;
+}
+
+.jobTitle {
+    display: inline-block;
+    margin-left: 0.75rem;
+    padding: 0.1rem 0.4rem;
+    background-color: #3730A3;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+    font-weight: normal;
+    color: white;
+}

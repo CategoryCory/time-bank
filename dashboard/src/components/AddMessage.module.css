@@ -1,0 +1,33 @@
+.addMessageContainer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 3rem;
+    width: 60%;
+    height: 9%;
+    border: 1px solid #D1D5DB;
+    border-radius: 9999px;
+}
+
+.addMessageForm {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addMessageForm input[type="text"] {
+    width: 100%;
+    border: none;
+}
+
+.addMessageForm input[type="text"]:focus {
+    outline: none;
+}
+
+.addMessageForm button {
+    background-color: transparent;
+    border: none;
+}
