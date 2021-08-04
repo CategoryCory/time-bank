@@ -52,12 +52,6 @@
 
                     <!-- left menu -->
                     <ul class="navbar-nav ml-auto">
-{#                        <li class="nav-item mx-lg-1">#}
-{#                            <a class="nav-link" href="{% url 'tasks:task_list' %}">Jobs</a>#}
-{#                        </li>#}
-{#                        <li class="nav-item mx-lg-1">#}
-{#                            <a class="nav-link" href="{% url 'tasks:task_offer_list' %}">Offers</a>#}
-{#                        </li>#}
                         <li class="nav-item mx-lg-1">
                             <a class="nav-link" href="{% url 'pages:about' %}">About</a>
                         </li>
@@ -111,6 +105,12 @@
                                     <a href="{% url 'dashboard:dashboard_home' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle mr-1"></i>
                                         <span>Dashboard</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="{% url 'users:user_detail' username=user.username %}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-account-edit mr-1"></i>
+                                        <span>My Profile</span>
                                     </a>
 
                                     <!-- item-->

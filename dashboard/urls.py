@@ -10,5 +10,6 @@ urlpatterns = [
     path('task/delete/<int:pk>/', views.TaskDeleteView.as_view(), name='task_delete'),
     path('record-time/<int:response_id>/', views.record_time, name='record_time'),
     path('complete-job/<int:response_id>/', views.complete_job, name='complete_job'),
+    path('<str:username>/edit/', views.UserUpdateView.as_view(), name='user_update'),
     path('messages/', views.UserMessages.as_view(), name='user_messages'),
 ]

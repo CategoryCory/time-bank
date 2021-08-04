@@ -96,16 +96,10 @@
 
                             {% if customuser.email == user.email %}
                                 <div class="text-center mt-sm-0 mt-3 mb-2 text-sm-right">
-                                    <a href="{% url 'users:user_update' customuser.username %}" class="btn btn-light shadow-none">
+                                    <a href="{% url 'dashboard:user_update' customuser.username %}" class="btn btn-light shadow-none">
                                         <i class="mdi mdi-account-edit mr-1"></i> Edit My Profile
                                     </a>
                                 </div>
-                            {% else %}
-{#                                <div class="text-center mt-sm-0 mt-3 text-sm-right">#}
-{#                                    <a href="#" class="btn btn-light shadow-none">#}
-{#                                        <i class="mdi mdi-email-send-outline mr-1"></i> Send {{ customuser.first_name }} a Message#}
-{#                                    </a>#}
-{#                                </div>#}
                             {% endif %}
                         </div> <!-- end col-->
                     </div> <!-- end row -->

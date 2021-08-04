@@ -50,6 +50,13 @@
                         </li>
 
                         <li class="side-nav-item">
+                            <a href="{% url 'dashboard:user_update' username=user.username %}" class="side-nav-link">
+                                <i class="uil-edit mr-1"></i>
+                                Update Profile
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
                             <a href="{% url 'dashboard:new_task' %}" class="side-nav-link">
                                 <i class="uil-plus-circle mr-1"></i>
                                 Post New Job
@@ -107,6 +114,12 @@
                                     <a href="{% url 'dashboard:dashboard_home' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle mr-1"></i>
                                         <span>Dashboard Home</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="{% url 'dashboard:user_update' username=user.username %}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-account-edit mr-1"></i>
+                                        <span>Update Profile</span>
                                     </a>
 
                                     <!-- item-->

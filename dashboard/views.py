@@ -1,5 +1,6 @@
 
 from django.db import transaction
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
@@ -10,6 +11,9 @@ from django.urls import reverse_lazy
 from reviews.models import UserReview
 from tasks.models import Task, TaskResponse
 from tasks.forms import TaskForm, TaskAvailabilityFormSet
+from dashboard.forms import UserUpdateForm
+
+CustomUser = get_user_model()
 
 
 class UserDashboardView(LoginRequiredMixin, TemplateView):
@@ -42,6 +46,18 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
         context['sent_responses'] = sent_responses
 
         return context
+
+
+class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = CustomUser
+    form_class = UserUpdateForm
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    template_name = 'dashboard/customuser_update_form.html'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj == self.request.user
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
