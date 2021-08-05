@@ -61,7 +61,7 @@ def submit_new_message(request):
         email_subject = 'Sullivan Foundation Time Bank Response'
         email_body = (
             f'You have a new message on the Sullivan Time Bank.\n'
-            f'To view this message, please log into your account at https://sullivantimebank.org/accounts/login/ \n'
+            f'To view this message, please visit https://sullivantimebank.org/dashboard/messages/ \n'
             f'Please do not reply to this email.\n'
         )
         send_mail(
