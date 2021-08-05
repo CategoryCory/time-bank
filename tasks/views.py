@@ -39,8 +39,10 @@ class TaskDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_reviews = UserReview.objects.filter(reviewee=self.object.created_by)
+        current_response = TaskResponse.objects.filter(task=self.object, created_by=self.request.user).first()
         average_rating = user_reviews.aggregate(Avg('rating'))['rating__avg']
         context['average_rating'] = average_rating
+        context['current_response'] = current_response
         return context
 
 

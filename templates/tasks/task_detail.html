@@ -104,8 +104,15 @@
                                 <hr>
                                 <p class="text-muted my-3">
                                     {% if user.is_approved %}
-                                        Interested in this job? Let {{ task.created_by.username }} know!
-                                        <button href="#" class="btn btn-secondary shadow-none ml-3 text-white" data-toggle="modal" data-target="#response-modal">I'm Interested!</button>
+                                        {% if current_response %}
+                                            <p>
+                                                You responded to this job on {{ current_response.created_on|date:'M j, Y' }}.
+                                                <a href="{% url 'dashboard:dashboard_home' %}" class="font-weight-bold">Click here</a> to view your dashboard.
+                                            </p>
+                                        {% else %}
+                                            Interested in this job? Let {{ task.created_by.username }} know!
+                                            <button href="#" class="btn btn-secondary shadow-none ml-3 text-white" data-toggle="modal" data-target="#response-modal">I'm Interested!</button>
+                                        {% endif %}
                                     {% else %}
                                         You must be approved to respond to this job listing.
                                     {% endif %}
