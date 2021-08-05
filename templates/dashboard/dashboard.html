@@ -228,7 +228,7 @@
                                 <tr>
                                     <th>Job Name</th>
                                     <th>Job Creator</th>
-                                    <th>Message</th>
+                                    <th>Actions</th>
                                     {% comment %} <th>Actions</th> {% endcomment %}
                                 </tr>
                             </thead>
@@ -246,7 +246,13 @@
                                             </a>
                                         </td>
                                         <td>
-                                            {{ sent_res.message }}
+                                            <a
+                                                href="{% url 'dashboard:user_messages' %}?job-id={{ sent_res.task.id }}&sender={{ sent_res.created_by.id }}"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="View Messages"
+                                            >
+                                                <i class='mdi mdi-email-outline h3'></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 {% endfor %}
