@@ -156,7 +156,7 @@ def complete_job(request, response_id):
         }
         return render(request, 'dashboard/dashboard_task_complete_job.html', context)
     elif request.method == 'POST':
-        number_of_hours = float(request.POST.get('numberOfHours'))
+        # number_of_hours = float(request.POST.get('numberOfHours'))
         rating = float(request.POST.get('rating'))
         comments = request.POST.get('comments')
 
@@ -165,13 +165,13 @@ def complete_job(request, response_id):
 
         review = UserReview(rating=rating, comments=comments, reviewee=job_performed_by, author=current_user)
 
-        job_performed_by.sullivan_coins_balance += number_of_hours
-        current_user.sullivan_coins_balance -= number_of_hours
+        # job_performed_by.sullivan_coins_balance += number_of_hours
+        # current_user.sullivan_coins_balance -= number_of_hours
 
         rsp.status = TaskResponse.COMPLETED
 
-        job_performed_by.save()
-        current_user.save()
+        # job_performed_by.save()
+        # current_user.save()
         review.save()
         rsp.save()
 
