@@ -12,4 +12,5 @@ urlpatterns = [
     path('complete-job/<int:response_id>/', views.complete_job, name='complete_job'),
     path('<str:username>/edit/', views.UserUpdateView.as_view(), name='user_update'),
     path('messages/', views.UserMessages.as_view(), name='user_messages'),
+    path('messages/thread/', views.UserMessageThread.as_view(), name='user_message_thread'),
 ]

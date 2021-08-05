@@ -182,3 +182,15 @@ def complete_job(request, response_id):
 
 class UserMessages(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard/dashboard_user_messages.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        job_id = self.request.GET.get('job-id') or ''
+        sender_id = self.request.GET.get('sender') or ''
+        context['job_id'] = job_id
+        context['sender_id'] = sender_id
+        return context
+
+
+class UserMessageThread(LoginRequiredMixin, TemplateView):
+    template_name = 'dashboard/dashboard_message_thread.html'

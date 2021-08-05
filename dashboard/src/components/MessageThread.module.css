@@ -23,7 +23,6 @@
 .threadNames {
     display: flex;
     align-items: center;
-    font-weight: bold;
     font-size: 1rem;
     color: #4B5563;
 }
@@ -49,7 +48,7 @@
     padding: 0.1rem 0.4rem;
     background-color: #3730A3;
     border-radius: 0.25rem;
-    font-size: 0.7rem;
-    font-weight: normal;
+    font-size: 0.8rem;
+    font-weight: bold;
     color: white;
 }

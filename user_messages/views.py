@@ -17,7 +17,14 @@ def get_message_threads_by_user(request):
     if request.user.is_authenticated:
         u = request.user
         return_dict = {}
-        message_threads = UserMessageThread.objects.filter(Q(created_by=u)|Q(recipient=u))
+        job_id = request.GET.get('job-id')
+        sender_id = request.GET.get('sender')
+        if job_id is not None:
+            message_threads = UserMessageThread.objects.filter(job=job_id)
+            if sender_id is not None:
+                message_threads = message_threads.filter(created_by=sender_id)
+        else:
+            message_threads = UserMessageThread.objects.filter(Q(created_by=u)|Q(recipient=u))
         serializer = MessageThreadSerializer(message_threads, many=True, context={'request': request})
         return_dict['current_user_id'] = u.id
         return_dict['current_user'] = u.email

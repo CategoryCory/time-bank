@@ -60,9 +60,30 @@
                                         </td>
                                         <td>{{ job.created_on|date:'DATE_FORMAT' }}</td>
                                         <td>{{ job.expires_on|date:'DATE_FORMAT' }}</td>
-                                        <td>
-                                            <a href="{% url 'dashboard:task_update' job.id %}" class="btn btn-success btn-sm shadow-none mr-2"><i class='mdi mdi-pencil-outline font-18 mr-1'></i>Edit</a>
-                                            <a href="{% url 'dashboard:task_delete' job.id %}" class="btn btn-danger btn-sm shadow-none mr-2"><i class='mdi mdi-trash-can-outline font-18 mr-1'></i>Delete</a>
+                                        <td id="current-jobs-actions-container">
+                                            <a 
+                                                href="{% url 'dashboard:task_update' job.id %}"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="Edit Job"
+                                            >
+                                                <i 
+                                                    class='mdi mdi-pencil-outline h3'
+                                                ></i>
+                                            </a>
+                                            <a 
+                                                href="{% url 'dashboard:task_delete' job.id %}" 
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="Delete Job"
+                                            >
+                                                <i class='mdi mdi-trash-can-outline h3'></i>
+                                            </a>
+                                            <a 
+                                                href="{% url 'dashboard:user_messages' %}?job-id={{ job.id }}" 
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="View Messages"
+                                            >
+                                                <i class='mdi mdi-email-outline h3'></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -105,15 +126,24 @@
                                         <td>
                                             <a
                                                 href="{% url 'tasks:update_response_status' response_id=rsp.id new_status='ACCEPTED' %}"
-                                                class="btn btn-success btn-sm shadow-none mr-2"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="Approve"
                                             >
-                                                <i class='mdi mdi-check font-18 mr-1'></i>Approve
+                                                <i class='mdi mdi-check h3'></i>
                                             </a>
                                             <a
                                                 href="{% url 'tasks:update_response_status' response_id=rsp.id new_status='DECLINED' %}"
-                                                class="btn btn-danger btn-sm shadow-none mr-2"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="Deny"
                                             >
-                                                <i class='mdi mdi-close font-18 mr-1'></i>Deny
+                                                <i class='mdi mdi-close h3'></i>
+                                            </a>
+                                            <a
+                                                href="{% url 'dashboard:user_messages' %}?job-id={{ rsp.task.id }}&sender={{ rsp.created_by.id }}"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="View Messages"
+                                            >
+                                                <i class='mdi mdi-email-outline h3'></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -156,16 +186,22 @@
                                         </td>
                                         <td>
                                             <a
+                                                href="{% url 'dashboard:complete_job' acc_res.id %}"
+                                                class="btn btn-success btn-sm shadow-none mr-2"
+                                            >
+                                                <i class='mdi mdi-check font-18 mr-1'></i>Mark As Complete
+                                            </a>
+                                            <a
                                                 href="{% url 'dashboard:record_time' acc_res.id %}"
                                                 class="btn btn-primary btn-sm shadow-none mr-2"
                                             >
                                                 <i class='mdi mdi-clock font-18 mr-1'></i>Record Time
                                             </a>
                                             <a
-                                                href="{% url 'dashboard:complete_job' acc_res.id %}"
-                                                class="btn btn-success btn-sm shadow-none mr-2"
+                                                href="{% url 'dashboard:user_messages' %}?job-id={{ acc_res.task.id }}&sender={{ acc_res.created_by.id }}"
+                                                class="btn btn-primary btn-sm shadow-none mr-2"
                                             >
-                                                <i class='mdi mdi-check font-18 mr-1'></i>Mark As Complete
+                                                <i class='mdi mdi-email-outline font-18 mr-1'></i>View Messages
                                             </a>
                                         </td>
                                     </tr>
@@ -212,20 +248,6 @@
                                         <td>
                                             {{ sent_res.message }}
                                         </td>
-                                        {% comment %} <td>
-                                            <a
-                                                href="{% url 'tasks:record_time' acc_res.id %}"
-                                                class="btn btn-primary btn-sm shadow-none mr-2"
-                                            >
-                                                <i class='mdi mdi-clock font-18 mr-1'></i>Record Time
-                                            </a>
-                                            <a
-                                                href="{% url 'tasks:complete_job' acc_res.id %}"
-                                                class="btn btn-success btn-sm shadow-none mr-2"
-                                            >
-                                                <i class='mdi mdi-check font-18 mr-1'></i>Mark As Complete
-                                            </a>
-                                        </td> {% endcomment %}
                                     </tr>
                                 {% endfor %}
                             </tbody>
