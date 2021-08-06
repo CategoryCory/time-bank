@@ -81,7 +81,7 @@ def task_response(request):
         email_subject = 'Sullivan Foundation Time Bank Response'
         email_body = (
             f'You have a response to your job listing "{task}" on the Sullivan Time Bank.\n'
-            f'To view this message, please log into your account at https://sullivantimebank.org/accounts/login/ \n'
+            f'To view this message, please log into your account at https://sullivantimebank.org/dashboard/messages/ \n'
             f'Please do not reply to this email.\n'
         )
         send_mail(
@@ -107,40 +107,3 @@ def update_response_status(request, response_id, new_status):
     rsp.status = getattr(TaskResponse, new_status)
     rsp.save()
     return redirect('dashboard:dashboard_home')
-
-
-@login_required
-def complete_job(request, response_id):
-    rsp = get_object_or_404(TaskResponse, pk=response_id)
-
-    if request.method == 'GET':
-        context = {
-            'response_id': response_id,
-            'job_title': rsp.task.title,
-            'job_user': f'{rsp.created_by.first_name} {rsp.created_by.last_name}',
-            'max_hours': rsp.recipient.sullivan_coins_balance
-        }
-        return render(request, 'tasks/task_complete_job.html', context)
-    elif request.method == 'POST':
-        number_of_hours = float(request.POST.get('numberOfHours'))
-        rating = float(request.POST.get('rating'))
-        comments = request.POST.get('comments')
-
-        job_performed_by = rsp.created_by
-        current_user = request.user
-
-        review = UserReview(rating=rating, comments=comments, reviewee=job_performed_by, author=current_user)
-
-        job_performed_by.sullivan_coins_balance += number_of_hours
-        current_user.sullivan_coins_balance -= number_of_hours
-
-        rsp.status = TaskResponse.COMPLETED
-
-        job_performed_by.save()
-        current_user.save()
-        review.save()
-        rsp.save()
-
-        return redirect('users:user_dashboard')
-    else:
-        return redirect('pages:home')

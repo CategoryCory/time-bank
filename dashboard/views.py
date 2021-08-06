@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.utils.timezone import make_aware
 
 from reviews.models import UserReview
 from tasks.models import Task, TaskResponse
@@ -184,7 +185,6 @@ def complete_job(request, response_id):
         }
         return render(request, 'dashboard/dashboard_task_complete_job.html', context)
     elif request.method == 'POST':
-        # number_of_hours = float(request.POST.get('numberOfHours'))
         rating = float(request.POST.get('rating'))
         comments = request.POST.get('comments')
 
@@ -194,7 +194,7 @@ def complete_job(request, response_id):
         review = UserReview(rating=rating, comments=comments, reviewee=job_performed_by, author=current_user)
 
         rsp.status = TaskResponse.COMPLETED
-        rsp.resolved_on = datetime.datetime.now()
+        rsp.resolved_on = make_aware(datetime.datetime.now())
 
         review.save()
         rsp.save()
