@@ -94,6 +94,15 @@
                             </a>
                         {% endfor %}
 
+                        <h5 class="mt-3">Time Availabilities</h5>
+                        {% if availabilities %}
+                            <ul>
+                                {% for availability in availabilities %}
+                                    <li>{{ availability.availability_day|title }} {{ availability.availability_time|lower }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
                         {% if not user.is_authenticated %}
                             <hr>
                             <p class="text-muted my-3">It looks like you're not signed in! If you'd like to respond to this, please log in or create an account.</p>

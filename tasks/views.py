@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db.models import Avg
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Task, TaskCategory, TaskResponse
+from .models import Task, TaskCategory, TaskResponse, TaskAvailability
 from user_messages.models import UserMessageThread, UserMessage
 from reviews.models import UserReview
 
@@ -38,9 +38,16 @@ class TaskDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            current_response = TaskResponse.objects.filter(task=self.object, created_by=self.request.user).first()
+        else:
+            current_response = None
+
+        availabilities = TaskAvailability.objects.filter(task=self.object)
         user_reviews = UserReview.objects.filter(reviewee=self.object.created_by)
-        current_response = TaskResponse.objects.filter(task=self.object, created_by=self.request.user).first()
         average_rating = user_reviews.aggregate(Avg('rating'))['rating__avg']
+        context['availabilities'] = availabilities
         context['average_rating'] = average_rating
         context['current_response'] = current_response
         return context
