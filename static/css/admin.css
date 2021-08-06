@@ -1,0 +1,60 @@
+:root {
+    --brand-primary: hsl(210, 82%, 27%);
+    --brand-primary-dark: hsl(210, 82%, 27%);
+    --brand-secondary:	hsl(350, 73%, 44%);
+    --brand-secondary-dark:	hsl(350, 73%, 36%);
+}
+
+#header {
+    background-color: rgba(119, 136, 153, 0.5);
+}
+
+.brand_img {
+    width: 225px;
+}
+
+#container #user-tools,
+#container #user-tools a {
+    font-size: 0.8rem;
+    color: var(--brand-primary-dark);
+    text-decoration: none;
+}
+
+#container #user-tools a:hover {
+    color: var(--brand-secondary);
+}
+
+#container .module caption,
+#container .breadcrumbs {
+    background-color: var(--brand-primary);
+}
+
+#container form fieldset.module h2 {
+    background-color: var(--brand-primary);
+}
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+    background-color: var(--brand-primary-dark);
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover,
+a.button:hover {
+    background-color: var(--brand-primary);
+}
+
+.submit-row input.default,
+#login-form .submit-row input {
+    background-color: var(--brand-secondary);
+}
+
+.submit-row input.default:hover,
+#login-form .submit-row input:hover {
+    background-color: var(--brand-secondary-dark);
+}
