@@ -1,0 +1,71 @@
+{% extends 'dashboard/dashboard-base.html' %}
+
+{% load static %}
+
+{% block title %}Dashboard - Sent Responses{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/sp-1.2.2/datatables.min.css"/>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="header-title mb-3 pb-2 border-bottom">Sent Responses</h2>
+
+                    {% if sent_responses %}
+                        <table id="sentResponsesList" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Job Name</th>
+                                    <th>Job Creator</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sent_res in sent_responses %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'tasks:task_detail' sent_res.task.pk %}">
+                                                {{ sent_res.task.title }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'users:user_detail' sent_res.created_by.username %}">
+                                                {{ sent_res.created_by.first_name }} {{ sent_res.created_by.last_name }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a
+                                                href="{% url 'dashboard:user_messages' %}?job-id={{ sent_res.task.id }}&sender={{ sent_res.created_by.id }}"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="View Messages"
+                                            >
+                                                <i class='mdi mdi-email-outline h3'></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>You haven't sent any responses yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/sp-1.2.2/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#sentResponsesList").DataTable();
+    });
+</script>
+{% endblock extra_js %}

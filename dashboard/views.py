@@ -1,4 +1,4 @@
-
+import datetime
 from django.db import transaction
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -25,26 +25,58 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
             created_by=self.request.user,
             status=Task.AVAILABLE
         ).order_by('expires_on')
+        context['user_jobs'] = user_jobs
+        return context
 
+
+class PendingResponsesView(LoginRequiredMixin, TemplateView):
+    template_name = 'dashboard/dashboard_pending_responses.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         pending_responses = TaskResponse.objects.filter(
             recipient=self.request.user,
             status=TaskResponse.PENDING
         ).order_by('created_by')
+        context['pending_responses'] = pending_responses
+        return context
 
+
+class AcceptedResponsesView(LoginRequiredMixin, TemplateView):
+    template_name = 'dashboard/dashboard_accepted_responses.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         accepted_responses = TaskResponse.objects.filter(
             recipient=self.request.user,
             status=TaskResponse.ACCEPTED
         )
+        context['accepted_responses'] = accepted_responses
+        return context
 
+
+class CompletedResponsesView(LoginRequiredMixin, TemplateView):
+    template_name = 'dashboard/dashboard_completed_responses.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        completed_responses = TaskResponse.objects.filter(
+            recipient=self.request.user,
+            status=TaskResponse.COMPLETED
+        )
+        context['completed_responses'] = completed_responses
+        return context
+
+
+class SentResponsesView(LoginRequiredMixin, TemplateView):
+    template_name = 'dashboard/dashboard_sent_responses.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         sent_responses = TaskResponse.objects.filter(
             created_by=self.request.user
         )
-
-        context['user_jobs'] = user_jobs
-        context['pending_responses'] = pending_responses
-        context['accepted_responses'] = accepted_responses
         context['sent_responses'] = sent_responses
-
         return context
 
 
@@ -165,13 +197,9 @@ def complete_job(request, response_id):
 
         review = UserReview(rating=rating, comments=comments, reviewee=job_performed_by, author=current_user)
 
-        # job_performed_by.sullivan_coins_balance += number_of_hours
-        # current_user.sullivan_coins_balance -= number_of_hours
-
         rsp.status = TaskResponse.COMPLETED
+        rsp.resolved_on = datetime.datetime.now()
 
-        # job_performed_by.save()
-        # current_user.save()
         review.save()
         rsp.save()
 

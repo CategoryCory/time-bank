@@ -1,0 +1,75 @@
+{% extends 'dashboard/dashboard-base.html' %}
+
+{% load static %}
+
+{% block title %}Dashboard - Completed Responses{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/sp-1.2.2/datatables.min.css"/>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="header-title mb-3 pb-2 border-bottom">Completed Responses</h2>
+
+                    {% if completed_responses %}
+                        <table id="completedResponsesList" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Job Name</th>
+                                    <th>Completed By</th>
+                                    <th>Completed On</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for comp_res in completed_responses %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'tasks:task_detail' comp_res.task.pk %}">
+                                                {{ comp_res.task.title }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'users:user_detail' comp_res.created_by.username %}">
+                                                {{ comp_res.created_by.first_name }} {{ comp_res.created_by.last_name }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ comp_res.resolved_on|date:'M j, Y' }}
+                                        </td>
+                                        <td>
+                                            <a
+                                                href="{% url 'dashboard:user_messages' %}?job-id={{ comp_res.task.id }}&sender={{ comp_res.created_by.id }}"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="View Messages"
+                                            >
+                                                <i class='mdi mdi-email-outline h3'></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>You don't have any completed responses yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/sp-1.2.2/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#completedResponsesList").DataTable();
+    });
+</script>
+{% endblock extra_js %}

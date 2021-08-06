@@ -50,6 +50,23 @@
                         </li>
 
                         <li class="side-nav-item">
+                            <a 
+                                href="javascript: void(0);" 
+                                class="side-nav-link"
+                            >
+                                <i class="uil-comment-alt-lines mr-1"></i>
+                                <span>Job Responses</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="side-nav-second-level" aria-expanded="false">
+                                <li><a href="{% url 'dashboard:dashboard_pending_responses' %}">Pending</a></li>
+                                <li><a href="{% url 'dashboard:dashboard_accepted_responses' %}">Accepted</a></li>
+                                <li><a href="{% url 'dashboard:dashboard_completed_responses' %}">Completed</a></li>
+                                <li><a href="{% url 'dashboard:dashboard_sent_responses' %}">Sent</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="side-nav-item">
                             <a href="{% url 'dashboard:user_update' username=user.username %}" class="side-nav-link">
                                 <i class="uil-edit mr-1"></i>
                                 Update Profile
@@ -58,7 +75,7 @@
 
                         <li class="side-nav-item">
                             <a href="{% url 'dashboard:new_task' %}" class="side-nav-link">
-                                <i class="uil-plus-circle mr-1"></i>
+                                <i class="uil-plus mr-1"></i>
                                 Post New Job
                             </a>
                         </li>
@@ -124,7 +141,7 @@
 
                                     <!-- item-->
                                     <a href="{% url 'dashboard:new_task' %}" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-plus-circle mr-1"></i>
+                                        <i class="mdi mdi-plus mr-1"></i>
                                         <span>Post New Job</span>
                                     </a>
 

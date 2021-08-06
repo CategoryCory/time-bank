@@ -5,6 +5,10 @@ from . import views
 app_name = 'dashboard'
 urlpatterns = [
     path('', views.UserDashboardView.as_view(), name='dashboard_home'),
+    path('pending-responses/', views.PendingResponsesView.as_view(), name='dashboard_pending_responses'),
+    path('accepted-responses/', views.AcceptedResponsesView.as_view(), name='dashboard_accepted_responses'),
+    path('completed-responses/', views.CompletedResponsesView.as_view(), name='dashboard_completed_responses'),
+    path('sent-responses/', views.SentResponsesView.as_view(), name='dashboard_sent_responses'),
     path('new-task/', views.TaskCreateView.as_view(), name='new_task'),
     path('task/edit/<int:pk>/', views.TaskUpdateView.as_view(), name='task_update'),
     path('task/delete/<int:pk>/', views.TaskDeleteView.as_view(), name='task_delete'),
