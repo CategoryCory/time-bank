@@ -53,7 +53,7 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = UserUpdateForm
     slug_field = 'username'
     slug_url_kwarg = 'username'
-    template_name = 'dashboard/customuser_update_form.html'
+    template_name = 'dashboard/dashboard_update_profile.html'
 
     def test_func(self):
         obj = self.get_object()
