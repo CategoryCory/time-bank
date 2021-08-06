@@ -96,7 +96,6 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = 'dashboard/dashboard_task_create_form.html'
-    # template_name_suffix = '_create_form'
     success_url = reverse_lazy('dashboard:dashboard_home')
 
     def get_context_data(self, **kwargs):
@@ -121,10 +120,9 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
-    fields = ['title', 'description', 'expires_on', 'status', ]
+    form_class = TaskForm
     template_name = 'dashboard/dashboard_task_update_form.html'
     success_url = reverse_lazy('dashboard:dashboard_home')
-    # template_name_suffix = '_update_form'
 
     def test_func(self):
         obj = self.get_object()
@@ -134,14 +132,12 @@ class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
     template_name = 'dashboard/dashboard_task_confirm_delete.html'
-    # template_name_suffix = '_confirm_delete'
 
     def test_func(self):
         obj = self.get_object()
         return obj.created_by == self.request.user
 
     def get_success_url(self):
-        # obj = self.get_object()
         return reverse_lazy('dashboard:dashboard_home')
 
     def delete(self, request, *args, **kwargs):
