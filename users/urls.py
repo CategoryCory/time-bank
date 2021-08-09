@@ -6,5 +6,4 @@ app_name = 'users'
 urlpatterns = [
     path('', views.user_list, name='user_list'),
     path('<str:username>/', views.UserDetailView.as_view(), name='user_detail'),
-    path('<str:username>/edit/', views.UserUpdateView.as_view(), name='user_update'),
 ]

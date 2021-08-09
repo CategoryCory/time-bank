@@ -18,6 +18,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from . import views
+
 urlpatterns = [
     path('', include('pages.urls')),
     path('admin/', admin.site.urls),
@@ -26,6 +28,7 @@ urlpatterns = [
     path('jobs/', include('tasks.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('user-messages/', include('user_messages.urls')),
+    path('login-success/', views.login_success, name='login_success'),
 ]
 
 if settings.DEBUG:

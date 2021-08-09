@@ -192,7 +192,7 @@ ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 
 # Login redirects
-LOGIN_REDIRECT_URL = 'pages:home'
+LOGIN_REDIRECT_URL = 'login_success'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'pages:home'
 
 # Crispy Forms config
