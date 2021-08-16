@@ -99,7 +99,7 @@
                                                         </a>
                                                         <p class="text-muted mb-0">
                                                             {% if task.user_average_review %}
-                                                                {{ task.user_average_review }} stars
+                                                                {{ task.user_average_review|floatformat }} stars
                                                             {% else %}
                                                                 This user has no reviews.
                                                             {% endif %}</p>

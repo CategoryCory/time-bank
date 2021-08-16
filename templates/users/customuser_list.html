@@ -68,7 +68,7 @@
                                     </a>
                                     <p class="text-muted mb-0">
                                         {% if u.average_rating %}
-                                            {{ u.average_rating }} stars
+                                            {{ u.average_rating|floatformat }} stars
                                         {% else %}
                                             This user does not have any reviews.
                                         {% endif %}

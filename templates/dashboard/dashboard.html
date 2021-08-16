@@ -39,7 +39,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3 pb-2 border-bottom">
-                        <h2 class="header-title d-inline-block mr-3">My Current Jobs</h2>
+                        <h2 class="header-title d-inline-block mr-3">Currently Open Jobs</h2>
                         <a 
                             href="{% url 'dashboard:new_task' %}"
                             class="btn btn-primary btn-sm shadow-none mb-1"
@@ -48,8 +48,8 @@
                         </a>
                     </div>
 
-                    {% if user_jobs %}
-                        <table id="jobsList" class="display">
+                    {% if available_jobs %}
+                        <table id="availableJobsList" class="display">
                             <thead>
                                 <tr>
                                     <th>Job Name</th>
@@ -59,7 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for job in user_jobs %}
+                                {% for job in available_jobs %}
                                     <tr>
                                         <td>
                                             <a href="{% url 'dashboard:task_update' job.id %}">
@@ -78,13 +78,25 @@
                                                     class='mdi mdi-pencil-outline h3'
                                                 ></i>
                                             </a>
-                                            <a 
+                                            <button
+                                                type="button"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2 close-job-button"
+                                                data-toggle="modal"
+                                                data-target="#close-job-modal"
+                                                data-job-id="{{ job.id }}"
+                                                title="Close Job"
+                                            >
+                                                <i 
+                                                    class='mdi mdi-check-circle-outline h3'
+                                                ></i>
+                                            </button>
+                                            {% comment %} <a 
                                                 href="{% url 'dashboard:task_delete' job.id %}" 
                                                 class="btn btn-link btn-sm shadow-none px-0 mr-2"
                                                 title="Delete Job"
                                             >
                                                 <i class='mdi mdi-trash-can-outline h3'></i>
-                                            </a>
+                                            </a> {% endcomment %}
                                             <a 
                                                 href="{% url 'dashboard:user_messages' %}?job-id={{ job.id }}" 
                                                 class="btn btn-link btn-sm shadow-none px-0 mr-2"
@@ -98,7 +110,52 @@
                             </tbody>
                         </table>
                     {% else %}
-                        <p>You don't have any current jobs listed at this time.</p>
+                        <p>You don't have any currently open jobs listed at this time.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3 pb-2 border-bottom">
+                        <h2 class="header-title d-inline-block mr-3">Closed Jobs</h2>
+                    </div>
+
+                    {% if completed_jobs %}
+                        <table id="completedJobsList" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Job Name</th>
+                                    <th>Posted On</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for job in completed_jobs %}
+                                    <tr>
+                                        <td>
+                                            {{ job.title }}
+                                        </td>
+                                        <td>{{ job.created_on|date:'DATE_FORMAT' }}</td>
+                                        <td id="current-jobs-actions-container">
+                                            <a 
+                                                href="{% url 'dashboard:user_messages' %}?job-id={{ job.id }}" 
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="View Messages"
+                                            >
+                                                <i class='mdi mdi-email-outline h3'></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>You don't have any closed jobs at this time.</p>
                     {% endif %}
                 </div>
             </div>
@@ -107,13 +164,53 @@
 </div> <!-- container -->
 
 <!-- COMPLETE JOB MODAL -->
+<div id="close-job-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="close-job-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="close-job-modal-label">Confirm Close Job</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Are you sure you want to mark this job as closed? This job will no longer appear in the list
+                    of available jobs, and this action cannot be undone!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link shadow-none" data-dismiss="modal">Cancel</button>
+                <a
+                    id="close-job-modal-submit-button"
+                    href="#"
+                    class="btn btn-primary shadow-none"
+                >
+                    Close Job
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
 
 {% block extra_js %}
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.24/r-2.2.7/sp-1.2.2/datatables.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#jobsList").DataTable();
+        $("#availableJobsList").DataTable();
+        $("#completedJobsList").DataTable();
+    });
+</script>
+<script>
+    const closeJobButtons = document.querySelectorAll(".close-job-button");
+    const closeJobSubmitButton = document.getElementById("close-job-modal-submit-button");
+
+    closeJobButtons.forEach(btn => {
+        btn.addEventListener("click", function () {
+            closeJobSubmitButton.href = `/dashboard/task/close/${this.getAttribute("data-job-id")}`;
+        });
     });
 </script>
 {% endblock extra_js %}

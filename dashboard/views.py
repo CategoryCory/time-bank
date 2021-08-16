@@ -1,6 +1,6 @@
 import datetime
 from django.db import transaction
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
@@ -22,11 +22,16 @@ class UserDashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_jobs = Task.objects.filter(
+        available_jobs = Task.objects.filter(
             created_by=self.request.user,
             status=Task.AVAILABLE
         ).order_by('expires_on')
-        context['user_jobs'] = user_jobs
+        completed_jobs = Task.objects.filter(
+            created_by=self.request.user,
+            status=Task.COMPLETED
+        ).order_by('expires_on')
+        context['available_jobs'] = available_jobs
+        context['completed_jobs'] = completed_jobs
         return context
 
 
@@ -128,6 +133,17 @@ class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         obj = self.get_object()
         return obj.created_by == self.request.user
+
+
+@login_required
+def task_close_view(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    if task.created_by == request.user:
+        task.status = Task.COMPLETED
+        task.save()
+        return redirect(reverse_lazy('dashboard:dashboard_home'))
+    else:
+        return redirect(reverse_lazy('pages:home'))
 
 
 class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
