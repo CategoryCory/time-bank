@@ -15,6 +15,9 @@ class TaskForm(forms.ModelForm):
         widgets = {
             'expires_on': forms.DateInput(attrs={'type': 'date'}),
         }
+        help_texts = {
+            'categories': 'Hold CTRL (CMD on Mac) to select multiple categories'
+        }
 
 
 class TaskAvailabilityForm(forms.ModelForm):

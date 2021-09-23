@@ -39,21 +39,24 @@
                                         <td>
                                             <a
                                                 href="{% url 'dashboard:complete_job' acc_res.id %}"
-                                                class="btn btn-success btn-sm shadow-none mr-2"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="Mark As Complete"
                                             >
-                                                <i class='mdi mdi-check font-18 mr-1'></i>Mark As Complete
+                                                <i class='mdi mdi-check h3'></i>
                                             </a>
                                             <a
                                                 href="{% url 'dashboard:record_time' acc_res.id %}"
-                                                class="btn btn-primary btn-sm shadow-none mr-2"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="Record Time"
                                             >
-                                                <i class='mdi mdi-clock font-18 mr-1'></i>Record Time
+                                                <i class='mdi mdi-clock-outline h3'></i>
                                             </a>
                                             <a
                                                 href="{% url 'dashboard:user_messages' %}?job-id={{ acc_res.task.id }}&sender={{ acc_res.created_by.id }}"
-                                                class="btn btn-primary btn-sm shadow-none mr-2"
+                                                class="btn btn-link btn-sm shadow-none px-0 mr-2"
+                                                title="View Messages"
                                             >
-                                                <i class='mdi mdi-email-outline font-18 mr-1'></i>View Messages
+                                                <i class='mdi mdi-email-outline h3'></i>
                                             </a>
                                         </td>
                                     </tr>

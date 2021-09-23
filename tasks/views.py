@@ -2,7 +2,7 @@ from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Task, TaskCategory, TaskResponse, TaskAvailability
@@ -13,11 +13,11 @@ from reviews.models import UserReview
 def task_list(request, slug=None):
     if slug is not None:
         category = TaskCategory.objects.get(slug=slug)
-        tasks = Task.objects.filter(status=Task.AVAILABLE, categories=category).order_by('-expires_on')
+        tasks = Task.objects.filter(~Q(created_by=request.user), status=Task.AVAILABLE, categories=category).order_by('-expires_on')
         category_title = category.title
         category_description = category.description
     else:
-        tasks = Task.objects.filter(status=Task.AVAILABLE).order_by('-expires_on')
+        tasks = Task.objects.filter(~Q(created_by=request.user), status=Task.AVAILABLE).order_by('-expires_on')
         category_description = 'Search here to view all jobs posted. Use the menu in the header to view specific categories.'
         category_title = 'All Jobs'
 
@@ -106,4 +106,9 @@ def update_response_status(request, response_id, new_status):
 
     rsp.status = getattr(TaskResponse, new_status)
     rsp.save()
-    return redirect('dashboard:dashboard_home')
+
+    if new_status == 'ACCEPTED':
+        redirect_url = 'dashboard:dashboard_accepted_responses'
+    else:
+        redirect_url = 'dashboard:dashboard_home'
+    return redirect(redirect_url)

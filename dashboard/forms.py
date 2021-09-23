@@ -15,3 +15,6 @@ class UserUpdateForm(forms.ModelForm):
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
         }
+        help_texts = {
+            'skill_categories': 'Hold CTRL (CMD on Mac) to select multiple skill categories'
+        }
