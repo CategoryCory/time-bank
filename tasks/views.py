@@ -11,15 +11,20 @@ from reviews.models import UserReview
 
 
 def task_list(request, slug=None):
+    tasks = Task.objects.filter(status=Task.AVAILABLE)
+    category_title = 'All Jobs'
+    category_description = 'Search here to view all jobs posted. Use the menu in the header to view specific categories.'
+
     if slug is not None:
         category = TaskCategory.objects.get(slug=slug)
-        tasks = Task.objects.filter(~Q(created_by=request.user), status=Task.AVAILABLE, categories=category).order_by('-expires_on')
         category_title = category.title
         category_description = category.description
-    else:
-        tasks = Task.objects.filter(~Q(created_by=request.user), status=Task.AVAILABLE).order_by('-expires_on')
-        category_description = 'Search here to view all jobs posted. Use the menu in the header to view specific categories.'
-        category_title = 'All Jobs'
+        tasks = tasks.filter(categories=category)
+    
+    if request.user.is_authenticated:
+        tasks = tasks.filter(~Q(created_by=request.user))
+    
+    tasks = tasks.order_by('-expires_on')
 
     for task in tasks:
         user_average_review = UserReview.objects.filter(reviewee=task.created_by).aggregate(Avg('rating'))['rating__avg']
